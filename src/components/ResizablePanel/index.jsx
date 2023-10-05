@@ -12,7 +12,7 @@ const ResizablePanel = ({ onResize, width, height, children }) => {
       draggableOpts={{ grid: [25, 25] }}
       className="resizable-panel"
     >
-      <div className="content" style={{width: width + 'px', height: height + 'px'}}>
+      <div className="content" style={{width: width + 'px', minHeight:"100vh" }}>
               { children}
         </div>
     </Resizable>

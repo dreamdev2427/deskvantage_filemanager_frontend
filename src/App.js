@@ -82,7 +82,6 @@ const App = () => {
       
       <ResizablePanel
         width={panelWidth2}
-        height={panelHeight}
         onResize={handleResize2}
       >
         Resizable Panel2
@@ -92,7 +91,6 @@ const App = () => {
       {/* Center panel */}
       <ResizablePanel
         width={panelWidth}
-        height={panelHeight}
         onResize={handleResize}
       >
         Resizable Panel

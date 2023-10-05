@@ -22,18 +22,16 @@ const TreeNode = ({ node, index, moveNode }) => {
       }
     },
   });
-
-
     
   return (
-    <div ref={(node) => drag(drop(node))} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      <div ref={(node) => {  drag(drop(node)) }} style={{ opacity: isDragging ? 0.5 : 1 }}>
       {/* Render your tree node content here */}
       {node.name}
       {node.children && (
         <div style={{ marginLeft: '20px' }}>
           {node.children.map((childNode, childIndex) => (
             <TreeNode
-              key={childNode.id}
+              key={childIndex}
               node={childNode}
               index={childIndex}
               moveNode={moveNode}
@@ -47,13 +45,11 @@ const TreeNode = ({ node, index, moveNode }) => {
 
 const Treeview = ({ treeData, moveNode, setTreeData }) => {
 
-
     const updateTreeData = (newTreeData) => {
         // Update the state or perform any necessary action with the new tree data
         // For example, if you're using state, you might do something like:
         setTreeData(newTreeData);
-      };
-    
+      };    
     
   const handleMoveNode = (draggedId, targetId, targetIndex) => {
     const newTreeData = [...treeData];
@@ -115,7 +111,7 @@ const Treeview = ({ treeData, moveNode, setTreeData }) => {
   return (
     <div>
            {treeData.map((node, index) => (
-        <TreeNode key={node.id} node={node} index={index} moveNode={handleMoveNode} />
+        <TreeNode key={index} node={node} index={index} moveNode={handleMoveNode} />
       ))}
     </div>
   );
