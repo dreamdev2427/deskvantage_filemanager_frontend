@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react';
+import ResizablePanel from './components/ResizablePanel';
 
-function App() {
+const App = () => {
+  const [panelWidth, setPanelWidth] = useState(300);
+  const [panelWidth2, setPanelWidth2] = useState(300);
+  
+  const [panelHeight, setPanelHeight] = useState(1366);
+
+  const handleResize = (event, { size }) => {
+    setPanelWidth(size.width);
+    setPanelHeight(size.height);
+  };
+  
+  const handleResize2 = (event, { size }) => {
+    setPanelWidth2(size.width);
+    setPanelHeight(size.height);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex h-screen">
+      
+      {/* Left panel */}
+      
+      <ResizablePanel
+        width={panelWidth2}
+        height={panelHeight}
+        onResize={handleResize2}
+      >
+        Resizable Panel2
+      </ResizablePanel>
+
+      {/* Center panel */}
+      <ResizablePanel
+        width={panelWidth}
+        height={panelHeight}
+        onResize={handleResize}
+      >
+        Resizable Panel
+      </ResizablePanel>
+
+      {/* Right panel */}
+      <div className="flex-grow">
+        Non-resizable Panel
+      </div>
     </div>
   );
-}
+};
 
 export default App;

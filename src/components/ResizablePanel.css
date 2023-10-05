@@ -1,0 +1,21 @@
+/* ResizablePanel.css */
+.resizable-panel {
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .resizable-panel .content {
+    padding: 8px;
+  }
+  
+  .resizable-panel .react-resizable-handle {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background-color: #3498db;
+    right: 0;
+    cursor: ew-resize;
+    z-index: 1;
+  }
+  
