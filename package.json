@@ -7,9 +7,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-resizable": "^3.0.5",
     "react-scripts": "5.0.1",
+    "react-treebeard": "^3.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
