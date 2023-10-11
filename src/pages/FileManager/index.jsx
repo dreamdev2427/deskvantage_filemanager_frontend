@@ -22,61 +22,15 @@ import FMRightSideBar from "../../Layouts/FMRightSideBar";
 import { RESIZED_SIDEBAR, PREVENT_SELECT } from "@/utils/constant";
 import { EventBus } from "@/utils/function";
 
-import PropTypes from "prop-types";
-import Link from "@mui/material/Link";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
 
-const breadcrumbNameMap = {
-  "/filemanage": "Media",
-  "/filemanage/mines": "My Files",
-  "/transcripts": "Transcripts",
-  "/transcripts/tasklist": "List of tasks",
-  "/transcripts/editor": "Editor",
-  "/users/clients": "Users",
-  "/users/myteam": "My team",
-};
-
-function ListItemLink(props) {
-  const { to, open, ...other } = props;
-  const primary = breadcrumbNameMap[to];
-
-  let icon = null;
-  if (open != null) {
-    icon = open ? <ExpandLess /> : <ExpandMore />;
-  }
-
-  return (
-    <li>
-      <ListItem button component={RouterLink} to={to} {...other}>
-        <ListItemText primary={primary} />
-        {icon}
-      </ListItem>
-    </li>
-  );
-}
-
-ListItemLink.propTypes = {
-  open: PropTypes.bool,
-  to: PropTypes.string.isRequired,
-};
-
-function LinkRouter(props) {
-  return <Link {...props} component={RouterLink} />;
-}
-
 const MainLyt = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const pathnames = location.pathname.split("/").filter((x) => x);
 
   const {
     minWidth,
@@ -188,38 +142,44 @@ const MainLyt = () => {
     isNowRightResizing.current = true;
   };
 
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+
   return (
     <div className="h-full ">
       <NavBar />
-      <div className="flex z-20 bg-white justify-between w-full h-[60px] items-center border-b-[#dee0e4] border-b-[1px] top-[82px] fixed">
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          maxItems={8}
-          className={`flex items-center h-5 py-0 my-0 bg-transparent`}
+      <div
+        className="fixed flex z-30 bg-white justify-start w-full h-[60px] py-4   items-center border-b-[#dee0e4] border-b-[1px] top-[82px] "
+        onClick={handleClick}
+      >
+        <Typography
+          color="text.primary"
           style={{ marginLeft: `${leftSidebarWidth + 10}px` }}
-          separator={<NavigateNextIcon fontSize="small" />}
         >
-          <Typography color="text.primary">Site</Typography>
-          {pathToSelectedNode &&
-            pathToSelectedNode.length > 0 &&
-            pathToSelectedNode.map((value, index) => {
+          Site
+        </Typography>
+        <NavigateNextIcon fontSize="small" className="ml-2" />
+        {pathToSelectedNode && pathToSelectedNode.length <= 4 ? (
+          <Breadcrumbs
+            maxItems={3}
+            aria-label="breadcrumb"
+            className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
+            separator={<NavigateNextIcon fontSize="small" />}
+          >
+            {pathToSelectedNode.map((value, index) => {
               const last = index === pathToSelectedNode.length - 1;
-              const to = `/${pathToSelectedNode.slice(0, index + 1).join("/")}`;
 
               return last ? (
-                <Typography color="text.primary" key={to}>
+                <Typography color="text.primary" key={index} className={``}>
                   {value?.label}
                 </Typography>
               ) : (
-                <div
-                  underline="hover"
-                  color="inherit"
-                  key={to}
-                  className="relative group"
-                >
+                <div key={index} className={`relative group `}>
                   {value?.label}
                   <div
-                    className="absolute !z-50 w-max px-4 py-4 h-max top-[20px] left-[100px]
+                    className="absolute z-31 w-max px-4 py-4 h-max top-[20px] left-[100px]
                     bg-white flex-col gap-1
                     border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
                     hidden group-hover:flex
@@ -255,7 +215,69 @@ const MainLyt = () => {
                 </div>
               );
             })}
-        </Breadcrumbs>
+          </Breadcrumbs>
+        ) : (
+          <div className="flex flex-start">
+            <div className="font-bold mx-2 ">...</div>
+            <Breadcrumbs
+              maxItems={3}
+              aria-label="breadcrumb"
+              className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
+              separator={<NavigateNextIcon fontSize="small" />}
+            >
+              {pathToSelectedNode &&
+                pathToSelectedNode.slice(-3).map((value, index) => {
+                  const last = index === 3 - 1;
+
+                  return last ? (
+                    <Typography color="text.primary" key={index} className={``}>
+                      {value?.label}
+                    </Typography>
+                  ) : (
+                    <div key={index} className={`relative group `}>
+                      {value?.label}
+                      <div
+                        className="absolute z-31 w-max px-4 py-4 h-max top-[20px] left-[100px]
+                        bg-white flex-col gap-1
+                        border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
+                        hidden group-hover:flex
+                        "
+                      >
+                        {findChildren(treeData, value.id)?.length > 0 &&
+                          findChildren(treeData, value.id)?.map(
+                            (item, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                              >
+                                {item.children ? (
+                                  <FolderIcon
+                                    sx={{
+                                      width: "18px",
+                                      height: "18px",
+                                      fill: "#4489fe",
+                                    }}
+                                  />
+                                ) : (
+                                  <FileIcon
+                                    sx={{
+                                      width: "18px",
+                                      height: "18px",
+                                      fill: "#4489fe",
+                                    }}
+                                  />
+                                )}
+                                <span className="ml-2 ">{item.label}</span>
+                              </div>
+                            )
+                          )}
+                      </div>
+                    </div>
+                  );
+                })}
+            </Breadcrumbs>
+          </div>
+        )}
       </div>
       <div className="mt-[142px] flex h-full relative">
         <div
@@ -268,7 +290,7 @@ const MainLyt = () => {
                 ? "flex"
                 : "hidden"
             }`,
-            zIndex: `${showLeftBarOnMobile === true ? 30 : 20}`,
+            zIndex: `${showLeftBarOnMobile === true ? 35 : 30}`,
           }}
         >
           {/* <FMTreeSideBar /> */}

@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   setPathToSelectedNode,
   setSelectedNode,
@@ -54,8 +54,8 @@ export const treeData = {
                           label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 18",
                           children: [
                             {
-                              id: "node20",
-                              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 20",
+                              id: "node35",
+                              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 35",
                             },
                             {
                               id: "node23",
@@ -271,26 +271,27 @@ export function findPath(treeData, idToFind, currentPath = []) {
   return null;
 }
 
-const FileTreeView = ({ showOrHide }) => {
+const FileTreeView = (props) => {
   const dispatch = useDispatch();
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [showOrHide, setShowOrHide] = useState(false);
 
   const handleSelect = (event, nodeId) => {
-    console.log("handle select nodeId >>> ", nodeId);
     const path = findPath(treeData, nodeId);
-    console.log("found path >>> ", path);
-    const siblings = findSiblings(treeData, nodeId);
-    console.log("found siblings >>> ", siblings);
     dispatch(setSelectedNode(nodeId));
     dispatch(setPathToSelectedNode(path));
   };
 
+  useEffect(() => {
+    console.log(props?.showOrHide);
+    if (props.showOrHide) setShowOrHide(props.showOrHide);
+  }, [props]);
+
   return (
     <div
       className={`w-full flex-col pl-4 relative  ${
-        showOrHide === true ? "pl-4" : "pl-0"
+        showOrHide === true ? "pl-4 flex relative" : "pl-0 hidden"
       }`}
-      style={{ display: `${showOrHide === true ? "flex relative" : "none"}` }}
     >
       <div className="z-50 absolute -top-[23px] right-[46px] select-none cursor-pointer">
         <button
