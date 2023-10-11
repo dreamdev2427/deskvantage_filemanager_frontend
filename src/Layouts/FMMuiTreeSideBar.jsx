@@ -9,9 +9,8 @@ import { useEffect, useState } from "react";
 import {
   setPathToSelectedNode,
   setSelectedNode,
-  setSiblingsOfSelectedNode,
 } from "../redux-toolkit/reducers/TreeView";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const treeData = {
   id: "root",
@@ -168,14 +167,25 @@ const useStyles = makeStyles({
 
 const MyTreeView = ({ treeData, handleSelect }) => {
   const classes = useStyles();
+  const { selectedNode } = useSelector((state) => state.treeview);
 
   const renderTree = (nodes) => (
     <TreeItem
       key={nodes.id}
       nodeId={nodes.id}
       onClick={(event) => handleSelect(event, nodes.id)}
+      selected={selectedNode === nodes.id}
       label={
-        <div className={classes.listItem}>
+        <div
+          className={classes.listItem}
+          style={{
+            background: `${
+              selectedNode === nodes.id
+                ? "rgba(25, 118, 210, 0.08)"
+                : "transparent"
+            }`,
+          }}
+        >
           {nodes.id === "root" ? (
             <></>
           ) : nodes.children ? (
@@ -220,6 +230,7 @@ const MyTreeView = ({ treeData, handleSelect }) => {
       className={classes.root}
       defaultCollapseIcon={<ExpandMoreIcon sx={{ fill: "#4489fe" }} />}
       defaultExpandIcon={<ChevronRightIcon sx={{ fill: "#4489fe" }} />}
+      defaultExpanded={[selectedNode]}
     >
       {renderTree(treeData)}
     </TreeView>
@@ -283,7 +294,6 @@ const FileTreeView = (props) => {
   };
 
   useEffect(() => {
-    console.log(props?.showOrHide);
     if (props.showOrHide) setShowOrHide(props.showOrHide);
   }, [props]);
 

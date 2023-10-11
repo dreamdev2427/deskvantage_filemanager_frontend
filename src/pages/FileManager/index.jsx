@@ -13,6 +13,7 @@ import NavBar from "../../Layouts/NavBar";
 // import FMTreeSideBar from "../../Layouts/FMTreeSideBar";
 import FMMuiTreeSideBar, {
   findChildren,
+  findPath,
   treeData,
 } from "../../Layouts/FMMuiTreeSideBar";
 import FMMiddlePanel from "../../Layouts/FMMiddlePanel";
@@ -28,6 +29,10 @@ import { useLocation } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
+import {
+  setPathToSelectedNode,
+  setSelectedNode,
+} from "../../redux-toolkit/reducers/TreeView";
 
 const MainLyt = () => {
   const dispatch = useDispatch();
@@ -49,6 +54,13 @@ const MainLyt = () => {
   const [showRightBarOnMobile, setShowRightBarOnMobile] = useState(false);
   const isNowLeftResizing = useRef(false);
   const isNowRightResizing = useRef(false);
+
+  useEffect(() => {
+    if (selectedNode) {
+      const path = findPath(treeData, selectedNode);
+      dispatch(setPathToSelectedNode(path));
+    }
+  }, [selectedNode]);
 
   useEffect(() => {
     if (window) {
@@ -142,18 +154,10 @@ const MainLyt = () => {
     isNowRightResizing.current = true;
   };
 
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
-
   return (
     <div className="h-full ">
       <NavBar />
-      <div
-        className="fixed flex z-30 bg-white justify-start w-full h-[60px] py-4   items-center border-b-[#dee0e4] border-b-[1px] top-[82px] "
-        onClick={handleClick}
-      >
+      <div className="fixed flex z-30 bg-white justify-start w-full h-[60px] py-4   items-center border-b-[#dee0e4] border-b-[1px] top-[82px] ">
         <Typography
           color="text.primary"
           style={{ marginLeft: `${leftSidebarWidth + 10}px` }}
@@ -161,9 +165,9 @@ const MainLyt = () => {
           Site
         </Typography>
         <NavigateNextIcon fontSize="small" className="ml-2" />
-        {pathToSelectedNode && pathToSelectedNode.length <= 4 ? (
+        {pathToSelectedNode && pathToSelectedNode.length <= 3 ? (
           <Breadcrumbs
-            maxItems={2}
+            maxItems={3}
             aria-label="breadcrumb"
             className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
             separator={<NavigateNextIcon fontSize="small" />}
@@ -190,6 +194,7 @@ const MainLyt = () => {
                         <div
                           key={index}
                           className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                          onClick={() => dispatch(setSelectedNode(item.id))}
                         >
                           {item.children ? (
                             <FolderIcon
@@ -227,7 +232,7 @@ const MainLyt = () => {
             >
               {pathToSelectedNode &&
                 pathToSelectedNode.slice(-3).map((value, index) => {
-                  const last = index === 3 - 1;
+                  const last = index === 2;
 
                   return last ? (
                     <Typography color="text.primary" key={index} className={``}>
@@ -249,6 +254,9 @@ const MainLyt = () => {
                               <div
                                 key={index}
                                 className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                                onClick={() =>
+                                  dispatch(setSelectedNode(item.id))
+                                }
                               >
                                 {item.children ? (
                                   <FolderIcon
