@@ -20,25 +20,33 @@
   -webkit-mask-position: left top;
 }
 
-.scrollbar::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.scrollbar::-webkit-scrollbar-track {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background-color: rgba(0,0,0,0);
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: transparent;
+    opacity:0.9;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: rgba(0,0,0,0.3);
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #888;
 }
 
-.scrollbar::-webkit-scrollbar-track:hover {
-  background-color: rgba(0,0,0,0.075);
+::-webkit-scrollbar-thumb:hover {
+  background: #AAA;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: #EEE;
+  border-color: #EEE;
+  opacity: 0;
+  border-radius: 6px;
 }
 
 .scrollPaddingRight {

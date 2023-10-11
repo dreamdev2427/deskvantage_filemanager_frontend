@@ -80,6 +80,10 @@ const MainLyt = () => {
     rightSidebarWidth,
   } = useSelector((state) => state.sidebar);
 
+  const { selectedNode, pathToSelectedNode } = useSelector(
+    (state) => state.treeview
+  );
+
   const [showLeftSideBar, setShowLeftSideBar] = useState(true);
   const [showRightSideBar, setShowRightSideBar] = useState(true);
   const [showLeftBarOnMobile, setShowLeftBarOnMobile] = useState(false);
@@ -189,23 +193,23 @@ const MainLyt = () => {
           style={{ marginLeft: `${leftSidebarWidth + 10}px` }}
           separator={<NavigateNextIcon fontSize="small" />}
         >
-          <LinkRouter underline="hover" color="inherit" to="/">
-            Home
-          </LinkRouter>
-          {pathnames.map((value, index) => {
-            const last = index === pathnames.length - 1;
-            const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+          <Typography color="text.primary">Site</Typography>
+          {pathToSelectedNode &&
+            pathToSelectedNode.length > 0 &&
+            pathToSelectedNode.map((value, index) => {
+              const last = index === pathToSelectedNode.length - 1;
+              const to = `/${pathToSelectedNode.slice(0, index + 1).join("/")}`;
 
-            return last ? (
-              <Typography color="text.primary" key={to}>
-                {breadcrumbNameMap[to]}
-              </Typography>
-            ) : (
-              <LinkRouter underline="hover" color="inherit" to={to} key={to}>
-                {breadcrumbNameMap[to]}
-              </LinkRouter>
-            );
-          })}
+              return last ? (
+                <Typography color="text.primary" key={to}>
+                  {value?.label}
+                </Typography>
+              ) : (
+                <div underline="hover" color="inherit" key={to}>
+                  {value?.label}
+                </div>
+              );
+            })}
         </Breadcrumbs>
       </div>
       <div className="mt-[142px] flex h-full relative">

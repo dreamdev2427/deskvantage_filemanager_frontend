@@ -6,6 +6,12 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
 import { useState } from "react";
+import {
+  setPathToSelectedNode,
+  setSelectedNode,
+  setSiblingsOfSelectedNode,
+} from "../redux-toolkit/reducers/TreeView";
+import { useDispatch } from "react-redux";
 
 const treeData = {
   id: "root",
@@ -160,13 +166,14 @@ const useStyles = makeStyles({
   },
 });
 
-const MyTreeView = ({ treeData, onDragEnd }) => {
+const MyTreeView = ({ treeData, handleSelect }) => {
   const classes = useStyles();
 
   const renderTree = (nodes) => (
     <TreeItem
       key={nodes.id}
       nodeId={nodes.id}
+      onClick={(event) => handleSelect(event, nodes.id)}
       label={
         <div className={classes.listItem}>
           {nodes.id === "root" ? (
@@ -182,7 +189,7 @@ const MyTreeView = ({ treeData, onDragEnd }) => {
             {nodes.label && nodes.label.toString()?.length > 15 ? (
               <div className="relative">
                 {nodes.label.toString().substring(0, 20) + "..."}
-                <div className="hidden group-hover:flex absolute left-0 top-5 z-1024 px-1 bg-[#afafaf] rounded-lg h-[30px] text-white">
+                <div className="hidden group-hover:flex absolute left-0 top-5 w-[330px] z-1024 px-1 bg-[#afafaf] rounded-lg h-[30px] text-white">
                   {nodes.label}
                 </div>
               </div>
@@ -220,7 +227,51 @@ const MyTreeView = ({ treeData, onDragEnd }) => {
 };
 
 const FileTreeView = ({ showOrHide }) => {
+  const dispatch = useDispatch();
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [selectedPath, setSelectedPath] = useState([]); // To store the selected path
+
+  const handleSelect = (event, nodeId) => {
+    console.log("handle select nodeId >>> ", nodeId);
+    const path = findPath(treeData, nodeId);
+    console.log("found path >>> ", path);
+    const siblings = findSiblings(treeData, nodeId);
+    console.log("found siblings >>> ", siblings);
+    dispatch(setSelectedNode(nodeId));
+    dispatch(setPathToSelectedNode(path));
+  };
+
+  function findPath(treeData, idToFind, currentPath = []) {
+    for (const node of treeData.children || []) {
+      const newPath = currentPath.concat({ id: node.id, label: node.label });
+
+      if (node.id === idToFind) {
+        return newPath;
+      }
+
+      const pathFound = findPath(node, idToFind, newPath);
+      if (pathFound) {
+        return pathFound;
+      }
+    }
+
+    return null;
+  }
+
+  function findSiblings(treeData, idToFind, siblings = []) {
+    for (const node of treeData.children || []) {
+      if (node.id === idToFind) {
+        for (const childNode of treeData.children) {
+          if (childNode.id !== idToFind) {
+            siblings.push({ id: childNode.id, label: childNode.label });
+          }
+        }
+        return siblings;
+      }
+      findSiblings(node, idToFind, siblings);
+    }
+    return siblings;
+  }
 
   const handleDragEnd = (result) => {
     // Implement logic to update tree structure based on drag-and-drop actions
@@ -303,7 +354,7 @@ const FileTreeView = ({ showOrHide }) => {
       <div className="absolute  bottom-0 right-0 left-5 top-0 flex flex-col  mt-3  h-[calc(100vh-160px)] overflow-auto">
         <div className="text-[#212121] mt-5  font-bold">Directory</div>
 
-        <MyTreeView treeData={treeData} onDragEnd={handleDragEnd} />
+        <MyTreeView treeData={treeData} handleSelect={handleSelect} />
       </div>
     </div>
   );
