@@ -151,14 +151,13 @@ function NameCell(props) {
 
   return (
     <div onContextMenu={handleContextMenu}>
-      {props.value}
       <Popup
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "right",
+          horizontal: "left",
         }}
         transformOrigin={{
           vertical: "top",
@@ -219,7 +218,7 @@ const FMMiddlePanel = () => {
         const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
 
         return (
-          <div className="flex gap-2">
+          <div className="flex ">
             {fileExtension === "png" ? (
               <ImageIcon sx={{ fill: "#4489fe" }} />
             ) : fileExtension === "zip" ? (
@@ -233,8 +232,6 @@ const FMMiddlePanel = () => {
             ) : (
               <></>
             )}
-
-            <NameCell {...params} />
           </div>
         );
       },
@@ -289,7 +286,11 @@ const FMMiddlePanel = () => {
         return (
           <div className="flex justify-between min-w-[150px]">
             <div className="">{params.value}</div>
-            <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
+            <div className="flex gap-2">
+              <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
+
+              <NameCell {...params} />
+            </div>
           </div>
         );
       },
