@@ -93,7 +93,6 @@ const columns = [
     field: "Size",
     headerName: "Size",
     flex: 1,
-    minWidth: 150,
     resizable: true,
     valueGetter: (params) => {
       // Convert the numeric file size to a human-readable format
@@ -105,11 +104,9 @@ const columns = [
     },
     renderCell: (params) => {
       return (
-        <div className="flex">
+        <div className="flex justify-between min-w-[150px]">
           <div className="">{params.value}</div>
-          <div className="ml-20">
-            <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
-          </div>
+          <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
         </div>
       );
     },
