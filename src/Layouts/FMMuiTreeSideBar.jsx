@@ -175,17 +175,13 @@ const MyTreeView = ({ treeData, handleSelect }) => {
       nodeId={nodes.id}
       onClick={(event) => handleSelect(event, nodes.id)}
       selected={selectedNode === nodes.id}
+      sx={{
+        background: `${
+          selectedNode === nodes.id ? "rgba(25, 118, 210, 0.08)" : "transparent"
+        }`,
+      }}
       label={
-        <div
-          className={classes.listItem}
-          style={{
-            background: `${
-              selectedNode === nodes.id
-                ? "rgba(25, 118, 210, 0.08)"
-                : "transparent"
-            }`,
-          }}
-        >
+        <div className={classes.listItem}>
           {nodes.id === "root" ? (
             <></>
           ) : nodes.children ? (
