@@ -5,8 +5,19 @@ import AudioFileIcon from "@mui/icons-material/AudioFile";
 import TextFileIcon from "@mui/icons-material/TextFields";
 import ZipFileIcon from "@mui/icons-material/FolderZip";
 import ImageIcon from "@mui/icons-material/Image";
-
-import { useGridApiRef } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
+import Popup from "@mui/material/Popover";
+import { AiOutlineDownload } from "react-icons/ai";
+import {
+  MdOutlineDriveFileRenameOutline,
+  MdOutlineContentCopy,
+} from "react-icons/md";
+import { BiPurchaseTagAlt } from "react-icons/bi";
+import { LuStickyNote } from "react-icons/lu";
+import { RiUserSharedLine } from "react-icons/ri";
+import { MdDriveFileMoveOutline } from "react-icons/md";
+import { GrCircleInformation } from "react-icons/gr";
+import { TfiTrash } from "react-icons/tfi";
 
 const months = {
   1: "Jan",
@@ -22,96 +33,6 @@ const months = {
   11: "Nov",
   12: "Dec",
 };
-
-const columns = [
-  {
-    field: "FileName",
-    headerName: "File Name",
-    flex: 1,
-    minWidth: 200,
-    resizable: true,
-    renderCell: (params) => {
-      const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
-
-      return (
-        <div className="flex">
-          {fileExtension === "png" ? (
-            <ImageIcon sx={{ fill: "#4489fe" }} />
-          ) : fileExtension === "zip" ? (
-            <ZipFileIcon sx={{ fill: "#4489fe" }} />
-          ) : fileExtension === "pdf" || fileExtension === "txt" ? (
-            <TextFileIcon sx={{ fill: "#4489fe" }} />
-          ) : fileExtension === "mp3" ? (
-            <AudioFileIcon sx={{ fill: "#4489fe" }} />
-          ) : fileExtension === "mp4" ? (
-            <VideoFileIcon sx={{ fill: "#4489fe" }} />
-          ) : (
-            <></>
-          )}
-          <div className="ml-1 ">{params.value}</div>
-        </div>
-      );
-    },
-  },
-  {
-    field: "PlayLength",
-    headerName: "Length",
-    description: "This column shows play time length of file.",
-    flex: 1,
-    minWidth: 150,
-    resizable: true,
-    valueGetter: (params) => {
-      // Convert Date to "hh:mm:ss" string format
-      const date = new Date(params.row.PlayLength);
-      const hours = date.getHours().toString().padStart(2, "0");
-      const minutes = date.getMinutes().toString().padStart(2, "0");
-      const seconds = date.getSeconds().toString().padStart(2, "0");
-      return `${hours}:${minutes}:${seconds}`;
-    },
-  },
-  {
-    field: "LastUpdated",
-    headerName: "Last Updated",
-    type: Date,
-    flex: 1,
-    minWidth: 150,
-    resizable: true,
-    valueGetter: (params) => {
-      // Convert Date to a readable string (e.g., "October 10, 2023")
-      return `${months[new Date(params.row.LastUpdated).getMonth() + 1]} ${
-        new Date(params.row.LastUpdated).getDay() + 1
-      }, ${new Date(params.row.LastUpdated).getFullYear()}`;
-    },
-    sortComparator: (v1, v2, param1, param2) => {
-      // Custom sorting function for "Last updated" column
-      return (
-        new Date(param1.value).getTime() - new Date(param2.value).getTime()
-      );
-    },
-  },
-  {
-    field: "Size",
-    headerName: "Size",
-    flex: 1,
-    resizable: true,
-    valueGetter: (params) => {
-      // Convert the numeric file size to a human-readable format
-      const fileSize = params.row.Size;
-      return formatFileSize(fileSize);
-    },
-    sortComparator: (v1, v2, param1, param2) => {
-      return parseFileSize(param1.value) - parseFileSize(param2.value);
-    },
-    renderCell: (params) => {
-      return (
-        <div className="flex justify-between min-w-[150px]">
-          <div className="">{params.value}</div>
-          <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
-        </div>
-      );
-    },
-  },
-];
 
 const extensionsArray = ["txt", "pdf", "png", "mp3", "mp4", "zip"];
 const wordList = ["apple", "banana", "cat", "dog", "elephant", "fox", "grape"];
@@ -214,10 +135,172 @@ const fillRows = () => {
 
 fillRows();
 
+function NameCell(props) {
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div onContextMenu={handleContextMenu}>
+      {props.value}
+      <Popup
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <div className="flex flex-col gap-1 text-sm font-medium">
+          <div className="flex items-center px-5 py-1 gap-2">
+            <AiOutlineDownload />
+            Download
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2">
+            <MdOutlineDriveFileRenameOutline />
+            Rename
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2">
+            <BiPurchaseTagAlt />
+            Tag
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2 border-b-[1px] border-[#DEE0E4] ">
+            <MdOutlineContentCopy />
+            Copy
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2">
+            <LuStickyNote />
+            Add Note
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2">
+            <RiUserSharedLine />
+            Share
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2">
+            <MdDriveFileMoveOutline />
+            Move
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2 border-b-[1px] border-[#DEE0E4] ">
+            <GrCircleInformation />
+            File information
+          </div>
+          <div className="flex items-center px-5 py-1 gap-2 ">
+            <TfiTrash />
+            Delete
+          </div>
+        </div>
+      </Popup>
+    </div>
+  );
+}
+
 const FMMiddlePanel = () => {
+  const columns = [
+    {
+      field: "FileName",
+      headerName: "File Name",
+      flex: 1,
+      minWidth: 200,
+      renderCell: (params) => {
+        const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
+
+        return (
+          <div className="flex gap-2">
+            {fileExtension === "png" ? (
+              <ImageIcon sx={{ fill: "#4489fe" }} />
+            ) : fileExtension === "zip" ? (
+              <ZipFileIcon sx={{ fill: "#4489fe" }} />
+            ) : fileExtension === "pdf" || fileExtension === "txt" ? (
+              <TextFileIcon sx={{ fill: "#4489fe" }} />
+            ) : fileExtension === "mp3" ? (
+              <AudioFileIcon sx={{ fill: "#4489fe" }} />
+            ) : fileExtension === "mp4" ? (
+              <VideoFileIcon sx={{ fill: "#4489fe" }} />
+            ) : (
+              <></>
+            )}
+
+            <NameCell {...params} />
+          </div>
+        );
+      },
+    },
+    {
+      field: "PlayLength",
+      headerName: "Length",
+      description: "This column shows play time length of file.",
+      flex: 1,
+      minWidth: 150,
+      valueGetter: (params) => {
+        // Convert Date to "hh:mm:ss" string format
+        const date = new Date(params.row.PlayLength);
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        const seconds = date.getSeconds().toString().padStart(2, "0");
+        return `${hours}:${minutes}:${seconds}`;
+      },
+    },
+    {
+      field: "LastUpdated",
+      headerName: "Last Updated",
+      type: Date,
+      flex: 1,
+      minWidth: 150,
+      valueGetter: (params) => {
+        // Convert Date to a readable string (e.g., "October 10, 2023")
+        return `${months[new Date(params.row.LastUpdated).getMonth() + 1]} ${
+          new Date(params.row.LastUpdated).getDay() + 1
+        }, ${new Date(params.row.LastUpdated).getFullYear()}`;
+      },
+      sortComparator: (v1, v2, param1, param2) => {
+        // Custom sorting function for "Last updated" column
+        return (
+          new Date(param1.value).getTime() - new Date(param2.value).getTime()
+        );
+      },
+    },
+    {
+      field: "Size",
+      headerName: "Size",
+      flex: 1,
+      valueGetter: (params) => {
+        // Convert the numeric file size to a human-readable format
+        const fileSize = params.row.Size;
+        return formatFileSize(fileSize);
+      },
+      sortComparator: (v1, v2, param1, param2) => {
+        return parseFileSize(param1.value) - parseFileSize(param2.value);
+      },
+      renderCell: (params) => {
+        return (
+          <div className="flex justify-between min-w-[150px]">
+            <div className="">{params.value}</div>
+            <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
+          </div>
+        );
+      },
+    },
+  ];
+
   const divOfTableRef = useRef(null);
   const [divWidth, setDivWidth] = useState(1000);
-
+  const { leftSidebarWidth, rightSidebarWidth } = useSelector(
+    (state) => state.sidebar
+  );
   // Function to update the div width when the screen is resized
   const updateDivWidth = () => {
     if (divOfTableRef.current) {
@@ -255,7 +338,13 @@ const FMMiddlePanel = () => {
   return (
     <div className="w-full flex flex-col ">
       <div
-        className="w-full flex justify-between items-center h-[60px] border-b border-b-[#dee0e4] fixed bg-white z-10 fill-white            "
+        className={`      
+        flex justify-between items-center h-[60px] border-b border-b-[#dee0e4] fixed bg-white z-10 fill-white `}
+        style={{
+          width: `calc(100% - ${
+            Number(leftSidebarWidth) + Number(rightSidebarWidth)
+          }px)`,
+        }}
         ref={divOfTableRef}
       >
         <div className="flex  justify-start ml-4 text-[14px] min-w-[400px] select-none ">
@@ -330,21 +419,23 @@ const FMMiddlePanel = () => {
             /> */}
           </div>
         </div>
+        <div className=" text-sm font-medium mr-4">
+          {/* {selectedRows?.length} items selected */}
+        </div>
       </div>
       <div
         className={`w-full px-4 flex justify-center  font-roboto mt-[60px] `}
       >
         <DataGrid
-          disableColumnResize={false}
           rows={rows}
           columns={columns}
           pageSize={rows.length + 1}
           checkboxSelection
+          hideFooterPagination
           sx={{
             borderLeft: "none",
             borderRight: "none",
             borderTop: "none",
-            width: "100%",
           }}
           components={{
             ColumnSortedAscendingIcon: () => (

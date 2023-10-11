@@ -11,7 +11,6 @@ const treeviewSlice = createSlice({
   initialState,
   reducers: {
     setSelectedNode: (state, action) => {
-      console.log("setSelectedNode () action.payload >>> ", action.payload);
       return { ...state, selectedNode: action.payload };
     },
     setPathToSelectedNode: (state, action) => {
