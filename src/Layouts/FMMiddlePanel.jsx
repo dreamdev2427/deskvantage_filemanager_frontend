@@ -166,39 +166,39 @@ function NameCell(props) {
         }}
       >
         <div className="flex flex-col gap-1 text-sm font-medium">
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <AiOutlineDownload />
             Download
           </div>
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <MdOutlineDriveFileRenameOutline />
             Rename
           </div>
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <BiPurchaseTagAlt />
             Tag
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 border-b-[1px] border-[#DEE0E4] ">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] ">
             <MdOutlineContentCopy />
             Copy
           </div>
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <LuStickyNote />
             Add Note
           </div>
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <RiUserSharedLine />
             Share
           </div>
-          <div className="flex items-center px-5 py-1 gap-2">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
             <MdDriveFileMoveOutline />
             Move
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 border-b-[1px] border-[#DEE0E4] ">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] ">
             <GrCircleInformation />
             File information
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 ">
+          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] ">
             <TfiTrash />
             Delete
           </div>
