@@ -218,7 +218,7 @@ const FMMiddlePanel = () => {
         const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
 
         return (
-          <div className="flex ">
+          <div className="flex gap-2">
             {fileExtension === "png" ? (
               <ImageIcon sx={{ fill: "#4489fe" }} />
             ) : fileExtension === "zip" ? (
@@ -232,6 +232,7 @@ const FMMiddlePanel = () => {
             ) : (
               <></>
             )}
+            <div className="">{params.value}</div>
           </div>
         );
       },
