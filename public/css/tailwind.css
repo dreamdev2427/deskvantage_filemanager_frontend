@@ -20,29 +20,29 @@
   -webkit-mask-position: left top;
 }
 
-::-webkit-scrollbar {
+.leftsidebar::-webkit-scrollbar, .rightsidebar::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
-::-webkit-scrollbar-track {
+.leftsidebar::-webkit-scrollbar-track, .rightsidebar::-webkit-scrollbar-track {
     -webkit-border-radius: 4px;
     border-radius: 4px;
     background-color: transparent;
     opacity:0.9;
 }
 
-::-webkit-scrollbar-thumb {
+.leftsidebar::-webkit-scrollbar-thumb, .rightsidebar::-webkit-scrollbar-thumb {
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    background: #888;
+    background: transparent;    
 }
 
-::-webkit-scrollbar-thumb:hover {
+.leftsidebar::-webkit-scrollbar-thumb:hover, .rightsidebar::-webkit-scrollbar-thumb:hover {
   background: #AAA;
 }
 
-::-webkit-scrollbar-track:hover {
+.leftsidebar::-webkit-scrollbar-track:hover, .rightsidebar::-webkit-scrollbar-track:hover{
   background-color: #EEE;
   border-color: #EEE;
   opacity: 0;
