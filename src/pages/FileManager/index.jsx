@@ -163,7 +163,7 @@ const MainLyt = () => {
         <NavigateNextIcon fontSize="small" className="ml-2" />
         {pathToSelectedNode && pathToSelectedNode.length <= 4 ? (
           <Breadcrumbs
-            maxItems={3}
+            maxItems={2}
             aria-label="breadcrumb"
             className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
             separator={<NavigateNextIcon fontSize="small" />}
