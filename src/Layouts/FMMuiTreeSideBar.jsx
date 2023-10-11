@@ -13,7 +13,7 @@ import {
 } from "../redux-toolkit/reducers/TreeView";
 import { useDispatch } from "react-redux";
 
-const treeData = {
+export const treeData = {
   id: "root",
   label: "Site",
   children: [
@@ -226,10 +226,54 @@ const MyTreeView = ({ treeData, handleSelect }) => {
   );
 };
 
+export function findSiblings(treeData, idToFind, siblings = []) {
+  for (const node of treeData.children || []) {
+    if (node.id === idToFind) {
+      for (const childNode of treeData.children) {
+        if (childNode.id !== idToFind) {
+          siblings.push({ id: childNode.id, label: childNode.label });
+        }
+      }
+      return siblings;
+    }
+    findSiblings(node, idToFind, siblings);
+  }
+  return siblings;
+}
+
+export function findChildren(treeData, idToFind, children = []) {
+  for (const node of treeData.children || []) {
+    if (node.id === idToFind) {
+      for (const childNode of node.children || []) {
+        children.push({ id: childNode.id, label: childNode.label });
+      }
+      return children;
+    }
+    findChildren(node, idToFind, children);
+  }
+  return children;
+}
+
+export function findPath(treeData, idToFind, currentPath = []) {
+  for (const node of treeData.children || []) {
+    const newPath = currentPath.concat({ id: node.id, label: node.label });
+
+    if (node.id === idToFind) {
+      return newPath;
+    }
+
+    const pathFound = findPath(node, idToFind, newPath);
+    if (pathFound) {
+      return pathFound;
+    }
+  }
+
+  return null;
+}
+
 const FileTreeView = ({ showOrHide }) => {
   const dispatch = useDispatch();
   const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [selectedPath, setSelectedPath] = useState([]); // To store the selected path
 
   const handleSelect = (event, nodeId) => {
     console.log("handle select nodeId >>> ", nodeId);
@@ -239,44 +283,6 @@ const FileTreeView = ({ showOrHide }) => {
     console.log("found siblings >>> ", siblings);
     dispatch(setSelectedNode(nodeId));
     dispatch(setPathToSelectedNode(path));
-  };
-
-  function findPath(treeData, idToFind, currentPath = []) {
-    for (const node of treeData.children || []) {
-      const newPath = currentPath.concat({ id: node.id, label: node.label });
-
-      if (node.id === idToFind) {
-        return newPath;
-      }
-
-      const pathFound = findPath(node, idToFind, newPath);
-      if (pathFound) {
-        return pathFound;
-      }
-    }
-
-    return null;
-  }
-
-  function findSiblings(treeData, idToFind, siblings = []) {
-    for (const node of treeData.children || []) {
-      if (node.id === idToFind) {
-        for (const childNode of treeData.children) {
-          if (childNode.id !== idToFind) {
-            siblings.push({ id: childNode.id, label: childNode.label });
-          }
-        }
-        return siblings;
-      }
-      findSiblings(node, idToFind, siblings);
-    }
-    return siblings;
-  }
-
-  const handleDragEnd = (result) => {
-    // Implement logic to update tree structure based on drag-and-drop actions
-    // result.source.index and result.destination.index can be used to determine the new order.
-    console.log("handle drag end result >>> ", result);
   };
 
   return (

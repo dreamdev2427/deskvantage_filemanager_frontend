@@ -11,7 +11,10 @@ import {
 // layouts
 import NavBar from "../../Layouts/NavBar";
 // import FMTreeSideBar from "../../Layouts/FMTreeSideBar";
-import FMMuiTreeSideBar from "../../Layouts/FMMuiTreeSideBar";
+import FMMuiTreeSideBar, {
+  findChildren,
+  treeData,
+} from "../../Layouts/FMMuiTreeSideBar";
 import FMMiddlePanel from "../../Layouts/FMMiddlePanel";
 import FMRightSideBar from "../../Layouts/FMRightSideBar";
 
@@ -29,6 +32,8 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import FolderIcon from "@mui/icons-material/Folder";
+import FileIcon from "@mui/icons-material/FilePresent";
 
 const breadcrumbNameMap = {
   "/filemanage": "Media",
@@ -189,6 +194,7 @@ const MainLyt = () => {
       <div className="flex z-20 bg-white justify-between w-full h-[60px] items-center border-b-[#dee0e4] border-b-[1px] top-[82px] fixed">
         <Breadcrumbs
           aria-label="breadcrumb"
+          maxItems={8}
           className={`flex items-center h-5 py-0 my-0 bg-transparent`}
           style={{ marginLeft: `${leftSidebarWidth + 10}px` }}
           separator={<NavigateNextIcon fontSize="small" />}
@@ -205,8 +211,47 @@ const MainLyt = () => {
                   {value?.label}
                 </Typography>
               ) : (
-                <div underline="hover" color="inherit" key={to}>
+                <div
+                  underline="hover"
+                  color="inherit"
+                  key={to}
+                  className="relative group"
+                >
                   {value?.label}
+                  <div
+                    className="absolute !z-50 w-max px-4 py-4 h-max top-[20px] left-[100px]
+                    bg-white flex-col gap-1
+                    border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
+                    hidden group-hover:flex
+                    "
+                  >
+                    {findChildren(treeData, value.id)?.length > 0 &&
+                      findChildren(treeData, value.id)?.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                        >
+                          {item.children ? (
+                            <FolderIcon
+                              sx={{
+                                width: "18px",
+                                height: "18px",
+                                fill: "#4489fe",
+                              }}
+                            />
+                          ) : (
+                            <FileIcon
+                              sx={{
+                                width: "18px",
+                                height: "18px",
+                                fill: "#4489fe",
+                              }}
+                            />
+                          )}
+                          <span className="ml-2 ">{item.label}</span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               );
             })}
