@@ -52,8 +52,21 @@ const MainLyt = () => {
   const [showRightSideBar, setShowRightSideBar] = useState(true);
   const [showLeftBarOnMobile, setShowLeftBarOnMobile] = useState(false);
   const [showRightBarOnMobile, setShowRightBarOnMobile] = useState(false);
+  const [showBreadcrumbDropdown, setShowBreadCrumbDropdown] = useState({});
   const isNowLeftResizing = useRef(false);
   const isNowRightResizing = useRef(false);
+
+  const handleBreadcrumbClick = (nodeId) => {
+    let temp = showBreadcrumbDropdown;
+    temp = { ...temp, [nodeId]: !showBreadcrumbDropdown[nodeId] || false };
+    let keys = Object.keys(temp);
+    keys.forEach((key) => {
+      if (key !== nodeId) {
+        temp[key] = false;
+      }
+    });
+    setShowBreadCrumbDropdown(temp);
+  };
 
   useEffect(() => {
     if (selectedNode) {
@@ -180,43 +193,49 @@ const MainLyt = () => {
                   {value?.label}
                 </Typography>
               ) : (
-                <div key={index} className={`relative group `}>
+                <div
+                  key={index}
+                  className={`relative  `}
+                  onClick={() => handleBreadcrumbClick(!value.id)}
+                >
                   {value?.label}
-                  <div
-                    className="absolute z-31 w-max px-4 py-4 h-max top-[20px] left-[100px]
+                  {showBreadcrumbDropdown[value.id] === true && (
+                    <div
+                      className="flex absolute z-31 w-max px-4 py-4 h-max  left-[50%]
                     bg-white flex-col gap-1
                     border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                    hidden group-hover:flex
+                    
                     "
-                  >
-                    {findChildren(treeData, value.id)?.length > 0 &&
-                      findChildren(treeData, value.id)?.map((item, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                          onClick={() => dispatch(setSelectedNode(item.id))}
-                        >
-                          {item.children ? (
-                            <FolderIcon
-                              sx={{
-                                width: "18px",
-                                height: "18px",
-                                fill: "#4489fe",
-                              }}
-                            />
-                          ) : (
-                            <FileIcon
-                              sx={{
-                                width: "18px",
-                                height: "18px",
-                                fill: "#4489fe",
-                              }}
-                            />
-                          )}
-                          <span className="ml-2 ">{item.label}</span>
-                        </div>
-                      ))}
-                  </div>
+                    >
+                      {findChildren(treeData, value.id)?.length > 0 &&
+                        findChildren(treeData, value.id)?.map((item, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                            onClick={() => dispatch(setSelectedNode(item.id))}
+                          >
+                            {item.children ? (
+                              <FolderIcon
+                                sx={{
+                                  width: "18px",
+                                  height: "18px",
+                                  fill: "#4489fe",
+                                }}
+                              />
+                            ) : (
+                              <FileIcon
+                                sx={{
+                                  width: "18px",
+                                  height: "18px",
+                                  fill: "#4489fe",
+                                }}
+                              />
+                            )}
+                            <span className="ml-2 ">{item.label}</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -239,47 +258,53 @@ const MainLyt = () => {
                       {value?.label}
                     </Typography>
                   ) : (
-                    <div key={index} className={`relative group `}>
+                    <div
+                      key={index}
+                      className={`relative  `}
+                      onClick={() => handleBreadcrumbClick(value.id)}
+                    >
                       {value?.label}
-                      <div
-                        className="absolute z-31 w-max px-4 py-4 h-max top-[20px] left-[100px]
+                      {showBreadcrumbDropdown[value.id] === true && (
+                        <div
+                          className="absolute z-31 w-max px-4 py-4 h-max left-[50%]
                         bg-white flex-col gap-1
                         border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        hidden group-hover:flex
+                        flex
                         "
-                      >
-                        {findChildren(treeData, value.id)?.length > 0 &&
-                          findChildren(treeData, value.id)?.map(
-                            (item, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                                onClick={() =>
-                                  dispatch(setSelectedNode(item.id))
-                                }
-                              >
-                                {item.children ? (
-                                  <FolderIcon
-                                    sx={{
-                                      width: "18px",
-                                      height: "18px",
-                                      fill: "#4489fe",
-                                    }}
-                                  />
-                                ) : (
-                                  <FileIcon
-                                    sx={{
-                                      width: "18px",
-                                      height: "18px",
-                                      fill: "#4489fe",
-                                    }}
-                                  />
-                                )}
-                                <span className="ml-2 ">{item.label}</span>
-                              </div>
-                            )
-                          )}
-                      </div>
+                        >
+                          {findChildren(treeData, value.id)?.length > 0 &&
+                            findChildren(treeData, value.id)?.map(
+                              (item, index) => (
+                                <div
+                                  key={index}
+                                  className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                                  onClick={() =>
+                                    dispatch(setSelectedNode(item.id))
+                                  }
+                                >
+                                  {item.children ? (
+                                    <FolderIcon
+                                      sx={{
+                                        width: "18px",
+                                        height: "18px",
+                                        fill: "#4489fe",
+                                      }}
+                                    />
+                                  ) : (
+                                    <FileIcon
+                                      sx={{
+                                        width: "18px",
+                                        height: "18px",
+                                        fill: "#4489fe",
+                                      }}
+                                    />
+                                  )}
+                                  <span className="ml-2 ">{item.label}</span>
+                                </div>
+                              )
+                            )}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

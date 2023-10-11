@@ -155,3 +155,11 @@ stroke-width: 1px;
 div, span, td {
   user-select: none;
 }
+
+
+li.MuiTreeItem-root{
+  background: transparent !important;
+} 
+.MuiTreeItem-content.Mui-selected {
+  backgroundColor: rgba(25, 118, 210, 0.08) !important;
+}
