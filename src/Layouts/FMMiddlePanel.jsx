@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import VideoFileIcon from "@mui/icons-material/VideoFile";
 import AudioFileIcon from "@mui/icons-material/AudioFile";
@@ -12,6 +12,7 @@ import {
   MdOutlineDriveFileRenameOutline,
   MdOutlineContentCopy,
 } from "react-icons/md";
+import { AiOutlineClose } from "react-icons/ai";
 import { BiPurchaseTagAlt } from "react-icons/bi";
 import { LuStickyNote } from "react-icons/lu";
 import { RiUserSharedLine } from "react-icons/ri";
@@ -20,7 +21,9 @@ import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
+import { LinearProgress } from "@mui/material";
 import FMTreeSideBar from "./FMTreeSideBar";
+import { useDropzone } from "react-dropzone";
 
 const months = {
   1: "Jan",
@@ -132,6 +135,7 @@ const fillRows = () => {
       LastUpdated: generateRandomDate(),
       Size: Math.floor(Math.random() * 10995116277760),
       PlayLength: generateRandomDate(),
+      uploadProgress: 100,
     };
   }
 };
@@ -389,6 +393,100 @@ function NameCell(params) {
 }
 
 const FMMiddlePanel = () => {
+  const [uploadingRowIds, setUploadingRowIds] = useState([]);
+  const apiRef = useRef();
+  const divOfTableRef = useRef(null);
+  const [divWidth, setDivWidth] = useState(1000);
+  const { leftSidebarWidth, rightSidebarWidth } = useSelector(
+    (state) => state.sidebar
+  );
+  // create a map for storing the XMLHttpRequest objects for each file upload
+  const xhrMap = useRef(new Map());
+
+  // define a function that will cancel the upload and delete the row
+  const cancelUpload = (id) => {
+    // get the XMLHttpRequest object from the map
+    const xhr = xhrMap.current.get(id);
+    // abort the request
+    xhr.abort();
+    // delete the row from the data grid using the API
+    apiRef.current.updateRows([{ id, _action: "delete" }]);
+  };
+
+  // define a callback function that will handle the dropped files
+  const onDrop = useCallback((files) => {
+    // do something with the files
+    console.log("onDrop  acceptedFiles >>>> ", files);
+    // loop through each file
+    for (let i = 0; i < files.length; i++) {
+      // get the file name and size
+      const fileName = files[i].name;
+      const fileSize = files[i].size;
+
+      // generate a random id for the new row
+      const id = Math.floor(Math.random() * 100000);
+      setUploadingRowIds(
+        uploadingRowIds?.includes(id) === true
+          ? uploadingRowIds
+          : [...uploadingRowIds, id]
+      );
+      // create a new row object with the file name, size, and upload progress
+      const newRow = {
+        id,
+        FileName: fileName,
+        LastUpdated: generateRandomDate(),
+        Size: fileSize,
+        PlayLength: generateRandomDate(),
+        uploadProgress: 0,
+      };
+
+      const xhr = new XMLHttpRequest();
+      if (apiRef.current) {
+        // add the new row to the data grid using the API
+        apiRef.current.updateRows([newRow]);
+
+        // create a new XMLHttpRequest object
+        // open a POST request to the server endpoint that handles the file upload
+        xhr.open("POST", "/upload");
+        // add a load event listener to the XMLHttpRequest object
+        xhr.addEventListener("load", function () {
+          // handle the response from the server
+          console.log(xhr.responseText);
+        });
+        // add an error event listener to the XMLHttpRequest object
+        xhr.addEventListener("error", function () {
+          // handle the error from the server
+          console.log(xhr.statusText);
+        });
+        // add a progress event listener to the upload property of the XMLHttpRequest object
+        xhr.upload.addEventListener("progress", function (event) {
+          // check if the event has length information
+          if (event.lengthComputable) {
+            // calculate the percentage of upload completed
+            const percent = Math.round((event.loaded / event.total) * 100);
+            // update the upload progress value using the API
+            apiRef.current.updateRows([{ id, uploadProgress: percent }]);
+          }
+        });
+
+        // send the file as FormData
+        // const formData = new FormData();
+        // formData.append("file", files[i]);
+        // xhr.send(formData);
+
+        // store the XMLHttpRequest object in the map
+        xhrMap.current.set(id, xhr);
+
+        setTimeout(() => {
+          apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
+        }, 3000);
+      }
+    }
+  }, []);
+
+  // get the props and methods from the hook
+  const { getRootProps } = useDropzone({ onDrop, noClick: true });
+
   const columns = [
     {
       field: "FileName",
@@ -451,6 +549,31 @@ const FMMiddlePanel = () => {
           new Date(param1.value).getTime() - new Date(param2.value).getTime()
         );
       },
+      renderCell: (params) => {
+        // return a JSX element that renders inside the cell
+        return (
+          <>
+            {uploadingRowIds.includes(params.id) === true ? (
+              <div className="w-full flex gap-2 items-center">
+                <span>{params.row.uploadProgress}%</span>
+                {params.row.uploadProgress < 100 && (
+                  <AiOutlineClose
+                    className="w-6 h-6"
+                    onClick={() => cancelUpload(params.id)}
+                  />
+                )}
+                <LinearProgress
+                  sx={{ width: "100%", height: "20px", borderRadius: "20px" }}
+                  variant="determinate"
+                  value={params.row.uploadProgress}
+                />
+              </div>
+            ) : (
+              <>{params.value}</>
+            )}
+          </>
+        );
+      },
     },
     {
       field: "Size",
@@ -476,11 +599,6 @@ const FMMiddlePanel = () => {
     },
   ];
 
-  const divOfTableRef = useRef(null);
-  const [divWidth, setDivWidth] = useState(1000);
-  const { leftSidebarWidth, rightSidebarWidth } = useSelector(
-    (state) => state.sidebar
-  );
   // Function to update the div width when the screen is resized
   const updateDivWidth = () => {
     if (divOfTableRef.current) {
@@ -605,6 +723,8 @@ const FMMiddlePanel = () => {
       </div>
       <div
         className={`w-full px-4 flex justify-center  font-roboto mt-[60px] `}
+        {...getRootProps()}
+        onClick={(e) => e.preventDefault()}
       >
         <DataGrid
           rows={rows}
@@ -612,6 +732,7 @@ const FMMiddlePanel = () => {
           pageSize={rows.length + 1}
           checkboxSelection
           hideFooterPagination
+          apiRef={apiRef}
           sx={{
             borderLeft: "none",
             borderRight: "none",
