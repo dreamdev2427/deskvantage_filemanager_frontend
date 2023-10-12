@@ -10,8 +10,8 @@ import {
 
 // layouts
 import NavBar from "../../Layouts/NavBar";
-// import FMTreeSideBar from "../../Layouts/FMTreeSideBar";
-import FMMuiTreeSideBar, {
+import FMTreeSideBar from "../../Layouts/FMTreeSideBar";
+import {
   findChildren,
   findPath,
   treeData,
@@ -326,10 +326,12 @@ const MainLyt = () => {
             zIndex: `${showLeftBarOnMobile === true ? 35 : 30}`,
           }}
         >
-          {/* <FMTreeSideBar /> */}
-          <FMMuiTreeSideBar
+          <FMTreeSideBar
             showOrHide={(showLeftSideBar || showLeftBarOnMobile) === true}
           />
+          {/* <FMMuiTreeSideBar
+            showOrHide={(showLeftSideBar || showLeftBarOnMobile) === true}
+          /> */}
           <div
             className="w-1 border-l-2 cursor-col-resize border-blue-gray-50 "
             onMouseDown={leftSidebarMouseDown}
