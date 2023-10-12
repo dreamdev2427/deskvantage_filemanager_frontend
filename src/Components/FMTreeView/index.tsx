@@ -4,6 +4,8 @@ import JqxTree, {
 } from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
 import "./jqx.base.css";
 import "./jqx.fluent.css";
+import FolderIcon from "@mui/icons-material/Folder";
+import FileIcon from "@mui/icons-material/FilePresent";
 
 class TreeView extends React.PureComponent<{}, ITreeProps> {
   private treeA = React.createRef<JqxTree>();
@@ -22,6 +24,47 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
   }
 
   public render() {
+    function rendertree(props, treedata) {
+      console.log("props >>>> ", props);
+
+      return (
+        <ul
+          key={treedata.id}
+          onClick={(event) => props.handleSelect(event, treedata.id)}
+        >
+          {Array.isArray(treedata.children)
+            ? treedata.children.map((node) => (
+                <li>
+                  <div className="flex">
+                    {node.id === "root" ? (
+                      <></>
+                    ) : node.children ? (
+                      <FolderIcon
+                        sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
+                      />
+                    ) : (
+                      <FileIcon
+                        sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
+                      />
+                    )}
+                    <div className="ml-1 text-[14px] font-medium text-[#212121] relative group">
+                      {node.label && node.label.toString()?.length > 15 ? (
+                        <div className="relative">
+                          {node.label.toString().substring(0, 20) + "..."}
+                        </div>
+                      ) : (
+                        node.label
+                      )}
+                    </div>
+                  </div>
+                  {rendertree(props, node)}
+                </li>
+              ))
+            : null}
+        </ul>
+      );
+    }
+
     return (
       <div className="w-full">
         <div
@@ -38,106 +81,12 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
             style={{
               float: "left",
               marginLeft: "0px",
-              border: "none",
-              outline: "none",
-              overflowX: "hidden",
-              color: "#212121",
             }}
             onDragStart={this.dragStartTreeA}
             onDragEnd={this.dragEndTreeA}
             dragStart={this.dragStart}
           >
-            <ul>
-              {/* <li>
-                <div className="  flex">
-                  <img
-                    src="/image/FMListfileIcon.svg"
-                    className="w-[18px] h-[18px]"
-                    alt="folder icon"
-                  />
-                  <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                    AAaaaaaaaaajjjajfffffkjjkjaaaa
-                  </div>
-                </div>
-              </li> */}
-              <li className="">
-                <div className="flex  ">
-                  <img
-                    src="/image/FMFolderIcon.svg"
-                    className="w-[18px] h-[18px]"
-                    alt="folder icon"
-                  />
-                  <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                    BBbbbbbbbbbbbbbbbbbb
-                  </div>
-                </div>
-                {/* <ul className="">
-                  <li className="">
-                    <div className="flex  ">
-                      <img
-                        src="/image/FMListfileIcon.svg"
-                        className="w-[18px] h-[18px]"
-                        alt="folder icon"
-                      />
-                      <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                        cccccccccccccccccccccccccccccc
-                      </div>
-                    </div>
-                  </li>
-                </ul> */}
-              </li>
-              {/* <li className="">
-                <div className="flex  ">
-                  <img
-                    src="/image/FMListfileIcon.svg"
-                    className="w-[18px] h-[18px]"
-                    alt="folder icon"
-                  />
-                  <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                    dddddddddddddddddddddddddddddd
-                  </div>
-                </div>
-              </li> */}
-
-              <li className="">
-                <div className="flex  ">
-                  <img
-                    src="/image/FMFolderIcon.svg"
-                    className="w-[18px] h-[18px]"
-                    alt="folder icon"
-                  />
-                  <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                    eeeeeeeeeeeeeeeeeeeeee
-                  </div>
-                </div>
-                {/* <ul className="">
-                  <li className="">
-                    <div className="flex  ">
-                      <img
-                        src="/image/FMListfileIcon.svg"
-                        className="w-[18px] h-[18px]"
-                        alt="folder icon"
-                      />
-                      <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                        gggggggggggggggggggggggggggg
-                      </div>
-                    </div>
-                  </li>
-                </ul> */}
-              </li>
-              {/* <li className="">
-                <div className="flex  ">
-                  <img
-                    src="/image/FMListfileIcon.svg"
-                    className="w-[18px] h-[18px]"
-                    alt="folder icon"
-                  />
-                  <div className="ml-2 max-w-[120px] overflow-hidden truncate">
-                    fffffffffffffffffffffffffffffffffffff
-                  </div>
-                </div>
-              </li> */}
-            </ul>
+            {rendertree(this.props, this.props.treeData)}
           </JqxTree>
           <div
             style={{

@@ -122,7 +122,7 @@ function formatFileSize(fileSizeInBytes) {
     unitIndex++;
   }
 
-  return `${size.toFixed(2)} ${units[unitIndex]}`;
+  return `${size?.toFixed(2)} ${units[unitIndex]}`;
 }
 
 let rows = [];
@@ -324,7 +324,7 @@ function NameCell(params) {
         onClose={handleCloseMoveToModal}
       >
         <div className="w-full h-full flex justify-center items-center">
-          <div className="w-[350px] h-[250px] bg-white shadow-lg rounded-lg flex flex-col items-center">
+          <div className="w-[700px] h-[500px] bg-white shadow-lg rounded-lg flex flex-col items-center">
             <div
               className="w-full px-10 mt-5 text-lg font-medium flex gap-2 border-b-[1px] border-[#DEE0E4]
               items-center
