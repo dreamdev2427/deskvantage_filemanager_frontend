@@ -20,6 +20,7 @@ import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
+import FMTreeSideBar from "./FMTreeSideBar";
 
 const months = {
   1: "Jan",
@@ -327,6 +328,9 @@ function NameCell(params) {
             >
               <MdDriveFileMoveOutline />
               <div className="">Move To</div>
+            </div>
+            <div className="w-full h-full overflow-auto">
+              <FMTreeSideBar />
             </div>
             <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
               <button

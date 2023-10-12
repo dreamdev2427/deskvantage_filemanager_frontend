@@ -48,7 +48,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
             dragStart={this.dragStart}
           >
             <ul>
-              <li>
+              {/* <li>
                 <div className="  flex">
                   <img
                     src="/image/FMListfileIcon.svg"
@@ -59,7 +59,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                     AAaaaaaaaaajjjajfffffkjjkjaaaa
                   </div>
                 </div>
-              </li>
+              </li> */}
               <li className="">
                 <div className="flex  ">
                   <img
@@ -71,7 +71,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                     BBbbbbbbbbbbbbbbbbbb
                   </div>
                 </div>
-                <ul className="">
+                {/* <ul className="">
                   <li className="">
                     <div className="flex  ">
                       <img
@@ -84,9 +84,9 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                       </div>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="flex  ">
                   <img
                     src="/image/FMListfileIcon.svg"
@@ -97,7 +97,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                     dddddddddddddddddddddddddddddd
                   </div>
                 </div>
-              </li>
+              </li> */}
 
               <li className="">
                 <div className="flex  ">
@@ -110,7 +110,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                     eeeeeeeeeeeeeeeeeeeeee
                   </div>
                 </div>
-                <ul className="">
+                {/* <ul className="">
                   <li className="">
                     <div className="flex  ">
                       <img
@@ -123,9 +123,9 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                       </div>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </li>
-              <li className="">
+              {/* <li className="">
                 <div className="flex  ">
                   <img
                     src="/image/FMListfileIcon.svg"
@@ -136,7 +136,7 @@ class TreeView extends React.PureComponent<{}, ITreeProps> {
                     fffffffffffffffffffffffffffffffffffff
                   </div>
                 </div>
-              </li>
+              </li> */}
             </ul>
           </JqxTree>
           <div
