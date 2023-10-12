@@ -18,6 +18,7 @@ import { RiUserSharedLine } from "react-icons/ri";
 import { MdDriveFileMoveOutline } from "react-icons/md";
 import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
+import Modal from "@mui/material/Modal";
 
 const months = {
   1: "Jan",
@@ -135,74 +136,169 @@ const fillRows = () => {
 
 fillRows();
 
-function NameCell(props) {
+function NameCell(params) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openNoteModal, setOpenNoteModal] = useState(false);
+  const [noteString, setNoteString] = useState("");
+  const maxLengthOfNote = 4000;
 
-  const handleContextMenu = (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
     setOpen(false);
   };
 
+  const handleClickNoteMenu = (event) => {
+    event.preventDefault();
+
+    setOpen(false);
+    console.log("event.currentTarget >>>> ", event.currentTarget);
+    setOpenNoteModal(true);
+  };
+
+  const handleCloseNoteModal = () => {
+    setOpenNoteModal(false);
+  };
+
   return (
-    <div onContextMenu={handleContextMenu}>
+    <div>
+      <button onClick={handleClick} className="h-100% w-max">
+        <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
+      </button>
       <Popup
+        id={`parentMenu_${params.id}`}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
       >
         <div className="flex flex-col gap-1 text-sm font-medium">
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`download_${params.id}`}
+          >
             <AiOutlineDownload />
             Download
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`rename_${params.id}`}
+          >
             <MdOutlineDriveFileRenameOutline />
             Rename
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`tagMenu_${params.id}`}
+          >
             <BiPurchaseTagAlt />
-            Tag
+            <div className="" id={`tagButton_${params.id}`}>
+              Tag
+            </div>
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] ">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] "
+            id={`copy_${params.id}`}
+          >
             <MdOutlineContentCopy />
             Copy
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`addNote_${params.id}`}
+            onClick={handleClickNoteMenu}
+          >
             <LuStickyNote />
             Add Note
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`share_${params.id}`}
+          >
             <RiUserSharedLine />
             Share
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            id={`move_${params.id}`}
+          >
             <MdDriveFileMoveOutline />
             Move
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] ">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] "
+            id={`fileInfo_${params.id}`}
+          >
             <GrCircleInformation />
             File information
           </div>
-          <div className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] ">
+          <div
+            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] "
+            id={`delete_${params.id}`}
+          >
             <TfiTrash />
             Delete
           </div>
         </div>
       </Popup>
+      <Modal
+        id={`tagPopup_${params.id}`}
+        open={openNoteModal}
+        onClose={handleCloseNoteModal}
+        className=""
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="w-[350px] h-[250px] bg-white shadow-lg rounded-lg flex flex-col items-center">
+            <div
+              className="w-full px-10 mt-5 text-lg font-medium flex gap-2 border-b-[1px] border-[#DEE0E4]
+              items-center
+            "
+            >
+              <LuStickyNote />
+              <div className="">Add Note</div>
+            </div>
+            <textarea
+              maxLength={maxLengthOfNote}
+              type="text"
+              className="w-9/12 mt-5 p-1 h-full border-black rounded-md border-[1px]"
+              value={noteString}
+              onChange={(e) => setNoteString(e.target.value)}
+            ></textarea>
+            <div className="flex w-9/12 justify-between mt-2 mb-5">
+              <div className="">
+                {noteString?.length}/{maxLengthOfNote}
+              </div>
+              <button
+                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                onClick={() => handleCloseNoteModal()}
+              >
+                Save Note
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -218,7 +314,7 @@ const FMMiddlePanel = () => {
         const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
 
         return (
-          <div className="flex gap-2">
+          <div className="flex gap-2 ">
             {fileExtension === "png" ? (
               <ImageIcon sx={{ fill: "#4489fe" }} />
             ) : fileExtension === "zip" ? (
@@ -287,11 +383,8 @@ const FMMiddlePanel = () => {
         return (
           <div className="flex justify-between min-w-[150px]">
             <div className="">{params.value}</div>
-            <div className="flex gap-2">
-              <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
 
-              <NameCell {...params} />
-            </div>
+            <NameCell {...params} />
           </div>
         );
       },

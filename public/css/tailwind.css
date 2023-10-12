@@ -134,7 +134,9 @@ display: none !important;
 .MuiDataGrid-cell:focus, .MuiDataGrid-columnHeader, .MuiDataGrid-cell:focus-within {
 outline: none !important;
 }
-
+.MuiDataGrid-cell {
+  overflowX: hidden !important;
+}
 
 .MuiDataGrid-iconSeparator{
 display: none !important;
@@ -162,4 +164,9 @@ li.MuiTreeItem-root{
 } 
 .MuiTreeItem-content.Mui-selected {
   backgroundColor: rgba(25, 118, 210, 0.08) !important;
+}
+
+body {
+  margin:0 !important;
+  padding:0 !important;
 }
