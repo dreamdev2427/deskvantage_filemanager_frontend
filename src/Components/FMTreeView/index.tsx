@@ -24,10 +24,6 @@ const TreeView = (props) => {
                 key={node.id}
                 onClick={(event) => {
                   event.stopPropagation();
-                  console.log(
-                    "treeview handleclicknode  nodeid >>>> ",
-                    node.id
-                  );
                   handleClickNode(event, node.id);
                 }}
               >
