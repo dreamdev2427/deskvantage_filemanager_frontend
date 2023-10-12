@@ -19,6 +19,7 @@ import { MdDriveFileMoveOutline } from "react-icons/md";
 import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
 import Modal from "@mui/material/Modal";
+import Rating from "@mui/material/Rating";
 
 const months = {
   1: "Jan",
@@ -140,6 +141,8 @@ function NameCell(params) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNoteModal, setOpenNoteModal] = useState(false);
+  const [openMoveToModal, setOpenMoveToModal] = useState(false);
+  const [openTagModal, setOpenTagModal] = useState(false);
   const [noteString, setNoteString] = useState("");
   const maxLengthOfNote = 4000;
 
@@ -156,14 +159,32 @@ function NameCell(params) {
 
   const handleClickNoteMenu = (event) => {
     event.preventDefault();
-
     setOpen(false);
-    console.log("event.currentTarget >>>> ", event.currentTarget);
     setOpenNoteModal(true);
   };
 
   const handleCloseNoteModal = () => {
     setOpenNoteModal(false);
+  };
+
+  const handleClickMoveToMenu = (event) => {
+    event.preventDefault();
+    setOpen(false);
+    setOpenMoveToModal(true);
+  };
+
+  const handleCloseMoveToModal = () => {
+    setOpenMoveToModal(false);
+  };
+
+  const handleClickTagMenu = (event) => {
+    event.preventDefault();
+    setOpen(false);
+    setOpenTagModal(true);
+  };
+
+  const handleCloseTagModal = () => {
+    setOpenTagModal(false);
   };
 
   return (
@@ -203,6 +224,7 @@ function NameCell(params) {
           <div
             className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
             id={`tagMenu_${params.id}`}
+            onClick={(e) => handleClickTagMenu(e)}
           >
             <BiPurchaseTagAlt />
             <div className="" id={`tagButton_${params.id}`}>
@@ -219,7 +241,7 @@ function NameCell(params) {
           <div
             className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
             id={`addNote_${params.id}`}
-            onClick={handleClickNoteMenu}
+            onClick={(e) => handleClickNoteMenu(e)}
           >
             <LuStickyNote />
             Add Note
@@ -234,6 +256,7 @@ function NameCell(params) {
           <div
             className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
             id={`move_${params.id}`}
+            onClick={(e) => handleClickMoveToMenu(e)}
           >
             <MdDriveFileMoveOutline />
             Move
@@ -255,18 +278,9 @@ function NameCell(params) {
         </div>
       </Popup>
       <Modal
-        id={`tagPopup_${params.id}`}
+        id={`notePopup_${params.id}`}
         open={openNoteModal}
         onClose={handleCloseNoteModal}
-        className=""
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
         <div className="w-full h-full flex justify-center items-center">
           <div className="w-[350px] h-[250px] bg-white shadow-lg rounded-lg flex flex-col items-center">
@@ -294,6 +308,73 @@ function NameCell(params) {
                 onClick={() => handleCloseNoteModal()}
               >
                 Save Note
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        id={`move2Popup_${params.id}`}
+        open={openMoveToModal}
+        onClose={handleCloseMoveToModal}
+      >
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="w-[350px] h-[250px] bg-white shadow-lg rounded-lg flex flex-col items-center">
+            <div
+              className="w-full px-10 mt-5 text-lg font-medium flex gap-2 border-b-[1px] border-[#DEE0E4]
+              items-center
+            "
+            >
+              <MdDriveFileMoveOutline />
+              <div className="">Move To</div>
+            </div>
+            <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
+              <button
+                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                onClick={() => handleCloseMoveToModal()}
+              >
+                Save
+              </button>
+              <button
+                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                onClick={() => handleCloseMoveToModal()}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        id={`tagPopup_${params.id}`}
+        open={openTagModal}
+        onClose={handleCloseTagModal}
+      >
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="w-[350px] h-[250px] bg-white shadow-lg rounded-lg flex flex-col items-center">
+            <div
+              className="w-full px-10 mt-5 text-lg font-medium flex gap-2 border-b-[1px] border-[#DEE0E4]
+              items-center
+            "
+            >
+              <BiPurchaseTagAlt />
+              <div className="">Add Tag</div>
+            </div>
+            <div className="w-full h-full flex justify-center items-center">
+              <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+            </div>
+            <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
+              <button
+                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                onClick={() => handleCloseTagModal()}
+              >
+                Save
+              </button>
+              <button
+                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                onClick={() => handleCloseTagModal()}
+              >
+                Cancel
               </button>
             </div>
           </div>
