@@ -30,16 +30,20 @@
     border-radius: 4px;
     background-color: transparent;
     opacity:0.9;
+    
+  width: 8px;
 }
 
 .leftsidebar::-webkit-scrollbar-thumb, .rightsidebar::-webkit-scrollbar-thumb {
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    background: transparent;    
+    background: #bbb;    
+    width: 8px;
 }
 
 .leftsidebar::-webkit-scrollbar-thumb:hover, .rightsidebar::-webkit-scrollbar-thumb:hover {
-  background: #AAA;
+  background: #aaa;
+  width: 12px;
 }
 
 .leftsidebar::-webkit-scrollbar-track:hover, .rightsidebar::-webkit-scrollbar-track:hover{
@@ -47,6 +51,8 @@
   border-color: #EEE;
   opacity: 0;
   border-radius: 6px;
+  
+  width: 12px;
 }
 
 .scrollPaddingRight {

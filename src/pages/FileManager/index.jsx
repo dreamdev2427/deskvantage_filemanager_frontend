@@ -328,9 +328,6 @@ const MainLyt = () => {
           <FMTreeSideBar
             showOrHide={(showLeftSideBar || showLeftBarOnMobile) === true}
           />
-          {/* <FMMuiTreeSideBar
-            showOrHide={(showLeftSideBar || showLeftBarOnMobile) === true}
-          /> */}
           <div
             className="w-1 border-l-2 cursor-col-resize border-blue-gray-50 "
             onMouseDown={leftSidebarMouseDown}

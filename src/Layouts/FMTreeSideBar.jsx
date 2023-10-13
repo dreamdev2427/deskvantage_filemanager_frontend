@@ -25,7 +25,7 @@ const FMTreeSideBar = (props) => {
 
   return (
     <div
-      className={`w-full flex-col pl-4 relative   ${
+      className={`w-full flex-col relative   ${
         showOrHide === true ? "pl-4 flex relative" : "pl-0 hidden"
       }`}
     >
@@ -94,7 +94,7 @@ const FMTreeSideBar = (props) => {
           </div>
         )}
       </div>
-      <div className="absolute  bottom-0 right-0 left-5 top-0 flex flex-col  mt-3 leftsidebar h-[calc(100vh-160px)] overflow-auto">
+      <div className="absolute  bottom-0 right-0 left-5 top-0 flex flex-col  mt-3 leftsidebar h-[calc(100vh-160px)] hover: overflow-y-auto">
         <div className="text-[#212121] mt-5  font-bold">Directory</div>
 
         <FMTreeView
