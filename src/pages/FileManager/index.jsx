@@ -205,9 +205,9 @@ const MainLyt = () => {
           Site
         </Typography>
         <NavigateNextIcon fontSize="small" className="ml-2" />
-        {pathToSelectedNode && pathToSelectedNode.length <= 6 ? (
+        {pathToSelectedNode && pathToSelectedNode.length <= 4 ? (
           <Breadcrumbs
-            maxItems={6}
+            maxItems={4}
             aria-label="breadcrumb"
             className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
             separator={<NavigateNextIcon fontSize="small" />}
@@ -287,14 +287,14 @@ const MainLyt = () => {
           <div className="flex flex-start">
             <div className="font-bold mx-2 ">...</div>
             <Breadcrumbs
-              maxItems={6}
+              maxItems={4}
               aria-label="breadcrumb"
               className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
               separator={<NavigateNextIcon fontSize="small" />}
             >
               {pathToSelectedNode &&
-                pathToSelectedNode.slice(-6).map((value, index) => {
-                  const last = index === 5;
+                pathToSelectedNode.slice(-4).map((value, index) => {
+                  const last = index === 3;
 
                   return last ? (
                     <Typography color="text.primary" key={index} className={``}>
