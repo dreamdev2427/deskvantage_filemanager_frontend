@@ -152,6 +152,7 @@ function NameCell(params) {
   const maxLengthOfNote = 4000;
 
   const handleClick = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
