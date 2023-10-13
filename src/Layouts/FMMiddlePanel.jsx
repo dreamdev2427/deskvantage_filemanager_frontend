@@ -391,7 +391,7 @@ function NameCell(params) {
 
 const FMMiddlePanel = () => {
   const [uploadingRowIds, setUploadingRowIds] = useState([]);
-  const apiRef = useRef();
+  const apiRef = useRef(null);
   const divOfTableRef = useRef(null);
   const [divWidth, setDivWidth] = useState(1000);
   const [tableRows, setTableRows] = useState(rows);

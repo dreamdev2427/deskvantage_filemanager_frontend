@@ -228,7 +228,7 @@ const MainLyt = () => {
                   </button>
                   <Popup
                     id={`fmBreadcrumbPopup_${value.id}`}
-                    open={showBreadcrumbDropdown[value.id]}
+                    open={showBreadcrumbDropdown[value.id] || false}
                     anchorEl={anchorEl[value.id]}
                     onClose={(e) => handleClose(e, value.id)}
                     anchorOrigin={{
@@ -312,7 +312,7 @@ const MainLyt = () => {
                       </button>
                       <Popup
                         id={`fmBreadcrumbPopup_${value.id}`}
-                        open={showBreadcrumbDropdown[value.id]}
+                        open={showBreadcrumbDropdown[value.id] || false}
                         anchorEl={anchorEl[value.id]}
                         onClose={(e) => handleClose(e, value.id)}
                         anchorOrigin={{
