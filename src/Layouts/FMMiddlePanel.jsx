@@ -741,14 +741,10 @@ const FMMiddlePanel = () => {
           isDragActive ? "bg-gray-200" : "white"
         }`}
         {...getRootProps()}
-        onClick={(e) => e.preventDefault()}
       >
         <DataGrid
           rows={tableRows}
           columns={columns}
-          onCellClick={(e) => {
-            console.log("e >>> ", e);
-          }}
           checkboxSelection={true}
           rowSelection={true}
           rowSelectionModel={selectedRows}
