@@ -422,7 +422,7 @@ const FMMiddlePanel = () => {
       const fileSize = files[i].size;
 
       // generate a random id for the new row
-      const id = tableRows.length + 1; //  Math.floor(Math.random() * 100000);
+      const id = Math.floor(Math.random() * 100000);
       setUploadingRowIds(
         uploadingRowIds?.includes(id) === true
           ? uploadingRowIds
@@ -480,8 +480,10 @@ const FMMiddlePanel = () => {
         xhrMap.current.set(id, xhr);
 
         setTimeout(() => {
-          apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
-          setIsDragActive(false);
+          if (apiRef.current) {
+            apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
+            setIsDragActive(false);
+          }
         }, 3000);
       }
     }
