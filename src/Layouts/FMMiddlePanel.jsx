@@ -191,7 +191,7 @@ function NameCell(params) {
 
   return (
     <div>
-      <button onClick={handleClick} className="h-100% w-max">
+      <button onClick={handleClick} className=" w-max">
         <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
       </button>
       <Popup

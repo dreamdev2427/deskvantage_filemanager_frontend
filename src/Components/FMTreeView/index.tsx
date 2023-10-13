@@ -8,6 +8,19 @@ import FileIcon from "@mui/icons-material/FilePresent";
 const TreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    console.log("event >>>> ", event);
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpen(false);
+  };
 
   const handleClickNode = (event, nodeid) => {
     props.handleSelect(event, nodeid);
@@ -37,10 +50,13 @@ const TreeView = (props) => {
                       sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
                     />
                   )}
-                  <div className="ml-1 text-[14px] font-medium text-[#212121] relative group">
+                  <div className="ml-1 text-[14px] font-medium text-[#212121] ">
                     {node.label && node.label.toString()?.length > 15 ? (
-                      <div className="relative">
+                      <div className="relative group">
                         {node.label.toString().substring(0, 20) + "..."}
+                        <div className="hidden group-hover:block left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white">
+                          {node.label}
+                        </div>
                       </div>
                     ) : (
                       node.label

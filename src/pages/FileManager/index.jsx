@@ -32,6 +32,7 @@ import {
   setPathToSelectedNode,
   setSelectedNode,
 } from "../../redux-toolkit/reducers/TreeView";
+import Popup from "@mui/material/Popover";
 
 const MainLyt = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const MainLyt = () => {
   const [showBreadcrumbDropdown, setShowBreadCrumbDropdown] = useState({});
   const isNowLeftResizing = useRef(false);
   const isNowRightResizing = useRef(false);
+  const [anchorEl, setAnchorEl] = useState({});
 
   const handleBreadcrumbClick = (nodeId) => {
     let temp = showBreadcrumbDropdown;
@@ -166,6 +168,32 @@ const MainLyt = () => {
     isNowRightResizing.current = true;
   };
 
+  const handleClick = (event, nodeId) => {
+    let temp = anchorEl;
+    temp = { ...temp, [nodeId]: event.currentTarget };
+    let keys = Object.keys(temp);
+    keys.forEach((key) => {
+      if (key !== nodeId) {
+        temp[key] = false;
+      }
+    });
+    setAnchorEl(temp);
+    handleBreadcrumbClick(nodeId);
+  };
+
+  const handleClose = (event, nodeId) => {
+    let temp = anchorEl;
+    temp = { ...temp, [nodeId]: null };
+    let keys = Object.keys(temp);
+    keys.forEach((key) => {
+      if (key !== nodeId) {
+        temp[key] = false;
+      }
+    });
+    setAnchorEl(temp);
+    handleBreadcrumbClick(nodeId);
+  };
+
   return (
     <div className="h-full ">
       <NavBar />
@@ -177,9 +205,9 @@ const MainLyt = () => {
           Site
         </Typography>
         <NavigateNextIcon fontSize="small" className="ml-2" />
-        {pathToSelectedNode && pathToSelectedNode.length <= 3 ? (
+        {pathToSelectedNode && pathToSelectedNode.length <= 6 ? (
           <Breadcrumbs
-            maxItems={3}
+            maxItems={6}
             aria-label="breadcrumb"
             className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
             separator={<NavigateNextIcon fontSize="small" />}
@@ -192,15 +220,28 @@ const MainLyt = () => {
                   {value?.label}
                 </Typography>
               ) : (
-                <div
-                  key={index}
-                  className={`relative  `}
-                  onClick={() => handleBreadcrumbClick(!value.id)}
-                >
-                  {value?.label}
-                  {showBreadcrumbDropdown[value.id] === true && (
+                <div key={index}>
+                  <button key={index} onClick={(e) => handleClick(e, value.id)}>
+                    {value?.label?.toString()?.length > 20
+                      ? value?.label?.toString().substring(0, 20) + "..."
+                      : value?.label}
+                  </button>
+                  <Popup
+                    id={`fmBreadcrumbPopup_${value.id}`}
+                    open={showBreadcrumbDropdown[value.id]}
+                    anchorEl={anchorEl[value.id]}
+                    onClose={(e) => handleClose(e, value.id)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
                     <div
-                      className="flex absolute z-31 w-max px-4 py-4 h-max  left-[50%]
+                      className="flex w-max px-4 py-4 h-max  left-[50%]
                     bg-white flex-col gap-1
                     border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
                     max-h-[200px] overflow-y-auto
@@ -211,7 +252,10 @@ const MainLyt = () => {
                           <div
                             key={index}
                             className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                            onClick={() => dispatch(setSelectedNode(item.id))}
+                            onClick={() => {
+                              handleClose(null, item.id);
+                              dispatch(setSelectedNode(item.id));
+                            }}
                           >
                             {item.children ? (
                               <FolderIcon
@@ -234,7 +278,7 @@ const MainLyt = () => {
                           </div>
                         ))}
                     </div>
-                  )}
+                  </Popup>
                 </div>
               );
             })}
@@ -243,32 +287,48 @@ const MainLyt = () => {
           <div className="flex flex-start">
             <div className="font-bold mx-2 ">...</div>
             <Breadcrumbs
-              maxItems={3}
+              maxItems={6}
               aria-label="breadcrumb"
               className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
               separator={<NavigateNextIcon fontSize="small" />}
             >
               {pathToSelectedNode &&
-                pathToSelectedNode.slice(-3).map((value, index) => {
-                  const last = index === 2;
+                pathToSelectedNode.slice(-6).map((value, index) => {
+                  const last = index === 5;
 
                   return last ? (
                     <Typography color="text.primary" key={index} className={``}>
                       {value?.label}
                     </Typography>
                   ) : (
-                    <div
-                      key={index}
-                      className={`relative  `}
-                      onClick={() => handleBreadcrumbClick(value.id)}
-                    >
-                      {value?.label}
-                      {showBreadcrumbDropdown[value.id] === true && (
+                    <div key={index}>
+                      <button
+                        key={index}
+                        onClick={(e) => handleClick(e, value.id)}
+                      >
+                        {value?.label?.toString()?.length > 20
+                          ? value?.label?.toString().substring(0, 20) + "..."
+                          : value?.label}
+                      </button>
+                      <Popup
+                        id={`fmBreadcrumbPopup_${value.id}`}
+                        open={showBreadcrumbDropdown[value.id]}
+                        anchorEl={anchorEl[value.id]}
+                        onClose={(e) => handleClose(e, value.id)}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
+                      >
                         <div
-                          className="absolute z-31 w-max px-4 py-4 h-max left-[50%]
+                          className="flex w-max px-4 py-4 h-max  left-[50%]
                         bg-white flex-col gap-1
                         border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        flex max-h-[200px] overflow-y-auto
+                        max-h-[200px] overflow-y-auto
                         "
                         >
                           {findChildren(treeData, value.id)?.length > 0 &&
@@ -277,9 +337,10 @@ const MainLyt = () => {
                                 <div
                                   key={index}
                                   className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                                  onClick={() =>
-                                    dispatch(setSelectedNode(item.id))
-                                  }
+                                  onClick={() => {
+                                    handleClose(null, item.id);
+                                    dispatch(setSelectedNode(item.id));
+                                  }}
                                 >
                                   {item.children ? (
                                     <FolderIcon
@@ -303,7 +364,7 @@ const MainLyt = () => {
                               )
                             )}
                         </div>
-                      )}
+                      </Popup>
                     </div>
                   );
                 })}
