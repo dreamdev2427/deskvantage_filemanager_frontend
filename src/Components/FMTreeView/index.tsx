@@ -111,6 +111,17 @@ const TreeView = (props) => {
     onDragEnd(event);
   };
 
+  const myTreeOnExpand = (event: any) => {
+    const args = event.args;
+    const item = treeA.current!.getItem(args.element);
+    console.log(treeA.current!.val().isExpanded);
+    if (treeA.current!.val().isExpanded === false) {
+      treeA.current!.expandItem(item);
+    } else {
+      treeA.current!.collapseItem(item);
+    }
+  };
+
   return (
     <div className="w-full">
       <div
@@ -122,6 +133,7 @@ const TreeView = (props) => {
         }}
       >
         <JqxTree
+          onSelect={myTreeOnExpand}
           theme={"material-purple"}
           ref={treeA}
           style={{

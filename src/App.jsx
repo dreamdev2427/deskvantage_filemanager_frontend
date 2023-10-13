@@ -35,7 +35,7 @@ function App() {
   return (
     <StrictMode>
       <Provider store={store}>
-        <div className={`${isPreventSelect ? "select-none" : ""} w-full`}>
+        <div className={`${isPreventSelect ? "select-none" : ""} w-full `}>
           {pages}
         </div>
         <div

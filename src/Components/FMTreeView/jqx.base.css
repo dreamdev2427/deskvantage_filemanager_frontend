@@ -1502,7 +1502,7 @@ input[type=submit].jqx-button {
 }
 
 .jqx-tree-dropdown-rtl {
-    padding: 3px 0px 0px 0px;
+    padding: 5px 0px 0px 0px;
     text-align: right;
 }
 
@@ -2575,7 +2575,7 @@ of the horizontal scrollbar.*/
 /*applied to a list item in default state.*/
 .jqx-listitem-state-normal {
     white-space: nowrap;
-    padding: 3px;
+    padding: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     border: 1px solid transparent;
@@ -2594,7 +2594,7 @@ of the horizontal scrollbar.*/
 .jqx-listitem-state-hover {
     white-space: nowrap;
     background: transparent;
-    padding: 3px 3px 3px 3px;
+    padding: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     border: 1px solid transparent;
@@ -2603,7 +2603,7 @@ of the horizontal scrollbar.*/
 /*applied to a list item when the item is selected.*/
 .jqx-listitem-state-selected {
     white-space: nowrap;
-    padding: 3px 3px 3px 3px;
+    padding: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     border: 1px solid transparent;
@@ -2789,7 +2789,7 @@ of the horizontal scrollbar.*/
 }
 
 .jqx-select-item {
-    padding: 3px;
+    padding: 5px;
     margin: 1px;
     white-space: normal !important;
     cursor: default;
@@ -7053,7 +7053,7 @@ ol li .jqx-listmenu-item-label:before {
 }
 
 .jqx-tag-cloud-item {
-    padding: 3px;
+    padding: 5px;
     display: inline-block;
 }
 

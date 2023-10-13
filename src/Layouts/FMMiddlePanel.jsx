@@ -152,7 +152,6 @@ function NameCell(params) {
   const maxLengthOfNote = 4000;
 
   const handleClick = (event) => {
-    event.preventDefault();
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
@@ -163,7 +162,6 @@ function NameCell(params) {
   };
 
   const handleClickNoteMenu = (event) => {
-    event.preventDefault();
     setOpen(false);
     setOpenNoteModal(true);
   };
@@ -173,7 +171,6 @@ function NameCell(params) {
   };
 
   const handleClickMoveToMenu = (event) => {
-    event.preventDefault();
     setOpen(false);
     setOpenMoveToModal(true);
   };
@@ -397,6 +394,7 @@ const FMMiddlePanel = () => {
   const apiRef = useRef();
   const divOfTableRef = useRef(null);
   const [divWidth, setDivWidth] = useState(1000);
+  const [tableRows, setTableRows] = useState(rows);
   const { leftSidebarWidth, rightSidebarWidth } = useSelector(
     (state) => state.sidebar
   );
@@ -425,7 +423,7 @@ const FMMiddlePanel = () => {
       const fileSize = files[i].size;
 
       // generate a random id for the new row
-      const id = Math.floor(Math.random() * 100000);
+      const id = tableRows.length + 1; //  Math.floor(Math.random() * 100000);
       setUploadingRowIds(
         uploadingRowIds?.includes(id) === true
           ? uploadingRowIds
@@ -433,9 +431,9 @@ const FMMiddlePanel = () => {
       );
       // create a new row object with the file name, size, and upload progress
       const newRow = {
-        id,
+        id: id,
         FileName: fileName,
-        LastUpdated: generateRandomDate(),
+        LastUpdated: new Date(),
         Size: fileSize,
         PlayLength: generateRandomDate(),
         uploadProgress: 0,
@@ -444,6 +442,7 @@ const FMMiddlePanel = () => {
       const xhr = new XMLHttpRequest();
       if (apiRef.current) {
         // add the new row to the data grid using the API
+        setTableRows((prevRows) => [newRow, ...prevRows]);
         apiRef.current.updateRows([newRow]);
 
         // create a new XMLHttpRequest object
@@ -573,7 +572,12 @@ const FMMiddlePanel = () => {
                   />
                 )}
                 <LinearProgress
-                  sx={{ width: "100%", height: "20px", borderRadius: "20px" }}
+                  sx={{
+                    width: "100%",
+                    height: "16px",
+                    borderRadius: "14px",
+                    paddingLeft: "5px",
+                  }}
                   variant="determinate"
                   value={params.row.uploadProgress}
                 />
@@ -599,7 +603,7 @@ const FMMiddlePanel = () => {
       },
       renderCell: (params) => {
         return (
-          <div className="flex justify-between min-w-[150px]">
+          <div className="flex justify-between min-w-[150px] pr-[18px]">
             <div className="">{params.value}</div>
 
             <NameCell {...params} />
@@ -642,6 +646,8 @@ const FMMiddlePanel = () => {
       window.removeEventListener("mousemove", () => {});
     };
   }, []);
+
+  const [selectedRows, setSelectedRows] = useState([]);
 
   return (
     <div className="w-full flex flex-col ">
@@ -732,18 +738,24 @@ const FMMiddlePanel = () => {
         </div>
       </div>
       <div
-        className={`w-full px-4 flex justify-center  font-roboto mt-[60px] ${
-          isDragActive ? "bg-gray-200" : "bg-gray-100"
+        className={`w-full px-4 flex justify-center  font-roboto mt-[60px]  ${
+          isDragActive ? "bg-gray-200" : "white"
         }`}
         {...getRootProps()}
         onClick={(e) => e.preventDefault()}
       >
         <DataGrid
-          rows={rows}
+          rows={tableRows}
           columns={columns}
-          pageSize={rows.length + 1}
           checkboxSelection
-          hideFooterPagination
+          onSelectionModelChange={(ids) => {
+            const selectedIDs = new Set(ids);
+            const selectedRows = data.rows.filter((row) =>
+              selectedIDs.has(row.id)
+            );
+
+            setSelectedRows(selectedRows);
+          }}
           apiRef={apiRef}
           sx={{
             borderLeft: "none",
