@@ -1558,7 +1558,7 @@ input[type=submit].jqx-button {
 .jqx-tree-item-selected {
     color: inherit;
     right: 0;
-    padding: 3px;
+    padding: 5px;
     margin: 0px;
     list-style: none;
     left: 100%;

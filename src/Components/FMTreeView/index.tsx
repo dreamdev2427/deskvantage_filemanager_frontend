@@ -1,7 +1,5 @@
 import * as React from "react";
-import JqxTree, {
-  ITreeProps,
-} from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
+import JqxTree from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
 import "./jqx.base.css";
 import "./jqx.fluent.css";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -110,14 +108,6 @@ const TreeView = (props) => {
   };
 
   const dragEndTreeA = (event: Event) => {
-    onDragEnd(event);
-  };
-
-  const dragStartTreeB = (event: Event) => {
-    onDragStart(event);
-  };
-
-  const dragEndTreeB = (event: Event) => {
     onDragEnd(event);
   };
 

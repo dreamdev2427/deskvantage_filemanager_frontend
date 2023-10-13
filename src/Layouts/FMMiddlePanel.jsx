@@ -402,6 +402,7 @@ const FMMiddlePanel = () => {
   );
   // create a map for storing the XMLHttpRequest objects for each file upload
   const xhrMap = useRef(new Map());
+  const [isDragActive, setIsDragActive] = useState(false);
 
   // define a function that will cancel the upload and delete the row
   const cancelUpload = (id) => {
@@ -466,6 +467,9 @@ const FMMiddlePanel = () => {
             const percent = Math.round((event.loaded / event.total) * 100);
             // update the upload progress value using the API
             apiRef.current.updateRows([{ id, uploadProgress: percent }]);
+            if (event.loaded >= event.total) {
+              setIsDragActive(false);
+            }
           }
         });
 
@@ -479,13 +483,19 @@ const FMMiddlePanel = () => {
 
         setTimeout(() => {
           apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
+          setIsDragActive(false);
         }, 3000);
       }
     }
   }, []);
 
   // get the props and methods from the hook
-  const { getRootProps } = useDropzone({ onDrop, noClick: true });
+  const { getRootProps } = useDropzone({
+    onDrop,
+    noClick: true,
+    onDragEnter: () => setIsDragActive(true),
+    onDragLeave: () => setIsDragActive(false),
+  });
 
   const columns = [
     {
@@ -722,7 +732,9 @@ const FMMiddlePanel = () => {
         </div>
       </div>
       <div
-        className={`w-full px-4 flex justify-center  font-roboto mt-[60px] `}
+        className={`w-full px-4 flex justify-center  font-roboto mt-[60px] ${
+          isDragActive ? "bg-gray-200" : "bg-gray-100"
+        }`}
         {...getRootProps()}
         onClick={(e) => e.preventDefault()}
       >
@@ -737,6 +749,7 @@ const FMMiddlePanel = () => {
             borderLeft: "none",
             borderRight: "none",
             borderTop: "none",
+            backgroundColor: "transparent",
           }}
           components={{
             ColumnSortedAscendingIcon: () => (
