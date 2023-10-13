@@ -746,14 +746,14 @@ const FMMiddlePanel = () => {
         <DataGrid
           rows={tableRows}
           columns={columns}
-          checkboxSelection
-          onSelectionModelChange={(ids) => {
-            const selectedIDs = new Set(ids);
-            const selectedRows = data.rows.filter((row) =>
-              selectedIDs.has(row.id)
-            );
-
-            setSelectedRows(selectedRows);
+          onCellClick={(e) => {
+            console.log("e >>> ", e);
+          }}
+          checkboxSelection={true}
+          rowSelection={true}
+          rowSelectionModel={selectedRows}
+          onRowSelectionModelChange={(rowSelectionModel, details) => {
+            setSelectedRows(rowSelectionModel);
           }}
           apiRef={apiRef}
           sx={{
