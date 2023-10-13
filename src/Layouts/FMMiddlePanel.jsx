@@ -415,7 +415,6 @@ const FMMiddlePanel = () => {
   // define a callback function that will handle the dropped files
   const onDrop = useCallback((files) => {
     // do something with the files
-    console.log("onDrop  acceptedFiles >>>> ", files);
     // loop through each file
     for (let i = 0; i < files.length; i++) {
       // get the file name and size

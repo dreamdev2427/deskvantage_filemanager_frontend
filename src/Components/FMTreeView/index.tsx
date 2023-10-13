@@ -114,7 +114,9 @@ const TreeView = (props) => {
   const myTreeOnExpand = (event: any) => {
     const args = event.args;
     const item = treeA.current!.getItem(args.element);
-    console.log(treeA.current!.val().isExpanded);
+    // var k = "";
+    // for (var i in treeA.current) k += " " + i;
+    // alert(k);
     if (treeA.current!.val().isExpanded === false) {
       treeA.current!.expandItem(item);
     } else {
