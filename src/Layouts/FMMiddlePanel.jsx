@@ -19,7 +19,6 @@ import { RiUserSharedLine } from "react-icons/ri";
 import { MdDriveFileMoveOutline } from "react-icons/md";
 import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
-import { TiArrowUnsorted } from "react-icons/ti";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import { LinearProgress } from "@mui/material";
@@ -656,21 +655,9 @@ const FMMiddlePanel = () => {
       if (!divOfTableRef.current) return;
       updateDivWidth();
     });
-    window.addEventListener("click", (event) => {
-      // alert(event.clientX + ", " + event.clientY);
-      // alert(
-      //   document
-      //     .elementFromPoint(event.clientX, event.clientY)
-      //     .outerHTML.toString()
-      // );
-      // document
-      //   .elementFromPoint(event.clientX, event.clientY)
-      //   .parentElement.click();
-    });
 
     return () => {
       window.removeEventListener("mousemove", () => {});
-      window.addEventListener("click", () => {});
     };
   }, []);
 
@@ -800,8 +787,8 @@ const FMMiddlePanel = () => {
               width: "auto !important",
             },
           }}
+          sortingOrder={["asc", "desc"]}
           components={{
-            ColumnUnsortedIcon: () => <TiArrowUnsorted />,
             ColumnSortedAscendingIcon: () => (
               <img src={"/image/up.png"} className="w-4 h-4" alt="Ascending" />
             ),
