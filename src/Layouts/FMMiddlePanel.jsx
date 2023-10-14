@@ -589,7 +589,7 @@ const FMMiddlePanel = () => {
                 <LinearProgress
                   sx={{
                     width: "100%",
-                    height: "16px",
+                    height: "2px",
                     borderRadius: "14px",
                     paddingLeft: "5px",
                   }}

@@ -134,8 +134,10 @@ const TreeView = (props) => {
     // alert(k);
     if (treeA.current!.val().isExpanded === false) {
       treeA.current!.expandItem(item);
+      treeA.current!.selectItem(null);
     } else {
       treeA.current!.collapseItem(item);
+      treeA.current!.selectItem(null);
     }
   };
 
