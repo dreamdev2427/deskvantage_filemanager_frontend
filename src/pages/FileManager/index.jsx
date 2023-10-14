@@ -217,7 +217,9 @@ const MainLyt = () => {
 
               return last ? (
                 <Typography color="text.primary" key={index} className={``}>
-                  {value?.label}
+                  {value?.label?.toString()?.length > 20
+                    ? value?.label?.toString().substring(0, 20) + "..."
+                    : value?.label}
                 </Typography>
               ) : (
                 <div key={index}>
@@ -298,7 +300,9 @@ const MainLyt = () => {
 
                   return last ? (
                     <Typography color="text.primary" key={index} className={``}>
-                      {value?.label}
+                      {value?.label?.toString()?.length > 20
+                        ? value?.label?.toString().substring(0, 20) + "..."
+                        : value?.label}
                     </Typography>
                   ) : (
                     <div key={index}>
