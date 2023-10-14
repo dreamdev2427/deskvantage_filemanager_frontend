@@ -19,6 +19,7 @@ import { RiUserSharedLine } from "react-icons/ri";
 import { MdDriveFileMoveOutline } from "react-icons/md";
 import { GrCircleInformation } from "react-icons/gr";
 import { TfiTrash } from "react-icons/tfi";
+import { TiArrowUnsorted } from "react-icons/ti";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import { LinearProgress } from "@mui/material";
@@ -163,6 +164,7 @@ function NameCell(params) {
         .parentElement.click();
     }
   };
+
   const handleClick = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -543,7 +545,6 @@ const FMMiddlePanel = () => {
     {
       field: "PlayLength",
       headerName: "Length",
-      description: "This column shows play time length of file.",
       flex: 1,
       minWidth: 150,
       valueGetter: (params) => {
@@ -653,16 +654,32 @@ const FMMiddlePanel = () => {
   useEffect(() => {
     window.addEventListener("mousemove", function (e) {
       if (!divOfTableRef.current) return;
-
       updateDivWidth();
+    });
+    window.addEventListener("click", (event) => {
+      // alert(event.clientX + ", " + event.clientY);
+      // alert(
+      //   document
+      //     .elementFromPoint(event.clientX, event.clientY)
+      //     .outerHTML.toString()
+      // );
+      // document
+      //   .elementFromPoint(event.clientX, event.clientY)
+      //   .parentElement.click();
     });
 
     return () => {
       window.removeEventListener("mousemove", () => {});
+      window.addEventListener("click", () => {});
     };
   }, []);
 
   const [selectedRows, setSelectedRows] = useState([]);
+
+  const handleHeaderClick = (params) => {
+    console.log(`Clicked on header: ${params.field}`);
+    // Add your custom logic here
+  };
 
   return (
     <div className="w-full flex flex-col ">
@@ -763,8 +780,9 @@ const FMMiddlePanel = () => {
           columns={columns}
           checkboxSelection={true}
           rowSelection={true}
+          onHeaderClick={handleHeaderClick}
           rowSelectionModel={selectedRows}
-          onRowSelectionModelChange={(rowSelectionModel, details) => {
+          onRowSelectionModelChange={(rowSelectionModel) => {
             setSelectedRows(rowSelectionModel);
           }}
           apiRef={apiRef}
@@ -773,17 +791,26 @@ const FMMiddlePanel = () => {
             borderRight: "none",
             borderTop: "none",
             backgroundColor: "transparent",
+            ".MuiDataGrid-sortIcon": {
+              opacity: "inherit !important",
+            },
+            "& .MuiDataGrid-iconButtonContainer": {
+              marginLeft: "2px",
+              visibility: "visible !important",
+              width: "auto !important",
+            },
           }}
           components={{
+            ColumnUnsortedIcon: () => <TiArrowUnsorted />,
             ColumnSortedAscendingIcon: () => (
+              <img src={"/image/up.png"} className="w-4 h-4" alt="Ascending" />
+            ),
+            ColumnSortedDescendingIcon: () => (
               <img
                 src={"/image/down.png"}
                 className="w-4 h-4"
-                alt="Ascending"
+                alt="Descending"
               />
-            ),
-            ColumnSortedDescendingIcon: () => (
-              <img src={"/image/up.png"} className="w-4 h-4" alt="Descending" />
             ),
           }}
         />
