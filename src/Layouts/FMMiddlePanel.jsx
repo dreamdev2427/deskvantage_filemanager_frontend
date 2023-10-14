@@ -417,6 +417,13 @@ const FMMiddlePanel = () => {
   const xhrMap = useRef(new Map());
   const [isDragActive, setIsDragActive] = useState(false);
 
+  const [sortModel, setSortModel] = useState([
+    {
+      field: "LastUpdated",
+      sort: "desc",
+    },
+  ]);
+
   // define a function that will cancel the upload and delete the row
   const cancelUpload = (id) => {
     // get the XMLHttpRequest object from the map
@@ -753,7 +760,7 @@ const FMMiddlePanel = () => {
           </div>
         </div>
         <div className=" text-sm font-medium mr-4">
-          {/* {selectedRows?.length} items selected */}
+          {selectedRows?.length} items selected
         </div>
       </div>
       <div
@@ -788,6 +795,10 @@ const FMMiddlePanel = () => {
             },
           }}
           sortingOrder={["asc", "desc"]}
+          sortModel={sortModel}
+          onSortModelChange={(changedSortModel) => {
+            setSortModel(changedSortModel);
+          }}
           components={{
             ColumnSortedAscendingIcon: () => (
               <img src={"/image/up.png"} className="w-4 h-4" alt="Ascending" />
