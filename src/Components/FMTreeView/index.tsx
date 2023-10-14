@@ -8,22 +8,16 @@ import FileIcon from "@mui/icons-material/FilePresent";
 const TreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    console.log("event >>>> ", event);
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpen(false);
-  };
+  const [pressedNode, setPressedNode] = React.useState({});
 
   const handleClickNode = (event, nodeid) => {
     props.handleSelect(event, nodeid);
+    let temp = pressedNode;
+    temp = { ...temp, [nodeid]: !(temp[nodeid] || false) };
+    setPressedNode(temp);
+    setTimeout(() => {
+      setPressedNode({});
+    }, 5000);
   };
 
   const rendertree = (treedata) => {
@@ -54,7 +48,12 @@ const TreeView = (props) => {
                     {node.label && node.label.toString()?.length > 15 ? (
                       <div className="relative group">
                         {node.label.toString().substring(0, 20) + "..."}
-                        <div className="hidden group-hover:block left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white">
+
+                        <div
+                          className={`hidden group-hover:${
+                            pressedNode[node.id] !== true ? "block" : "hidden"
+                          } left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white`}
+                        >
                           {node.label}
                         </div>
                       </div>

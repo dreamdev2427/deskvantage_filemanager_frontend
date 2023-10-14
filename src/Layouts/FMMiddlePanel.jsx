@@ -151,15 +151,28 @@ function NameCell(params) {
   const [noteString, setNoteString] = useState("");
   const maxLengthOfNote = 4000;
 
+  const hidePresentation = (event) => {
+    if (
+      document
+        .elementFromPoint(event.clientX, event.clientY)
+        .outerHTML.toString()
+        .includes("/image/FMDotsIcon.svg") === true
+    ) {
+      document
+        .elementFromPoint(event.clientX, event.clientY)
+        .parentElement.click();
+    }
+  };
   const handleClick = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
     setAnchorEl(null);
     setOpen(false);
+    setTimeout(hidePresentation, 400, event);
   };
 
   const handleClickNoteMenu = (event) => {
