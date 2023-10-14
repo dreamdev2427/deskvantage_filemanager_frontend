@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FMTreeView from "../Components/FMTreeView";
 import { findPath, treeData } from "./FMMuiTreeSideBar";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +12,24 @@ const FMTreeSideBar = (props) => {
   const dispatch = useDispatch();
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [showOrHide, setShowOrHide] = useState(false);
+  const leftContainerRef = useRef(null);
 
   const handleSelect = (event, nodeId) => {
     const path = findPath(treeData, nodeId);
     dispatch(setSelectedNode(nodeId));
     dispatch(setPathToSelectedNode(path));
+  };
+
+  const handleMouseEnter = () => {
+    if (leftContainerRef.current) {
+      leftContainerRef.current.style.overflow = "auto";
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (leftContainerRef.current) {
+      leftContainerRef.current.style.overflow = "hidden";
+    }
   };
 
   useEffect(() => {
@@ -94,7 +107,12 @@ const FMTreeSideBar = (props) => {
           </div>
         )}
       </div>
-      <div className="absolute  bottom-0 right-0 left-5 top-0 flex flex-col  mt-3 leftsidebar h-[calc(100vh-160px)] hover: overflow-y-auto">
+      <div
+        className="absolute  bottom-0 right-0 left-5 top-0 flex flex-col  mt-3 leftsidebar h-[calc(100vh-160px)] hover: overflow-y-auto"
+        ref={leftContainerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className="text-[#212121] mt-5  font-bold">Directory</div>
 
         <FMTreeView

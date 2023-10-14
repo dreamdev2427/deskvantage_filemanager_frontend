@@ -180,3 +180,11 @@ body {
 .qx-tree-item-li-material-purple {
   margin-left: 26px !important;
 }
+
+.leftsidebar, .rightsidebar{
+  overflow: hidden;
+}
+
+.leftsidebar:hover, .rightsidebar: hover {
+  overflow: auto;
+}

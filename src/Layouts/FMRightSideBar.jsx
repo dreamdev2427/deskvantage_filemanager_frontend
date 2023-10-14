@@ -5,9 +5,23 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const FMRightSideBar = () => {
+  const containerRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (containerRef.current) {
+      containerRef.current.style.overflow = "auto";
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (containerRef.current) {
+      containerRef.current.style.overflow = "hidden";
+    }
+  };
+
   const [activeTab, setActiveTab] = useState("details");
   const data = [
     {
@@ -21,7 +35,12 @@ const FMRightSideBar = () => {
   ];
 
   return (
-    <div className="flex flex-col  w-full px-2 rightsidebar  h-[calc(100vh-160px)] overflow-auto">
+    <div
+      className="flex flex-col  w-full px-2 rightsidebar  h-[calc(100vh-160px)] overflow-auto"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="flex justify-center  w-full">
         <Tabs value={activeTab} className="w-full">
           <TabsHeader
