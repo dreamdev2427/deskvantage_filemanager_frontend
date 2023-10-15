@@ -439,6 +439,8 @@ const FMMiddlePanel = () => {
   const onDrop = useCallback((files) => {
     // do something with the files
     // loop through each file
+    setIsDragActive(false);
+
     for (let i = 0; i < files.length; i++) {
       // get the file name and size
       const fileName = files[i].name;
@@ -505,7 +507,6 @@ const FMMiddlePanel = () => {
         setTimeout(() => {
           if (apiRef.current) {
             apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
-            setIsDragActive(false);
           }
           setTimeout(() => {
             if (apiRef.current) {
@@ -521,7 +522,7 @@ const FMMiddlePanel = () => {
               setUploadingRowIds(temp);
             }
           }, 1000);
-        }, 15000);
+        }, 5000);
       }
     }
   }, []);
@@ -530,8 +531,22 @@ const FMMiddlePanel = () => {
   const { getRootProps } = useDropzone({
     onDrop,
     noClick: true,
-    onDragEnter: () => setIsDragActive(true),
-    onDragLeave: () => setIsDragActive(false),
+    onDragEnter: (e) => {
+      setIsDragActive(true);
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    onDragOver: (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.dataTransfer.dropEffect = "copy"; // Change the cursor effect
+      e.dataTransfer.setData("text", "Move file(s) to cloud"); // Set a custom label
+    },
+    onDragLeave: (e) => {
+      setIsDragActive(false);
+      e.preventDefault();
+      e.stopPropagation();
+    },
   });
 
   const columns = [
@@ -779,21 +794,22 @@ const FMMiddlePanel = () => {
         </div>
       </div>
       <div
-        className={`w-full px-4 flex justify-center  font-roboto mt-[60px]  ${
-          isDragActive ? "bg-gray-200" : "white"
-        }`}
+        className={`w-full px-4 flex justify-center fm-file-drop-zone font-roboto mt-[60px] `}
         {...getRootProps()}
       >
         {isDragActive === true && (
           <div
-            className="w-full h-full border-[2px] border-blue-500 absolute z-50 bg-white opacity-50"
+            className="w-full h-full border-[2px] border-[#4489FE] absolute z-50 bg-white opacity-50 fm-custom-cursor-label
+              flex justify-center items-center text-center text-lg text-[#4489FE] rounded-lg
+            "
             style={{
               width: `calc(100% - ${
                 Number(leftSidebarWidth) + Number(rightSidebarWidth)
               }px)`,
+              height: `calc(100vh - 210px)`,
             }}
           >
-            {" "}
+            Move file(s) to the cloud
           </div>
         )}
         <DataGrid
