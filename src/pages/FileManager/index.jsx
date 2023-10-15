@@ -25,6 +25,7 @@ import { EventBus } from "@/utils/function";
 
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
@@ -56,6 +57,15 @@ const MainLyt = () => {
   const isNowLeftResizing = useRef(false);
   const isNowRightResizing = useRef(false);
   const [anchorEl, setAnchorEl] = useState({});
+  const [expanded, setExpanded] = useState([]);
+
+  const handleExpand = (index) => {
+    if (expanded.includes(index)) {
+      setExpanded(expanded.filter((item) => item !== index));
+    } else {
+      setExpanded([...expanded, index]);
+    }
+  };
 
   const handleBreadcrumbClick = (nodeId) => {
     let temp = showBreadcrumbDropdown;
@@ -210,24 +220,36 @@ const MainLyt = () => {
             maxItems={4}
             aria-label="breadcrumb"
             className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
-            separator={<NavigateNextIcon fontSize="small" />}
+            separator=""
           >
             {pathToSelectedNode.map((value, index) => {
-              const last = index === pathToSelectedNode.length - 1;
-
-              return last ? (
-                <Typography color="text.primary" key={index} className={``}>
-                  {value?.label?.toString()?.length > 20
-                    ? value?.label?.toString().substring(0, 20) + "..."
-                    : value?.label}
+              return index === pathToSelectedNode.length - 1 ? (
+                <Typography color="text.primary" className={``}>
+                  {value?.label}
                 </Typography>
               ) : (
-                <div key={index}>
-                  <button key={index} onClick={(e) => handleClick(e, value.id)}>
+                <div
+                  key={index}
+                  onClick={(e) => {
+                    handleExpand(index);
+                    handleClick(e, value.id);
+                  }}
+                  className="flex gap-2 items-center"
+                >
+                  <div color="text.primary" className={``}>
                     {value?.label?.toString()?.length > 20
                       ? value?.label?.toString().substring(0, 20) + "..."
                       : value?.label}
-                  </button>
+                  </div>
+                  {expanded.includes(index) ? (
+                    <ExpandMoreIcon fontSize="small" />
+                  ) : (
+                    <ExpandMoreIcon
+                      fontSize="small"
+                      style={{ transform: "rotate(-90deg)" }}
+                      onClick={(e) => handleClose(e, value.id)}
+                    />
+                  )}
                   <Popup
                     id={`fmBreadcrumbPopup_${value.id}`}
                     open={showBreadcrumbDropdown[value.id] || false}
@@ -244,10 +266,10 @@ const MainLyt = () => {
                   >
                     <div
                       className="flex w-max px-4 py-4 h-max  left-[50%]
-                    bg-white flex-col gap-1
-                    border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                    max-h-[200px] overflow-y-auto
-                    "
+                        bg-white flex-col gap-1
+                        border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
+                        max-h-[200px] overflow-y-auto
+                        "
                     >
                       {findChildren(treeData, value.id)?.length > 0 &&
                         findChildren(treeData, value.id)?.map((item, index) => (
@@ -292,28 +314,37 @@ const MainLyt = () => {
               maxItems={4}
               aria-label="breadcrumb"
               className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator=""
             >
               {pathToSelectedNode &&
                 pathToSelectedNode.slice(-4).map((value, index) => {
-                  const last = index === 3;
-
-                  return last ? (
-                    <Typography color="text.primary" key={index} className={``}>
-                      {value?.label?.toString()?.length > 20
-                        ? value?.label?.toString().substring(0, 20) + "..."
-                        : value?.label}
+                  return index === 3 ? (
+                    <Typography color="text.primary" className={``}>
+                      {value?.label}
                     </Typography>
                   ) : (
-                    <div key={index}>
-                      <button
-                        key={index}
-                        onClick={(e) => handleClick(e, value.id)}
-                      >
+                    <div
+                      key={index}
+                      onClick={(e) => {
+                        handleExpand(index);
+                        handleClick(e, value.id);
+                      }}
+                      className="flex gap-2 items-center"
+                    >
+                      <div className={``}>
                         {value?.label?.toString()?.length > 20
                           ? value?.label?.toString().substring(0, 20) + "..."
                           : value?.label}
-                      </button>
+                      </div>
+                      {expanded.includes(index) ? (
+                        <ExpandMoreIcon fontSize="small" />
+                      ) : (
+                        <ExpandMoreIcon
+                          fontSize="small"
+                          style={{ transform: "rotate(-90deg)" }}
+                          onClick={(e) => handleClose(e, value.id)}
+                        />
+                      )}
                       <Popup
                         id={`fmBreadcrumbPopup_${value.id}`}
                         open={showBreadcrumbDropdown[value.id] || false}

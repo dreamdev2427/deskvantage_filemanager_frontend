@@ -25,6 +25,7 @@ import { LinearProgress } from "@mui/material";
 import FMTreeSideBar from "./FMTreeSideBar";
 import { useDropzone } from "react-dropzone";
 
+const UPLOAD_COMPLETED = -5;
 const months = {
   1: "Jan",
   2: "Feb",
@@ -506,7 +507,21 @@ const FMMiddlePanel = () => {
             apiRef.current.updateRows([{ id, uploadProgress: 100 }]);
             setIsDragActive(false);
           }
-        }, 3000);
+          setTimeout(() => {
+            if (apiRef.current) {
+              apiRef.current.updateRows([
+                {
+                  id,
+                  LastUpdated: new Date(),
+                  uploadProgress: UPLOAD_COMPLETED,
+                },
+              ]);
+
+              let temp = uploadingRowIds.filter((item) => item === id);
+              setUploadingRowIds(temp);
+            }
+          }, 1000);
+        }, 15000);
       }
     }
   }, []);
@@ -586,23 +601,30 @@ const FMMiddlePanel = () => {
           <>
             {uploadingRowIds.includes(params.id) === true ? (
               <div className="w-full flex gap-2 items-center">
-                <span>{params.row.uploadProgress}%</span>
-                {params.row.uploadProgress < 100 && (
-                  <AiOutlineClose
-                    className="w-6 h-6"
-                    onClick={() => cancelUpload(params.id)}
-                  />
+                {params.row.uploadProgress >= 0 &&
+                params.row.uploadProgress <= 100 ? (
+                  <>
+                    <span>{params.row.uploadProgress}%</span>
+                    <AiOutlineClose
+                      className="w-6 h-6"
+                      onClick={() => cancelUpload(params.id)}
+                    />
+                    <LinearProgress
+                      sx={{
+                        width: "100%",
+                        height: "2px",
+                        borderRadius: "14px",
+                        paddingLeft: "5px",
+                      }}
+                      variant="determinate"
+                      value={params.row.uploadProgress}
+                    />
+                  </>
+                ) : (
+                  params.row.uploadProgress === UPLOAD_COMPLETED && (
+                    <>{params.value}</>
+                  )
                 )}
-                <LinearProgress
-                  sx={{
-                    width: "100%",
-                    height: "2px",
-                    borderRadius: "14px",
-                    paddingLeft: "5px",
-                  }}
-                  variant="determinate"
-                  value={params.row.uploadProgress}
-                />
               </div>
             ) : (
               <>{params.value}</>
