@@ -4,6 +4,7 @@ import VideoFileIcon from "@mui/icons-material/VideoFile";
 import AudioFileIcon from "@mui/icons-material/AudioFile";
 import TextFileIcon from "@mui/icons-material/TextFields";
 import ZipFileIcon from "@mui/icons-material/FolderZip";
+import { FaFolder } from "react-icons/fa";
 import ImageIcon from "@mui/icons-material/Image";
 import { useSelector } from "react-redux";
 import Popup from "@mui/material/Popover";
@@ -132,7 +133,7 @@ const fillRows = () => {
   for (let index = 0; index < 25; index++) {
     rows[index] = {
       id: index + 1,
-      FileName: generateRandomFileName(extensionsArray),
+      FileName: { type: "file", name: generateRandomFileName(extensionsArray) },
       LastUpdated: generateRandomDate(),
       Size: Math.floor(Math.random() * 10995116277760),
       PlayLength: generateRandomDate(),
@@ -414,6 +415,7 @@ const FMMiddlePanel = () => {
   const { leftSidebarWidth, rightSidebarWidth } = useSelector(
     (state) => state.sidebar
   );
+  const [uploadedItems, setUploadedItems] = useState([]);
   // create a map for storing the XMLHttpRequest objects for each file upload
   const xhrMap = useRef(new Map());
   const [isDragActive, setIsDragActive] = useState(false);
@@ -434,17 +436,55 @@ const FMMiddlePanel = () => {
     // delete the row from the data grid using the API
     apiRef.current.updateRows([{ id, _action: "delete" }]);
   };
+  const calculateFolderSize = async (folder) => {
+    let size = 0;
+    const entries = await folder.createReader().readEntries();
 
+    for (const entry of entries) {
+      if (entry.isFile) {
+        size += (await entry.file()).size;
+      } else if (entry.isDirectory) {
+        size += await calculateFolderSize(entry);
+      }
+    }
+
+    return size;
+  };
   // define a callback function that will handle the dropped files
-  const onDrop = useCallback((files) => {
+  const onDrop = useCallback(async (files) => {
     // do something with the files
     // loop through each file
     setIsDragActive(false);
+    const filesAndFolders = await Promise.all(
+      files.map(async (fileOrFolder) => {
+        console.log("fileOrFolder.type >>>> ", fileOrFolder.type);
 
-    for (let i = 0; i < files.length; i++) {
+        if (fileOrFolder.type !== "") {
+          return {
+            type: "file",
+            name: fileOrFolder.name,
+            size: fileOrFolder.size,
+          };
+        } else {
+          console.log(" folder");
+          const folderSize = await calculateFolderSize(
+            fileOrFolder.webkitGetAsEntry()
+          );
+          return {
+            type: "folder",
+            name: fileOrFolder.name,
+            size: folderSize,
+          };
+        }
+      })
+    );
+    console.log("filesAndFolders >>> ", filesAndFolders);
+    setUploadedItems([...uploadedItems, ...filesAndFolders]);
+    for (let i = 0; i < filesAndFolders.length; i++) {
       // get the file name and size
-      const fileName = files[i].name;
-      const fileSize = files[i].size;
+      const fileType = filesAndFolders[i].type;
+      const fileName = filesAndFolders[i].name;
+      const fileSize = filesAndFolders[i].size;
 
       // generate a random id for the new row
       const id = Math.floor(Math.random() * 100000);
@@ -456,7 +496,7 @@ const FMMiddlePanel = () => {
       // create a new row object with the file name, size, and upload progress
       const newRow = {
         id: id,
-        FileName: fileName,
+        FileName: { type: fileType, name: fileName },
         LastUpdated: new Date(),
         Size: fileSize,
         PlayLength: generateRandomDate(),
@@ -556,26 +596,35 @@ const FMMiddlePanel = () => {
       flex: 1,
       minWidth: 200,
       renderCell: (params) => {
-        const fileExtension = getFileExtension(params.value); // Get the corresponding icon based on the extension
+        if (params.value.type === "file") {
+          const fileExtension = getFileExtension(params.value.name); // Get the corresponding icon based on the extension
 
-        return (
-          <div className="flex gap-2 ">
-            {fileExtension === "png" ? (
-              <ImageIcon sx={{ fill: "#4489fe" }} />
-            ) : fileExtension === "zip" ? (
-              <ZipFileIcon sx={{ fill: "#4489fe" }} />
-            ) : fileExtension === "pdf" || fileExtension === "txt" ? (
-              <TextFileIcon sx={{ fill: "#4489fe" }} />
-            ) : fileExtension === "mp3" ? (
-              <AudioFileIcon sx={{ fill: "#4489fe" }} />
-            ) : fileExtension === "mp4" ? (
-              <VideoFileIcon sx={{ fill: "#4489fe" }} />
-            ) : (
-              <></>
-            )}
-            <div className="">{params.value}</div>
-          </div>
-        );
+          return (
+            <div className="flex gap-2 ">
+              {fileExtension === "png" ? (
+                <ImageIcon sx={{ fill: "#4489fe" }} />
+              ) : fileExtension === "zip" ? (
+                <ZipFileIcon sx={{ fill: "#4489fe" }} />
+              ) : fileExtension === "pdf" || fileExtension === "txt" ? (
+                <TextFileIcon sx={{ fill: "#4489fe" }} />
+              ) : fileExtension === "mp3" ? (
+                <AudioFileIcon sx={{ fill: "#4489fe" }} />
+              ) : fileExtension === "mp4" ? (
+                <VideoFileIcon sx={{ fill: "#4489fe" }} />
+              ) : (
+                <></>
+              )}
+              <div className="">{params.value.name}</div>
+            </div>
+          );
+        } else if (params.value.type === "folder") {
+          return (
+            <div className="flex gap-2 ">
+              <FaFolder sx={{ fill: "#4489fe" }} />
+              <div className="">{params.value.name}</div>
+            </div>
+          );
+        }
       },
     },
     {
