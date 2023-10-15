@@ -669,23 +669,16 @@ const FMMiddlePanel = () => {
   // Attach an event listener to the window's resize event
   useEffect(() => {
     window.addEventListener("resize", updateDivWidth);
-
+    window.addEventListener("mousemove", function (e) {
+      if (!divOfTableRef.current) return;
+      updateDivWidth();
+    });
     // Call the function initially to get the initial width
     updateDivWidth();
 
     // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", updateDivWidth);
-    };
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", function (e) {
-      if (!divOfTableRef.current) return;
-      updateDivWidth();
-    });
-
-    return () => {
       window.removeEventListener("mousemove", () => {});
     };
   }, []);
@@ -726,7 +719,7 @@ const FMMiddlePanel = () => {
             />
             View selected
           </div>
-          {divWidth <= 730 ? (
+          {divWidth <= 670 ? (
             <></>
           ) : (
             <>
@@ -791,6 +784,18 @@ const FMMiddlePanel = () => {
         }`}
         {...getRootProps()}
       >
+        {isDragActive === true && (
+          <div
+            className="w-full h-full border-[2px] border-blue-500 absolute z-50 bg-white opacity-50"
+            style={{
+              width: `calc(100% - ${
+                Number(leftSidebarWidth) + Number(rightSidebarWidth)
+              }px)`,
+            }}
+          >
+            {" "}
+          </div>
+        )}
         <DataGrid
           rows={tableRows}
           columns={columns}
