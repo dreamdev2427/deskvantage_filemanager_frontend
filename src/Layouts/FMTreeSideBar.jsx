@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import FMTreeView from "../Components/FMTreeView";
-import { findPath, treeData } from "./FMMuiTreeSideBar";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPathToSelectedNode,
   setSelectedNode,
 } from "../redux-toolkit/reducers/TreeView";
+import { treeData } from "../utils/constant";
+import { findPath } from "../utils/function";
 
 const FMTreeSideBar = (props) => {
   const { selectedNode } = useSelector((state) => state.treeview);

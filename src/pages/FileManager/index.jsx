@@ -11,11 +11,6 @@ import {
 // layouts
 import NavBar from "../../Layouts/NavBar";
 import FMTreeSideBar from "../../Layouts/FMTreeSideBar";
-import {
-  findChildren,
-  findPath,
-  treeData,
-} from "../../Layouts/FMMuiTreeSideBar";
 import FMMiddlePanel from "../../Layouts/FMMiddlePanel";
 import FMRightSideBar from "../../Layouts/FMRightSideBar";
 
@@ -34,6 +29,8 @@ import {
   setSelectedNode,
 } from "../../redux-toolkit/reducers/TreeView";
 import Popup from "@mui/material/Popover";
+import { treeData } from "../../utils/constant";
+import { findChildren, findPath } from "../../utils/function";
 
 const MainLyt = () => {
   const dispatch = useDispatch();

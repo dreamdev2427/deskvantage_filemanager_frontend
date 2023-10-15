@@ -1,14 +1,57 @@
 import * as React from "react";
-import JqxTree from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
+import JqxTree, { jqx } from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
 import "./jqx.base.css";
 import "./jqx.fluent.css";
 import FolderIcon from "@mui/icons-material/Folder";
 import FileIcon from "@mui/icons-material/FilePresent";
 
+import "jqwidgets-framework/jqwidgets/jqxcore"; // Import jqxCore library
+import "jqwidgets-framework/jqwidgets/jqxtree";
+import { treeData } from "../../utils/constant";
+import { findNodeById } from "../../utils/function";
+
+// // Create a recursive function to convert hierarchical data into dataAdapter format
+// function convertToDataAdapterFormat(node) {
+//   const result = {
+//     id: node.id,
+//     label: node.label,
+//     isFolder: node.isFolder,
+//     children: [],
+//   };
+
+//   if (node.children && node.children.length > 0) {
+//     result.children = [];
+//     for (const child of node.children) {
+//       result.children.push(convertToDataAdapterFormat(child));
+//     }
+//   }
+
+//   return result;
+// }
+
+// // Convert the hierarchical data to dataAdapter format
+// const dataAdapterData = convertToDataAdapterFormat(treeData);
+
+// var source = {
+//   datatype: "json",
+//   datafields: [
+//     { name: "id" },
+//     { name: "label" },
+//     { name: "isFolder" },
+//     { name: "children" },
+//   ],
+//   id: "id",
+//   localdata: dataAdapterData,
+// };
+// var dataAdapter = new jqx.dataAdapter(source, { autoBind: true });
+
+// console.log("dataAdapter.records >>> ", dataAdapter.records);
+
 const TreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
   const [pressedNode, setPressedNode] = React.useState({});
+  const [dataSource, setDataSource] = React.useState(treeData);
 
   const handleClickNode = (event, nodeid) => {
     props.handleSelect(event, nodeid);
@@ -35,7 +78,7 @@ const TreeView = (props) => {
                 <div className="flex">
                   {node.id === "root" ? (
                     <></>
-                  ) : node.children ? (
+                  ) : node?.isFolder === true ? (
                     <FolderIcon
                       sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
                     />
@@ -72,15 +115,7 @@ const TreeView = (props) => {
 
   // Definitions for the properties-callbacks
   const dragStart = (item: any) => {
-    if (item.label === "Community") {
-      return false;
-    }
-
-    return true;
-  };
-
-  const dragEnd = (item: any) => {
-    if (item.label === "Forum") {
+    if (item.label === "root") {
       return false;
     }
 
@@ -90,8 +125,25 @@ const TreeView = (props) => {
   // Event handling
   const onDragStart = (event: any) => {};
 
+  const dragEnd = (
+    dragItem: any,
+    dropItem: any,
+    args: any,
+    dropPosition: any,
+    tree: any
+  ): any => {
+    // console.log(dragItem); //that is just dragged and put down
+    // console.log(dropItem); //that is just accepted an item
+    // console.log(args);
+    // console.log(dropPosition);
+    // console.log(tree);
+    if (dragItem.parentId === dropItem.id) return false;
+    if (dropItem.element.children[0].innerHTML != "") return false;
+  };
+
   const onDragEnd = (event: any) => {
     const args = event.args;
+
     if (!!args.label) {
       const ev = event.args.originalEvent;
       let x = ev.pageX;
@@ -130,9 +182,6 @@ const TreeView = (props) => {
     const args = event.args;
     const item = treeA.current!.getItem(args.element);
 
-    // var k = "";
-    // for (var i in treeA.current) k += " " + i;
-    // alert(k);
     if (treeA.current!.val()!.isExpanded === false) {
       treeA.current!.expandItem(item);
       treeA.current!.selectItem(null);
@@ -152,20 +201,23 @@ const TreeView = (props) => {
           width: "100%",
         }}
       >
-        <JqxTree
-          onSelect={myTreeOnExpand}
-          theme={"material-purple"}
-          ref={treeA}
-          style={{
-            float: "left",
-            marginLeft: "0px",
-          }}
-          onDragStart={dragStartTreeA}
-          onDragEnd={dragEndTreeA}
-          dragStart={dragStart}
-        >
-          {rendertree(props.treeData)}
-        </JqxTree>
+        {dataSource !== null && (
+          <JqxTree
+            onSelect={myTreeOnExpand}
+            theme={"material-purple"}
+            ref={treeA}
+            style={{
+              float: "left",
+              marginLeft: "0px",
+            }}
+            onDragStart={dragStartTreeA}
+            onDragEnd={dragEndTreeA}
+            dragStart={dragStart}
+            dragEnd={dragEnd}
+          >
+            {rendertree(dataSource)}
+          </JqxTree>
+        )}
         <div
           style={{
             width: "0px",

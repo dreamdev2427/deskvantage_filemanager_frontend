@@ -11,146 +11,8 @@ import {
   setSelectedNode,
 } from "../redux-toolkit/reducers/TreeView";
 import { useDispatch, useSelector } from "react-redux";
-
-export const treeData = {
-  id: "root",
-  label: "Site",
-  children: [
-    {
-      id: "node1",
-      label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 1",
-      children: [
-        {
-          id: "node3",
-          label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 3",
-          children: [
-            {
-              id: "node10",
-              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 10",
-              children: [
-                {
-                  id: "node11",
-                  label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 11",
-                },
-                {
-                  id: "node12",
-                  label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 12",
-                },
-                {
-                  id: "node13",
-                  label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 13",
-                  children: [
-                    {
-                      id: "node14",
-                      label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 15",
-                    },
-                    {
-                      id: "node16",
-                      label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 16",
-                      children: [
-                        {
-                          id: "node18",
-                          label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 18",
-                          children: [
-                            {
-                              id: "node35",
-                              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 35",
-                            },
-                            {
-                              id: "node23",
-                              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 23",
-                              children: [
-                                {
-                                  id: "node24",
-                                  label:
-                                    "qwertyuiopasdfghjklzxcvbnmqwertyuiop 24",
-                                },
-                                {
-                                  id: "node25",
-                                  label:
-                                    "qwertyuiopasdfghjklzxcvbnmqwertyuiop 25",
-                                  children: [
-                                    {
-                                      id: "node26",
-                                      label:
-                                        "qwertyuiopasdfghjklzxcvbnmqwertyuiop 26",
-                                    },
-                                    {
-                                      id: "node27",
-                                      label:
-                                        "qwertyuiopasdfghjklzxcvbnmqwertyuiop 27",
-                                      children: [
-                                        {
-                                          id: "node28",
-                                          label:
-                                            "qwertyuiopasdfghjklzxcvbnmqwertyuiop 28",
-                                        },
-                                        {
-                                          id: "node29",
-                                          label:
-                                            "qwertyuiopasdfghjklzxcvbnmqwertyuiop 29",
-                                        },
-                                        {
-                                          id: "node30",
-                                          label:
-                                            "qwertyuiopasdfghjklzxcvbnmqwertyuiop 30",
-                                        },
-                                        {
-                                          id: "node31",
-                                          label:
-                                            "qwertyuiopasdfghjklzxcvbnmqwertyuiop 31",
-                                        },
-                                      ],
-                                    },
-                                  ],
-                                },
-                              ],
-                            },
-                            {
-                              id: "node22",
-                              label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 22",
-                            },
-                          ],
-                        },
-                        {
-                          id: "node19",
-                          label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 19",
-                        },
-                        {
-                          id: "node20",
-                          label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 20",
-                        },
-                      ],
-                    },
-                    {
-                      id: "node17",
-                      label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 17",
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        { id: "node4", label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 4" },
-      ],
-    },
-    { id: "node2", label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 2" },
-    {
-      id: "node5",
-      label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 5",
-      children: [
-        {
-          id: "node6",
-          label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 6",
-          children: [
-            { id: "node7", label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 7" },
-          ],
-        },
-      ],
-    },
-  ],
-};
+import { treeData } from "../utils/constant";
+import { findPath } from "../utils/function";
 
 const useStyles = makeStyles({
   root: {
@@ -184,7 +46,7 @@ const MyTreeView = ({ treeData, handleSelect }) => {
         <div className={classes.listItem}>
           {nodes.id === "root" ? (
             <></>
-          ) : nodes.children ? (
+          ) : nodes?.isFolder === true ? (
             <FolderIcon
               sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
             />
@@ -232,51 +94,6 @@ const MyTreeView = ({ treeData, handleSelect }) => {
     </TreeView>
   );
 };
-
-export function findSiblings(treeData, idToFind, siblings = []) {
-  for (const node of treeData.children || []) {
-    if (node.id === idToFind) {
-      for (const childNode of treeData.children) {
-        if (childNode.id !== idToFind) {
-          siblings.push({ id: childNode.id, label: childNode.label });
-        }
-      }
-      return siblings;
-    }
-    findSiblings(node, idToFind, siblings);
-  }
-  return siblings;
-}
-
-export function findChildren(treeData, idToFind, children = []) {
-  for (const node of treeData.children || []) {
-    if (node.id === idToFind) {
-      for (const childNode of node.children || []) {
-        children.push({ id: childNode.id, label: childNode.label });
-      }
-      return children;
-    }
-    findChildren(node, idToFind, children);
-  }
-  return children;
-}
-
-export function findPath(treeData, idToFind, currentPath = []) {
-  for (const node of treeData.children || []) {
-    const newPath = currentPath.concat({ id: node.id, label: node.label });
-
-    if (node.id === idToFind) {
-      return newPath;
-    }
-
-    const pathFound = findPath(node, idToFind, newPath);
-    if (pathFound) {
-      return pathFound;
-    }
-  }
-
-  return null;
-}
 
 const FileTreeView = (props) => {
   const dispatch = useDispatch();

@@ -1,19 +1,18 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-tailwind/react";
-import "../public/css/tailwind.css";
+import "../public/css/tailwind.css"; // Import jqxTree library
 
 const customTheme = {
   menu: {
     styles: {
       base: {
         menu: {
-          minWidth: "min-w-[80px]"
-        }
-      }
-    }
+          minWidth: "min-w-[80px]",
+        },
+      },
+    },
   },
   navbar: {
     styles: {
@@ -21,12 +20,12 @@ const customTheme = {
         navbar: {
           initial: {
             maxWidth: "w-[100vw]",
-          }
-        }
-      }
-    }
-  }
-}
+          },
+        },
+      },
+    },
+  },
+};
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
