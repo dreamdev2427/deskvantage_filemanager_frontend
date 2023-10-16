@@ -8,10 +8,24 @@ import FileIcon from "@mui/icons-material/FilePresent";
 import "jqwidgets-framework/jqwidgets/jqxcore"; // Import jqxCore library
 import "jqwidgets-framework/jqwidgets/jqxtree";
 import { treeData } from "../../utils/constant";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  setDraggingElements,
+  setDraggingStatus,
+} from "../../redux-toolkit/reducers/FMDragDrop";
+import { findNodeByIdAndInsertAChild, insertNode } from "../../utils/function";
+import { randomUUID } from "crypto";
+import { randomNumberBetween } from "@mui/x-data-grid/utils/utils";
 
 const TreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
+  const { isDragging, draggingElements } = useSelector(
+    (state) => state.fmdragdrop
+  );
+  const dispatch = useDispatch();
+
   const [dataSource, setDataSource] = React.useState(treeData);
 
   const handleClickNode = (event, nodeid) => {
@@ -136,12 +150,71 @@ const TreeView = (props) => {
     const args = event.args;
     const item = treeA.current!.getItem(args.element);
 
-    if (treeA.current!.val()!.isExpanded === false) {
+    if (treeA.current!.val()?.isExpanded === false) {
       treeA.current!.expandItem(item);
     } else {
       treeA.current!.collapseItem(item);
     }
   };
+
+  const dropObj = (event: Event) => {
+    let targetElement =
+      event.originalEvent.target.parentElement.parentElement.parentElement
+        .parentElement;
+    let targetItem = treeA.current!.getItem(targetElement);
+    let targetTreeItem = $(targetItem.element).first();
+
+    let newItem = {
+      label: JSON.parse(draggingElements[0]).FileName,
+      isFolder: false,
+      children: [],
+      id:
+        randomNumberBetween(Date.now(), 1, 999999).toString() +
+        Date.now().toString(),
+    };
+    console.log(" draggingElements >>> ", draggingElements);
+    treeA.current!.addTo(
+      '<div class="flex"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fjwcaq-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilePresentIcon"><path d="M15 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7l-5-5zM6 20V4h8v4h4v12H6zm10-10v5c0 2.21-1.79 4-4 4s-4-1.79-4-4V8.5c0-1.47 1.26-2.64 2.76-2.49 1.3.13 2.24 1.32 2.24 2.63V15h-2V8.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V15c0 1.1.9 2 2 2s2-.9 2-2v-5h2z"></path></svg><div class="ml-1 text-[14px] font-medium text-[#212121] "><div class="relative group">' +
+        JSON.parse(draggingElements[0]).FileName +
+        '<div class="hidden group-hover:block left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white">' +
+        JSON.parse(draggingElements[0]).FileName +
+        "</div></div></div></div>",
+      targetTreeItem.context
+    );
+    treeA.current!.expandItem(targetItem);
+
+    // let temp = insertNode(dataSource, "node3", newItem);
+    // setDataSource(temp);
+    dispatch(setDraggingStatus(false));
+    dispatch(setDraggingElements([]));
+    rendertree(dataSource);
+  };
+
+  React.useEffect(() => {
+    if (treeA & treeA.current) {
+      treeA.current.refresh();
+    }
+  }, [dataSource]);
+
+  function renderer(item, element) {
+    // get the node data
+    const node = item.data;
+    // create a span element to hold the icon and label
+    const span = document.createElement("span");
+    span.className = "flex items-center";
+    // create an icon element based on the isFolder property
+    const icon = document.createElement("i");
+    icon.className = node.isFolder
+      ? "fas fa-folder mr-2 text-yellow-500"
+      : "fas fa-file mr-2 text-gray-500";
+    // create a text element for the label
+    const text = document.createTextNode(node.label);
+    // append the icon and text to the span element
+    span.appendChild(icon);
+    span.appendChild(text);
+    // return the span element as the HTML for the node
+    return span;
+  }
 
   return (
     <div className="w-full">
@@ -162,18 +235,22 @@ const TreeView = (props) => {
               float: "left",
               marginLeft: "0px",
             }}
+            className="drop-target"
             onDragStart={dragStartTreeA}
             onDragEnd={dragEndTreeA}
             dragStart={dragStart}
             dragEnd={dragEnd}
+            onDrop={dropObj}
+            // source={dataSource}
+            // renderer={rendertree}
           >
             {rendertree(dataSource)}
           </JqxTree>
         )}
         <div
           style={{
-            width: "0px",
-            height: "0px",
+            width: "0",
+            height: "0",
             float: "left",
             marginLeft: "20px",
           }}

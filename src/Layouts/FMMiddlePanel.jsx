@@ -25,6 +25,11 @@ import Rating from "@mui/material/Rating";
 import { LinearProgress } from "@mui/material";
 import FMTreeSideBar from "./FMTreeSideBar";
 import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import {
+  setDraggingElements,
+  setDraggingStatus,
+} from "../redux-toolkit/reducers/FMDragDrop";
 
 const UPLOAD_COMPLETED = -5;
 const months = {
@@ -419,13 +424,13 @@ const FMMiddlePanel = () => {
   // create a map for storing the XMLHttpRequest objects for each file upload
   const xhrMap = useRef(new Map());
   const [isDragActive, setIsDragActive] = useState(false);
-
   const [sortModel, setSortModel] = useState([
     {
       field: "LastUpdated",
       sort: "desc",
     },
   ]);
+  const dispatch = useDispatch();
 
   // define a function that will cancel the upload and delete the row
   const cancelUpload = (id) => {
@@ -753,6 +758,46 @@ const FMMiddlePanel = () => {
     console.log(`Clicked on header: ${params.field}`);
     // Add your custom logic here
   };
+
+  function parseRow(htmlString) {
+    // Create a DOMParser object
+    const parser = new DOMParser();
+    // Parse the HTML string as an HTML document
+    const doc = parser.parseFromString(htmlString, "text/html");
+    // Get the row element
+    const row = doc.querySelector(".MuiDataGrid-row");
+    // Get the cell elements
+    const cells = row.querySelectorAll(".MuiDataGrid-cell");
+    // Create an empty object to store the data
+    const data = {};
+    // Loop through the cells
+    for (let cell of cells) {
+      // Get the data field and the cell content
+      const field = cell.dataset.field;
+      const content = cell.textContent.trim();
+      // If the field is not empty and not "__check__", add it to the data object
+      if (field && field !== "__check__") {
+        data[field] = content;
+      }
+    }
+    // Return the data object as a JSON string
+    return JSON.stringify(data);
+  }
+
+  useEffect(() => {
+    const attachDragStart = () => {
+      const divs = document.getElementsByClassName("MuiDataGrid-row");
+      for (var i = 0; i < divs.length; i++) {
+        divs[i].addEventListener("dragstart", (event) => {
+          const srcdata = event.srcElement;
+          const parsedData = parseRow(srcdata.outerHTML);
+          dispatch(setDraggingStatus(true));
+          dispatch(setDraggingElements([parsedData]));
+        });
+      }
+    };
+    setTimeout(attachDragStart, 500);
+  }, []);
 
   return (
     <div className="w-full flex flex-col ">

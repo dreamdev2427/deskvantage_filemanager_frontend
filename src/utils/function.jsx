@@ -166,3 +166,36 @@ export function findNodeById(id, treeData) {
   // if none of the above conditions are met, return null
   return null;
 }
+
+export function insertNode(treeData, parentId, newNode) {
+  // Define a helper function to loop through the tree
+  function traverse(node) {
+    // Check if the node id matches the parent id
+    if (node.id === parentId) {
+      // Push the new node into the children array
+      node.children.push(newNode);
+      // Return true to indicate success
+      return true;
+    }
+    // Check if the node has children
+    if (node.children && node.children.length > 0) {
+      // Loop through the children and recursively call traverse
+      for (let child of node.children) {
+        // If traverse returns true, stop the loop and return true
+        if (traverse(child)) return true;
+      }
+    }
+    // Return false to indicate failure
+    return false;
+  }
+
+  // Call traverse on the root node of the tree data
+  let result = traverse(treeData);
+
+  // If result is true, return the updated tree data
+  if (result) return treeData;
+
+  // Otherwise, throw an error or return the original tree data
+  throw new Error("Parent node not found");
+  // Or return treeData;
+}

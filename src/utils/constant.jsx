@@ -190,6 +190,7 @@ export const treeData = {
         {
           id: "node6",
           label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 6",
+          isFolder: true,
           children: [
             { id: "node7", label: "qwertyuiopasdfghjklzxcvbnmqwertyuiop 7" },
           ],
