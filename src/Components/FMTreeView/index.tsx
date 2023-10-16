@@ -195,26 +195,6 @@ const TreeView = (props) => {
     }
   }, [dataSource]);
 
-  function renderer(item, element) {
-    // get the node data
-    const node = item.data;
-    // create a span element to hold the icon and label
-    const span = document.createElement("span");
-    span.className = "flex items-center";
-    // create an icon element based on the isFolder property
-    const icon = document.createElement("i");
-    icon.className = node.isFolder
-      ? "fas fa-folder mr-2 text-yellow-500"
-      : "fas fa-file mr-2 text-gray-500";
-    // create a text element for the label
-    const text = document.createTextNode(node.label);
-    // append the icon and text to the span element
-    span.appendChild(icon);
-    span.appendChild(text);
-    // return the span element as the HTML for the node
-    return span;
-  }
-
   return (
     <div className="w-full">
       <div

@@ -36,7 +36,7 @@ const FMRightSideBar = () => {
 
   return (
     <div
-      className="flex flex-col  w-full px-2 py-4  rightsidebar h-[calc(100vh-160px)] hover: overflow-y-auto"
+      className="flex flex-col  px-2 py-4  rightsidebar h-[calc(100vh-160px)]"
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
