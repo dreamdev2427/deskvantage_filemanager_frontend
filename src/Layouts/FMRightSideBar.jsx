@@ -36,13 +36,13 @@ const FMRightSideBar = () => {
 
   return (
     <div
-      className="flex flex-col  w-full px-2 rightsidebar  h-[calc(100vh-160px)] overflow-auto"
+      className="flex flex-col  w-full px-2 py-4  rightsidebar h-[calc(100vh-160px)] hover: overflow-y-auto"
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex justify-center  w-full">
-        <Tabs value={activeTab} className="w-full">
+        <Tabs value={activeTab} className="w-full h-max">
           <TabsHeader
             className="rounded-none border-b border-[#C4C4C4] bg-transparent p-0 h-[60px] "
             indicatorProps={{

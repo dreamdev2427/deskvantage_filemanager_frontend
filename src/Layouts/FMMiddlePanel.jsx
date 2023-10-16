@@ -585,7 +585,10 @@ const FMMiddlePanel = () => {
       e.preventDefault();
       e.stopPropagation();
       e.dataTransfer.dropEffect = "copy"; // Change the cursor effect
-      e.dataTransfer.setData("text", "Move file(s) to cloud"); // Set a custom label
+      e.dataTransfer.setData(
+        "text",
+        "Drag and drop to upload files to the cloud"
+      ); // Set a custom label
     },
     onDragLeave: (e) => {
       setIsDragActive(false);
@@ -910,7 +913,7 @@ const FMMiddlePanel = () => {
               height: `calc(100vh - 210px)`,
             }}
           >
-            Move file(s) to the cloud
+            Drag and drop to upload files to the cloud
           </div>
         )}
         <DataGrid
