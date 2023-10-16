@@ -631,10 +631,12 @@ const FMMiddlePanel = () => {
           );
         }
       },
-
       sortComparator: (v1, v2, param1, param2) => {
+        console.log(param1, param2);
         // Custom sorting function for "Last updated" column
-        return param1.value.name - param2.value.name;
+        return param1.value.name
+          .toString()
+          .localeCompare(param2.value.name.toString());
       },
     },
     {
