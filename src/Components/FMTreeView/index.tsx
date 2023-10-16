@@ -8,59 +8,16 @@ import FileIcon from "@mui/icons-material/FilePresent";
 import "jqwidgets-framework/jqwidgets/jqxcore"; // Import jqxCore library
 import "jqwidgets-framework/jqwidgets/jqxtree";
 import { treeData } from "../../utils/constant";
-import { findNodeById } from "../../utils/function";
-
-// // Create a recursive function to convert hierarchical data into dataAdapter format
-// function convertToDataAdapterFormat(node) {
-//   const result = {
-//     id: node.id,
-//     label: node.label,
-//     isFolder: node.isFolder,
-//     children: [],
-//   };
-
-//   if (node.children && node.children.length > 0) {
-//     result.children = [];
-//     for (const child of node.children) {
-//       result.children.push(convertToDataAdapterFormat(child));
-//     }
-//   }
-
-//   return result;
-// }
-
-// // Convert the hierarchical data to dataAdapter format
-// const dataAdapterData = convertToDataAdapterFormat(treeData);
-
-// var source = {
-//   datatype: "json",
-//   datafields: [
-//     { name: "id" },
-//     { name: "label" },
-//     { name: "isFolder" },
-//     { name: "children" },
-//   ],
-//   id: "id",
-//   localdata: dataAdapterData,
-// };
-// var dataAdapter = new jqx.dataAdapter(source, { autoBind: true });
-
-// console.log("dataAdapter.records >>> ", dataAdapter.records);
 
 const TreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
-  const [pressedNode, setPressedNode] = React.useState({});
   const [dataSource, setDataSource] = React.useState(treeData);
 
   const handleClickNode = (event, nodeid) => {
     props.handleSelect(event, nodeid);
-    let temp = pressedNode;
-    temp = { ...temp, [nodeid]: !(temp[nodeid] || false) };
-    setPressedNode(temp);
-    setTimeout(() => {
-      setPressedNode({});
-    }, 5000);
+    const item = treeA.current!.getItem(event.target);
+    treeA.current!.selectItem(item);
   };
 
   const rendertree = (treedata) => {
@@ -91,11 +48,8 @@ const TreeView = (props) => {
                     {node.label && node.label.toString()?.length > 15 ? (
                       <div className="relative group">
                         {node.label.toString().substring(0, 20) + "..."}
-
                         <div
-                          className={`hidden group-hover:${
-                            pressedNode[node.id] !== true ? "block" : "hidden"
-                          } left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white`}
+                          className={`hidden group-hover:block left-10  w-max fixed px-2 py-2 rounded-lg text-sm font-medium bg-gray-600 text-white`}
                         >
                           {node.label}
                         </div>
@@ -184,10 +138,8 @@ const TreeView = (props) => {
 
     if (treeA.current!.val()!.isExpanded === false) {
       treeA.current!.expandItem(item);
-      treeA.current!.selectItem(null);
     } else {
       treeA.current!.collapseItem(item);
-      treeA.current!.selectItem(null);
     }
   };
 

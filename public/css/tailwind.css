@@ -188,3 +188,7 @@ body {
 .leftsidebar:hover, .rightsidebar: hover {
   overflow: auto;
 }
+
+.MuiDataGrid-row {
+  -webkit-user-drag: element;
+}
