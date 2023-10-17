@@ -99,11 +99,15 @@ const TreeView = (props) => {
     tree: any
   ): any => {
     // console.log(dragItem); //that is just dragged and put down
-    // console.log(dropItem); //that is just accepted an item
+    // console.log("dropItem  >>> ", dropItem); //that is just accepted an item
     // console.log(args);
     // console.log(dropPosition);
     // console.log(tree);
     if (dragItem.parentId === dropItem.id) return false;
+    console.log(
+      "dropItem.element children[0] innerHTML >>> ",
+      dropItem.element.children[0].innerHTML
+    );
     if (dropItem.element.children[0].innerHTML != "") return false;
   };
 
@@ -159,17 +163,18 @@ const TreeView = (props) => {
     let targetElement =
       event.originalEvent.target.parentElement.parentElement.parentElement
         .parentElement;
+
+    if (targetElement.children[0].innerHTML !== "") return false;
     let targetItem = treeA.current!.getItem(targetElement);
     let targetTreeItem = $(targetItem.element).first();
-    console.log("draggingElements[0] jqx tree >>> ", draggingElements[0]);
-    let newItem = {
-      label: draggingElements[0]?.FileName,
-      isFolder: false,
-      children: [],
-      id:
-        randomNumberBetween(Date.now(), 1, 999999).toString() +
-        Date.now().toString(),
-    };
+    // let newItem = {
+    //   label: draggingElements[0]?.FileName,
+    //   isFolder: false,
+    //   children: [],
+    //   id:
+    //     randomNumberBetween(Date.now(), 1, 999999).toString() +
+    //     Date.now().toString(),
+    // };
     treeA.current!.addTo(
       '<div class="flex"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1fjwcaq-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilePresentIcon"><path d="M15 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7l-5-5zM6 20V4h8v4h4v12H6zm10-10v5c0 2.21-1.79 4-4 4s-4-1.79-4-4V8.5c0-1.47 1.26-2.64 2.76-2.49 1.3.13 2.24 1.32 2.24 2.63V15h-2V8.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V15c0 1.1.9 2 2 2s2-.9 2-2v-5h2z"></path></svg><div class="ml-1 text-[14px] font-medium text-[#212121] "><div class="relative group">' +
         draggingElements[0]?.FileName +
@@ -179,9 +184,6 @@ const TreeView = (props) => {
       targetTreeItem.context
     );
     treeA.current!.expandItem(targetItem);
-
-    // let temp = insertNode(dataSource, "node3", newItem);
-    // setDataSource(temp);
 
     dispatch(setDraggingStatus(false));
   };

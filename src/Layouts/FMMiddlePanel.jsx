@@ -815,7 +815,7 @@ const FMMiddlePanel = () => {
         divs[i].addEventListener("dragend", (event) => {
           console.log("dragend 000 >>> ");
 
-          dispatch(setDraggingStatus(false));
+          // dispatch(setDraggingStatus(false));
         });
       }
     };
