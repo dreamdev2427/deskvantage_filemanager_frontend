@@ -523,7 +523,6 @@ const FMMiddlePanel = () => {
       if (apiRef.current) {
         // add the new row to the data grid using the API
         apiRef.current.updateRows([newRow]);
-        setTableRows((prevRows) => [newRow, ...prevRows]);
 
         // create a new XMLHttpRequest object
         // open a POST request to the server endpoint that handles the file upload
@@ -697,12 +696,6 @@ const FMMiddlePanel = () => {
       type: Date,
       flex: 1,
       minWidth: 150,
-      valueGetter: (params) => {
-        // Convert Date to a readable string (e.g., "October 10, 2023")
-        return `${months[new Date(params.row.LastUpdated).getMonth() + 1]} ${
-          new Date(params.row.LastUpdated).getDay() + 1
-        }, ${new Date(params.row.LastUpdated).getFullYear()}`;
-      },
       sortComparator: (v1, v2, param1, param2) => {
         // Custom sorting function for "Last updated" column
         if (uploadingRowIds.includes(param1.id) === true) {
@@ -742,12 +735,18 @@ const FMMiddlePanel = () => {
                   </>
                 ) : (
                   params.row.uploadProgress === UPLOAD_COMPLETED && (
-                    <>{params.value}</>
+                    <>{`${
+                      months[new Date(params.row.LastUpdated).getMonth() + 1]
+                    } ${
+                      new Date(params.row.LastUpdated).getDay() + 1
+                    }, ${new Date(params.row.LastUpdated).getFullYear()}`}</>
                   )
                 )}
               </div>
             ) : (
-              <>{params.value}</>
+              <>{`${months[new Date(params.row.LastUpdated).getMonth() + 1]} ${
+                new Date(params.row.LastUpdated).getDay() + 1
+              }, ${new Date(params.row.LastUpdated).getFullYear()}`}</>
             )}
           </>
         );
