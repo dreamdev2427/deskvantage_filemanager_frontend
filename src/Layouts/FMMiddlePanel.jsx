@@ -450,6 +450,7 @@ const FMMiddlePanel = () => {
     // delete the row from the data grid using the API
     apiRef.current.updateRows([{ id, _action: "delete" }]);
   };
+
   const calculateFolderSize = async (folder) => {
     let size = 0;
     const entries = await folder.createReader().readEntries();
@@ -464,6 +465,7 @@ const FMMiddlePanel = () => {
 
     return size;
   };
+
   // define a callback function that will handle the dropped files
   const onDrop = useCallback(async (files) => {
     // do something with the files
@@ -520,8 +522,8 @@ const FMMiddlePanel = () => {
       const xhr = new XMLHttpRequest();
       if (apiRef.current) {
         // add the new row to the data grid using the API
-        setTableRows((prevRows) => [newRow, ...prevRows]);
         apiRef.current.updateRows([newRow]);
+        setTableRows((prevRows) => [newRow, ...prevRows]);
 
         // create a new XMLHttpRequest object
         // open a POST request to the server endpoint that handles the file upload
@@ -571,8 +573,11 @@ const FMMiddlePanel = () => {
                   uploadProgress: UPLOAD_COMPLETED,
                 },
               ]);
-
-              let temp = uploadingRowIds.filter((item) => item === id);
+              // Call the sort method with the desired sorting configuration
+              apiRef.current.sortModel([
+                { field: "LastUpdated", sort: "desc" }, // Change the sorting configuration as needed
+              ]);
+              let temp = uploadingRowIds.filter((item) => item != id);
               setUploadingRowIds(temp);
             }
           }, 1000);
@@ -650,9 +655,15 @@ const FMMiddlePanel = () => {
       sortComparator: (v1, v2, param1, param2) => {
         console.log(param1, param2);
         // Custom sorting function for "Last updated" column
-        return param1.value.name
-          .toString()
-          .localeCompare(param2.value.name.toString());
+        if (uploadingRowIds.includes(param1.id) === true) {
+          return -1; // Row with stable ID should come first
+        } else if (uploadingRowIds.includes(param2.id) === true) {
+          return 1; // Row with stable ID should come second
+        } else {
+          return param1.value.name
+            .toString()
+            .localeCompare(param2.value.name.toString());
+        }
       },
     },
     {
@@ -667,6 +678,17 @@ const FMMiddlePanel = () => {
         const minutes = date.getMinutes().toString().padStart(2, "0");
         const seconds = date.getSeconds().toString().padStart(2, "0");
         return `${hours}:${minutes}:${seconds}`;
+      },
+      sortComparator: (v1, v2, param1, param2) => {
+        console.log(param1, param2);
+        // Custom sorting function for "Last updated" column
+        if (uploadingRowIds.includes(param1.id) === true) {
+          return -1; // Row with stable ID should come first
+        } else if (uploadingRowIds.includes(param2.id) === true) {
+          return 1; // Row with stable ID should come second
+        } else {
+          return v1 - v2;
+        }
       },
     },
     {
@@ -683,9 +705,15 @@ const FMMiddlePanel = () => {
       },
       sortComparator: (v1, v2, param1, param2) => {
         // Custom sorting function for "Last updated" column
-        return (
-          new Date(param1.value).getTime() - new Date(param2.value).getTime()
-        );
+        if (uploadingRowIds.includes(param1.id) === true) {
+          return -1; // Row with stable ID should come first
+        } else if (uploadingRowIds.includes(param2.id) === true) {
+          return 1; // Row with stable ID should come second
+        } else {
+          return (
+            new Date(param1.value).getTime() - new Date(param2.value).getTime()
+          );
+        }
       },
       renderCell: (params) => {
         // return a JSX element that renders inside the cell
@@ -735,7 +763,13 @@ const FMMiddlePanel = () => {
         return formatFileSize(fileSize);
       },
       sortComparator: (v1, v2, param1, param2) => {
-        return parseFileSize(param1.value) - parseFileSize(param2.value);
+        if (uploadingRowIds.includes(param1.id) === true) {
+          return -1; // Row with stable ID should come first
+        } else if (uploadingRowIds.includes(param2.id) === true) {
+          return 1; // Row with stable ID should come second
+        } else {
+          return parseFileSize(param1.value) - parseFileSize(param2.value);
+        }
       },
       renderCell: (params) => {
         return (
@@ -947,6 +981,7 @@ const FMMiddlePanel = () => {
         )}
 
         <DataGrid
+          pageSize={tableRows?.length + 1}
           rows={tableRows}
           columns={columns}
           checkboxSelection={true}
