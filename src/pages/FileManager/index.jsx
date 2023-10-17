@@ -265,7 +265,7 @@ const MainLyt = () => {
                       className="flex w-max px-4 py-4 h-max  left-[50%]
                         bg-white flex-col gap-1
                         border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        max-h-[200px] overflow-y-auto
+                        max-h-[400px] overflow-y-auto
                         "
                     >
                       {findChildren(treeData, value.id)?.length > 0 &&
@@ -372,7 +372,7 @@ const MainLyt = () => {
                           className="flex w-max px-4 py-4 h-max  left-[50%]
                         bg-white flex-col gap-1
                         border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        max-h-[200px] overflow-y-auto
+                        max-h-[400px] overflow-y-auto
                         "
                         >
                           {findChildren(treeData, value.id)?.length > 0 &&
