@@ -573,9 +573,7 @@ const FMMiddlePanel = () => {
                 },
               ]);
               // Call the sort method with the desired sorting configuration
-              apiRef.current.sortModel([
-                { field: "LastUpdated", sort: "desc" }, // Change the sorting configuration as needed
-              ]);
+
               let temp = uploadingRowIds.filter((item) => item != id);
               setUploadingRowIds(temp);
             }
@@ -686,7 +684,7 @@ const FMMiddlePanel = () => {
         } else if (uploadingRowIds.includes(param2.id) === true) {
           return 1; // Row with stable ID should come second
         } else {
-          return v1 - v2;
+          return param1.value.toString().localeCompare(param2.value.toString());
         }
       },
     },
