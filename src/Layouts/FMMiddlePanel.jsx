@@ -833,7 +833,7 @@ const FMMiddlePanel = () => {
   }, [isDragging]);
 
   return (
-    <div className="w-full flex flex-col ">
+    <div className="w-full flex flex-col  overflow-x-visible">
       <div
         className={`      
         flex justify-between items-center h-[60px] border-b border-b-[#dee0e4] fixed bg-white z-10 fill-white `}
@@ -861,7 +861,7 @@ const FMMiddlePanel = () => {
             />
             View selected
           </div>
-          {divWidth <= 670 ? (
+          {divWidth <= 800 ? (
             <></>
           ) : (
             <>
@@ -916,12 +916,12 @@ const FMMiddlePanel = () => {
             /> */}
           </div>
         </div>
-        <div className=" text-sm font-medium mr-4">
+        <div className=" text-sm font-medium mr-1 md:mr-4 ">
           {selectedRows?.length} items selected
         </div>
       </div>
       <div
-        className={`w-full px-4 flex justify-center fm-file-drop-zone font-roboto mt-[60px] `}
+        className={`w-full px-4 flex justify-center fm-file-drop-zone font-roboto mt-[60px] overflow-x-visible`}
         {...getRootProps()}
       >
         {isDragActive === true && (
@@ -963,6 +963,7 @@ const FMMiddlePanel = () => {
               visibility: "visible !important",
               width: "auto !important",
             },
+            overflowX: "visible",
           }}
           sortingOrder={["asc", "desc"]}
           sortModel={sortModel}

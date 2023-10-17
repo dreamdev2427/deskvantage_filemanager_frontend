@@ -202,7 +202,7 @@ const MainLyt = () => {
   };
 
   return (
-    <div className="h-full ">
+    <div className="h-full overflow-x-auto">
       <NavBar />
       <div className="fixed flex z-30 bg-white justify-start w-full h-[60px] py-4   items-center border-b-[#dee0e4] border-b-[1px] top-[82px] ">
         <Typography
@@ -404,7 +404,7 @@ const MainLyt = () => {
           </div>
         )}
       </div>
-      <div className="mt-[142px] flex h-full relative">
+      <div className="mt-[142px] flex h-full relative w-full overflow-x-visible">
         <div
           className="fixed  left-0  bg-white h-full"
           style={{
@@ -433,6 +433,7 @@ const MainLyt = () => {
             width: `calc(100% - ${
               Number(leftSidebarWidth) + Number(rightSidebarWidth)
             }px)`,
+            overflowX: "visible",
           }}
         >
           <FMMiddlePanel />
