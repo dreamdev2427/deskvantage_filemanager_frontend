@@ -269,35 +269,45 @@ const MainLyt = () => {
                         "
                     >
                       {findChildren(treeData, value.id)?.length > 0 &&
-                        findChildren(treeData, value.id)?.map((item, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                            onClick={() => {
-                              handleClose(null, item.id);
-                              dispatch(setSelectedNode(item.id));
-                            }}
-                          >
-                            {item.isFolder ? (
-                              <FolderIcon
-                                sx={{
-                                  width: "18px",
-                                  height: "18px",
-                                  fill: "#4489fe",
-                                }}
-                              />
-                            ) : (
-                              <FileIcon
-                                sx={{
-                                  width: "18px",
-                                  height: "18px",
-                                  fill: "#4489fe",
-                                }}
-                              />
-                            )}
-                            <span className="ml-2 ">{item.label}</span>
-                          </div>
-                        ))}
+                        findChildren(treeData, value.id)?.map(
+                          (item, index2) => (
+                            <div
+                              key={index2}
+                              className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
+                              onClick={() => {
+                                handleClose(null, item.id);
+                                dispatch(setSelectedNode(item.id));
+                              }}
+                            >
+                              {item.isFolder === true ? (
+                                <FolderIcon
+                                  sx={{
+                                    width: "18px",
+                                    height: "18px",
+                                    fill: "#4489fe",
+                                  }}
+                                />
+                              ) : (
+                                <FileIcon
+                                  sx={{
+                                    width: "18px",
+                                    height: "18px",
+                                    fill: "#4489fe",
+                                  }}
+                                />
+                              )}
+                              <span
+                                className={`ml-2 ${
+                                  item.id === pathToSelectedNode[index + 1].id
+                                    ? "font-semibold"
+                                    : "font-normal"
+                                }`}
+                              >
+                                {item.label}
+                              </span>
+                            </div>
+                          )
+                        )}
                     </div>
                   </Popup>
                 </div>
@@ -367,16 +377,16 @@ const MainLyt = () => {
                         >
                           {findChildren(treeData, value.id)?.length > 0 &&
                             findChildren(treeData, value.id)?.map(
-                              (item, index) => (
+                              (item, index2) => (
                                 <div
-                                  key={index}
+                                  key={index2}
                                   className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
                                   onClick={() => {
                                     handleClose(null, item.id);
                                     dispatch(setSelectedNode(item.id));
                                   }}
                                 >
-                                  {item.children ? (
+                                  {item.isFolder === true ? (
                                     <FolderIcon
                                       sx={{
                                         width: "18px",
@@ -393,7 +403,21 @@ const MainLyt = () => {
                                       }}
                                     />
                                   )}
-                                  <span className="ml-2 ">{item.label}</span>
+                                  <span
+                                    className={`ml-2 ${
+                                      item.id ===
+                                      pathToSelectedNode[
+                                        pathToSelectedNode?.length -
+                                          4 +
+                                          index +
+                                          1
+                                      ].id
+                                        ? "font-semibold"
+                                        : "font-normal"
+                                    }`}
+                                  >
+                                    {item.label}
+                                  </span>
                                 </div>
                               )
                             )}

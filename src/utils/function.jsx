@@ -123,7 +123,11 @@ export function findChildren(treeData, idToFind, children = []) {
   for (const node of treeData.children || []) {
     if (node.id === idToFind) {
       for (const childNode of node.children || []) {
-        children.push({ id: childNode.id, label: childNode.label });
+        children.push({
+          id: childNode.id,
+          label: childNode.label,
+          isFolder: childNode.isFolder,
+        });
       }
       return children;
     }
@@ -134,7 +138,10 @@ export function findChildren(treeData, idToFind, children = []) {
 
 export function findPath(treeData, idToFind, currentPath = []) {
   for (const node of treeData.children || []) {
-    const newPath = currentPath.concat({ id: node.id, label: node.label });
+    const newPath = currentPath.concat({
+      id: node.id,
+      label: node.label,
+    });
 
     if (node.id === idToFind) {
       return newPath;
