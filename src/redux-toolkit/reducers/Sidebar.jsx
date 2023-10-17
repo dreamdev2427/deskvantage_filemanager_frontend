@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  minWidth: 0,
+  minWidth: 200,
   maxWidth: 500,
   defaultWidth: 350,
   leftSidebarWidth: 350, // store current width

@@ -57,7 +57,7 @@ const TreeView = (props) => {
                     />
                   )}
                   <div className="ml-1 text-[14px] font-medium text-[#212121] ">
-                    {node.label && node.label.toString()?.length > 15 ? (
+                    {node.label && node.label.toString()?.length > 20 ? (
                       <div className="relative group">
                         {node.label.toString().substring(0, 20) + "..."}
                         <div

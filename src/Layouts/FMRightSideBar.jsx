@@ -36,14 +36,14 @@ const FMRightSideBar = () => {
 
   return (
     <div
-      className={`absolute left-0 flex flex-col  px-2 py-0  rightsidebar h-[calc(100vh-160px)] 
-      ${activeTab !== "members" ? "w-full" : "w-[calc(100% - 5px)]"}
+      className={`flex flex-col w-full px-2 py-0  rightsidebar h-[calc(100vh-160px)] 
+   
       `}
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex justify-center  w-full">
+      <div className="flex justify-center w-full">
         <Tabs value={activeTab} className="w-full h-max">
           <TabsHeader
             className="rounded-none border-b border-[#C4C4C4] bg-transparent p-0 h-[60px] "
@@ -241,13 +241,15 @@ const FMRightSideBar = () => {
               <div className="mt-6 text-[#212121] text-[12px] font-medium">
                 Folder Link
               </div>
-              <div className="w-full mt-2 border-[1px] border-[#DEE0E4] py-2 px-4 flex items-center">
+              <div className="w-full mt-2 border-[1px] border-[#DEE0E4] py-2 px-4 gap-1 flex items-center ">
                 <img
                   src="/image/FMShareIcon.svg"
-                  className="w-[20px] h-[20px] mr-4"
+                  className="w-[18px] h-[18px] "
                   alt="share icon"
                 />
-                https://www.dv.com/packs/file-folder
+                <div className="w-full break-words pr-2">
+                  https://www.dv.com/packs/file-folder
+                </div>
               </div>
             </TabPanel>
           </TabsBody>

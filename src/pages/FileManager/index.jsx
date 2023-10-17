@@ -201,6 +201,127 @@ const MainLyt = () => {
     handleBreadcrumbClick(nodeId);
   };
 
+  const renderBreadcrumbItem = (
+    value,
+    index,
+    handleExpand,
+    handleClick,
+    handleClose
+  ) => (
+    <div
+      key={index}
+      onClick={(e) => {
+        handleExpand(index);
+        handleClick(e, value.id);
+      }}
+      className="flex gap-2 items-center"
+    >
+      <div className={``}>
+        {value?.label?.toString()?.length > 20
+          ? value?.label?.toString().substring(0, 20) + "..."
+          : value?.label}
+      </div>
+      {expanded.includes(index) ? (
+        <ExpandMoreIcon fontSize="small" />
+      ) : (
+        <ExpandMoreIcon
+          fontSize="small"
+          style={{ transform: "rotate(-90deg)" }}
+          onClick={(e) => handleClose(e, value.id)}
+        />
+      )}
+      <Popup
+        id={`fmBreadcrumbPopup_${value.id}`}
+        open={showBreadcrumbDropdown[value.id] || false}
+        anchorEl={anchorEl[value.id]}
+        onClose={(e) => handleClose(e, value.id)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <div className="flex w-max px-4 py-4 h-max left-[50%] bg-white flex-col gap-1 border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium max-h-[400px] overflow-y-auto">
+          {findChildren(treeData, value.id)?.length > 0 &&
+            findChildren(treeData, value.id)?.map((item, index2) => (
+              <div
+                key={index2}
+                className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2"
+                onClick={() => {
+                  handleClose(null, item.id);
+                  dispatch(setSelectedNode(item.id));
+                }}
+              >
+                {item.isFolder === true ? (
+                  <FolderIcon
+                    sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
+                  />
+                ) : (
+                  <FileIcon
+                    sx={{ width: "18px", height: "18px", fill: "#4489fe" }}
+                  />
+                )}
+                <span
+                  className={`ml-2 ${
+                    item.id === pathToSelectedNode[index + 1]?.id
+                      ? "font-semibold"
+                      : "font-normal"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </div>
+            ))}
+        </div>
+      </Popup>
+    </div>
+  );
+
+  const renderBreadcrumbs = (breadcrumbs) => (
+    <Breadcrumbs
+      maxItems={4}
+      aria-label="breadcrumb"
+      className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
+      separator=""
+    >
+      {breadcrumbs &&
+        breadcrumbs.length > 0 &&
+        breadcrumbs.map((value, index) =>
+          index === breadcrumbs.length - 1 ? (
+            <Typography key={index} color="text.primary" className={``}>
+              {value?.label?.toString()?.length > 20
+                ? value?.label?.toString().substring(0, 20) + "..."
+                : value?.label}
+            </Typography>
+          ) : (
+            renderBreadcrumbItem(
+              value,
+              index,
+              handleExpand,
+              handleClick,
+              handleClose
+            )
+          )
+        )}
+    </Breadcrumbs>
+  );
+
+  const renderEllipsis = () => <div className="font-bold mx-2">...</div>;
+
+  const renderBreadcrumbsContainer = () => (
+    <div className="flex flex-start">
+      {pathToSelectedNode?.length > 0 && renderEllipsis()}
+      {renderBreadcrumbs(
+        pathToSelectedNode?.length > 4
+          ? pathToSelectedNode.slice(-4)
+          : pathToSelectedNode
+      )}
+    </div>
+  );
+
   return (
     <div className="h-full overflow-x-auto">
       <NavBar />
@@ -212,223 +333,9 @@ const MainLyt = () => {
           Site
         </Typography>
         <NavigateNextIcon fontSize="small" className="ml-2" />
-        {pathToSelectedNode && pathToSelectedNode.length <= 4 ? (
-          <Breadcrumbs
-            maxItems={4}
-            aria-label="breadcrumb"
-            className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
-            separator=""
-          >
-            {pathToSelectedNode.map((value, index) => {
-              return index === pathToSelectedNode.length - 1 ? (
-                <Typography color="text.primary" className={``}>
-                  {value?.label}
-                </Typography>
-              ) : (
-                <div
-                  key={index}
-                  onClick={(e) => {
-                    handleExpand(index);
-                    handleClick(e, value.id);
-                  }}
-                  className="flex gap-2 items-center"
-                >
-                  <div color="text.primary" className={``}>
-                    {value?.label?.toString()?.length > 20
-                      ? value?.label?.toString().substring(0, 20) + "..."
-                      : value?.label}
-                  </div>
-                  {expanded.includes(index) ? (
-                    <ExpandMoreIcon fontSize="small" />
-                  ) : (
-                    <ExpandMoreIcon
-                      fontSize="small"
-                      style={{ transform: "rotate(-90deg)" }}
-                      onClick={(e) => handleClose(e, value.id)}
-                    />
-                  )}
-                  <Popup
-                    id={`fmBreadcrumbPopup_${value.id}`}
-                    open={showBreadcrumbDropdown[value.id] || false}
-                    anchorEl={anchorEl[value.id]}
-                    onClose={(e) => handleClose(e, value.id)}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                  >
-                    <div
-                      className="flex w-max px-4 py-4 h-max  left-[50%]
-                        bg-white flex-col gap-1
-                        border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        max-h-[400px] overflow-y-auto
-                        "
-                    >
-                      {findChildren(treeData, value.id)?.length > 0 &&
-                        findChildren(treeData, value.id)?.map(
-                          (item, index2) => (
-                            <div
-                              key={index2}
-                              className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                              onClick={() => {
-                                handleClose(null, item.id);
-                                dispatch(setSelectedNode(item.id));
-                              }}
-                            >
-                              {item.isFolder === true ? (
-                                <FolderIcon
-                                  sx={{
-                                    width: "18px",
-                                    height: "18px",
-                                    fill: "#4489fe",
-                                  }}
-                                />
-                              ) : (
-                                <FileIcon
-                                  sx={{
-                                    width: "18px",
-                                    height: "18px",
-                                    fill: "#4489fe",
-                                  }}
-                                />
-                              )}
-                              <span
-                                className={`ml-2 ${
-                                  item.id === pathToSelectedNode[index + 1].id
-                                    ? "font-semibold"
-                                    : "font-normal"
-                                }`}
-                              >
-                                {item.label}
-                              </span>
-                            </div>
-                          )
-                        )}
-                    </div>
-                  </Popup>
-                </div>
-              );
-            })}
-          </Breadcrumbs>
-        ) : (
-          <div className="flex flex-start">
-            {pathToSelectedNode?.length > 0 && (
-              <div className="font-bold mx-2 ">...</div>
-            )}
-            <Breadcrumbs
-              maxItems={4}
-              aria-label="breadcrumb"
-              className={`flex justify-start my-0 bg-transparent ml-2 w-[calc(100% - 20px)] `}
-              separator=""
-            >
-              {pathToSelectedNode &&
-                pathToSelectedNode.slice(-4).map((value, index) => {
-                  return index === 3 ? (
-                    <Typography color="text.primary" className={``}>
-                      {value?.label}
-                    </Typography>
-                  ) : (
-                    <div
-                      key={index}
-                      onClick={(e) => {
-                        handleExpand(index);
-                        handleClick(e, value.id);
-                      }}
-                      className="flex gap-2 items-center"
-                    >
-                      <div className={``}>
-                        {value?.label?.toString()?.length > 20
-                          ? value?.label?.toString().substring(0, 20) + "..."
-                          : value?.label}
-                      </div>
-                      {expanded.includes(index) ? (
-                        <ExpandMoreIcon fontSize="small" />
-                      ) : (
-                        <ExpandMoreIcon
-                          fontSize="small"
-                          style={{ transform: "rotate(-90deg)" }}
-                          onClick={(e) => handleClose(e, value.id)}
-                        />
-                      )}
-                      <Popup
-                        id={`fmBreadcrumbPopup_${value.id}`}
-                        open={showBreadcrumbDropdown[value.id] || false}
-                        anchorEl={anchorEl[value.id]}
-                        onClose={(e) => handleClose(e, value.id)}
-                        anchorOrigin={{
-                          vertical: "bottom",
-                          horizontal: "left",
-                        }}
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "left",
-                        }}
-                      >
-                        <div
-                          className="flex w-max px-4 py-4 h-max  left-[50%]
-                        bg-white flex-col gap-1
-                        border-[1px] border-[#E5E9EE] rounded-[4px] text-[16px] font-medium
-                        max-h-[400px] overflow-y-auto
-                        "
-                        >
-                          {findChildren(treeData, value.id)?.length > 0 &&
-                            findChildren(treeData, value.id)?.map(
-                              (item, index2) => (
-                                <div
-                                  key={index2}
-                                  className="flex items-center bg-white hover:bg-[rgba(25,118,210,0.12)] px-2 py-2 "
-                                  onClick={() => {
-                                    handleClose(null, item.id);
-                                    dispatch(setSelectedNode(item.id));
-                                  }}
-                                >
-                                  {item.isFolder === true ? (
-                                    <FolderIcon
-                                      sx={{
-                                        width: "18px",
-                                        height: "18px",
-                                        fill: "#4489fe",
-                                      }}
-                                    />
-                                  ) : (
-                                    <FileIcon
-                                      sx={{
-                                        width: "18px",
-                                        height: "18px",
-                                        fill: "#4489fe",
-                                      }}
-                                    />
-                                  )}
-                                  <span
-                                    className={`ml-2 ${
-                                      item.id ===
-                                      pathToSelectedNode[
-                                        pathToSelectedNode?.length -
-                                          4 +
-                                          index +
-                                          1
-                                      ].id
-                                        ? "font-semibold"
-                                        : "font-normal"
-                                    }`}
-                                  >
-                                    {item.label}
-                                  </span>
-                                </div>
-                              )
-                            )}
-                        </div>
-                      </Popup>
-                    </div>
-                  );
-                })}
-            </Breadcrumbs>
-          </div>
-        )}
+        {pathToSelectedNode && pathToSelectedNode.length <= 4
+          ? renderBreadcrumbs(pathToSelectedNode)
+          : renderBreadcrumbsContainer()}
       </div>
       <div className="mt-[142px] flex h-full relative w-full overflow-x-visible">
         <div
@@ -480,7 +387,7 @@ const MainLyt = () => {
           }}
         >
           <div
-            className="w-1 border-r-2 cursor-col-resize border-blue-gray-50 h-full"
+            className="w-1 border-r-2 cursor-col-resize border-blue-gray-50 "
             onMouseDown={rightSidebarMouseDown}
           ></div>
           <FMRightSideBar />
