@@ -278,7 +278,7 @@ const MainLyt = () => {
                               dispatch(setSelectedNode(item.id));
                             }}
                           >
-                            {item.children ? (
+                            {item.isFolder ? (
                               <FolderIcon
                                 sx={{
                                   width: "18px",
@@ -306,7 +306,9 @@ const MainLyt = () => {
           </Breadcrumbs>
         ) : (
           <div className="flex flex-start">
-            <div className="font-bold mx-2 ">...</div>
+            {pathToSelectedNode?.length > 0 && (
+              <div className="font-bold mx-2 ">...</div>
+            )}
             <Breadcrumbs
               maxItems={4}
               aria-label="breadcrumb"

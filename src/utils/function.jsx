@@ -199,3 +199,35 @@ export function insertNode(treeData, parentId, newNode) {
   throw new Error("Parent node not found");
   // Or return treeData;
 }
+
+export function generateTree(maxNodes, maxDepth) {
+  function generateNode(id, depth) {
+    const isFolder = depth < maxDepth && Math.random() < 0.7; // Adjust probability as needed
+    const node = {
+      id,
+      label: `Node ${id}`,
+      isFolder,
+      children: isFolder ? [] : undefined,
+    };
+
+    if (isFolder) {
+      const numChildren = Math.floor(Math.random() * (maxNodes - 1)) + 1;
+      for (let i = 0; i < numChildren; i++) {
+        const childId = `${id}-${i + 1}`;
+        node.children.push(generateNode(childId, depth + 1));
+      }
+    }
+
+    return node;
+  }
+
+  return {
+    id: "root",
+    label: "Site",
+    isFolder: true,
+    children: Array.from(
+      { length: Math.floor(Math.random() * maxNodes) + 1 },
+      (_, i) => generateNode(`node${i + 1}`, 1)
+    ),
+  };
+}
