@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import VideoFileIcon from "@mui/icons-material/VideoFile";
 import AudioFileIcon from "@mui/icons-material/AudioFile";
 import TextFileIcon from "@mui/icons-material/TextFields";
@@ -30,6 +30,10 @@ import {
   setDraggingElements,
   setDraggingStatus,
 } from "../redux-toolkit/reducers/FMDragDrop";
+
+import { alpha, styled } from "@mui/material/styles";
+import { param } from "jquery";
+import { FM_DATA_GRID_HIGHTLIGHT_BG } from "../utils/constant";
 
 const UPLOAD_COMPLETED = -5;
 const months = {
@@ -173,6 +177,7 @@ function NameCell(params) {
 
   const handleClick = (event) => {
     event.stopPropagation();
+    params.handleRowStyle(params);
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
@@ -180,7 +185,7 @@ function NameCell(params) {
   const handleClose = (event) => {
     setAnchorEl(null);
     setOpen(false);
-    setTimeout(hidePresentation, 400, event);
+    setTimeout(hidePresentation, 500, event);
   };
 
   const handleClickNoteMenu = (event) => {
@@ -601,6 +606,10 @@ const FMMiddlePanel = () => {
     },
   });
 
+  const handleRowStyle = (param) => {
+    console.log("sdflkslfksldfks", param);
+  };
+
   const columns = [
     {
       field: "FileName",
@@ -612,7 +621,7 @@ const FMMiddlePanel = () => {
           const fileExtension = getFileExtension(params.value.name); // Get the corresponding icon based on the extension
 
           return (
-            <div className="flex gap-2 ">
+            <div className="flex gap-2">
               {fileExtension === "png" ? (
                 <ImageIcon sx={{ fill: "#4489fe" }} />
               ) : fileExtension === "zip" ? (
@@ -631,7 +640,7 @@ const FMMiddlePanel = () => {
           );
         } else if (params.value.type === "folder") {
           return (
-            <div className="flex gap-2 ">
+            <div className="flex gap-2">
               <FaFolder sx={{ fill: "#4489fe" }} />
               <div className="">{params.value.name}</div>
             </div>
@@ -733,7 +742,7 @@ const FMMiddlePanel = () => {
           <div className="flex justify-between min-w-[150px] pr-[18px]">
             <div className="">{params.value}</div>
 
-            <NameCell {...params} />
+            <NameCell {...params} handleRowStyle={handleRowStyle} />
           </div>
         );
       },
@@ -809,13 +818,10 @@ const FMMiddlePanel = () => {
           dispatch(setDraggingElements([parsedData]));
         });
         divs[i].addEventListener("dragstop", (event) => {
-          console.log("dragstop 000 >>> ");
-          //delete a row from data grid
+          // console.log("dragstop 000 >>> ");
         });
         divs[i].addEventListener("dragend", (event) => {
-          console.log("dragend 000 >>> ");
-
-          // dispatch(setDraggingStatus(false));
+          // console.log("dragend 000 >>> ");
         });
       }
     };
@@ -939,6 +945,7 @@ const FMMiddlePanel = () => {
             Drag and drop to upload files to the cloud
           </div>
         )}
+
         <DataGrid
           rows={tableRows}
           columns={columns}
@@ -954,7 +961,7 @@ const FMMiddlePanel = () => {
             borderLeft: "none",
             borderRight: "none",
             borderTop: "none",
-            backgroundColor: "transparent",
+            backgroundColor: "",
             ".MuiDataGrid-sortIcon": {
               opacity: "inherit !important",
             },
@@ -962,6 +969,9 @@ const FMMiddlePanel = () => {
               marginLeft: "2px",
               visibility: "visible !important",
               width: "auto !important",
+            },
+            "& .MuiDataGrid-row:hover": {
+              backgroundColor: "#eeeeee",
             },
             overflowX: "visible",
           }}
@@ -982,6 +992,11 @@ const FMMiddlePanel = () => {
               />
             ),
           }}
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0
+              ? `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`
+              : "bg-transparent"
+          }
         />
       </div>
     </div>

@@ -51,6 +51,8 @@ export const GRAY = "#757575";
 
 export const ACTIVE_WORD_COLOR = "#4489FE";
 
+export const FM_DATA_GRID_HIGHTLIGHT_BG = "#E9F0FD";
+
 const maxNodes = 5;
 const maxDepth = 10;
 export const treeData = generateTree(maxNodes, maxDepth);

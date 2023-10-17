@@ -6,8 +6,10 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const FMRightSideBar = () => {
+  const { rightSidebarWidth } = useSelector((state) => state.sidebar);
   const containerRef = useRef(null);
 
   const handleMouseEnter = () => {
@@ -36,15 +38,16 @@ const FMRightSideBar = () => {
 
   return (
     <div
-      className={`flex flex-col w-full px-2 py-0  rightsidebar h-[calc(100vh-160px)] 
-   
-      `}
+      className={`flex flex-col  px-2 py-0  rightsidebar h-[calc(100vh-160px)] min-w-[200px]`}
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex justify-center w-full">
-        <Tabs value={activeTab} className="w-full h-max">
+      <div
+        className={`flex justify-center `}
+        style={{ minWidth: `${rightSidebarWidth - 30}px` }}
+      >
+        <Tabs value={activeTab} className={`w-full h-max`}>
           <TabsHeader
             className="rounded-none border-b border-[#C4C4C4] bg-transparent p-0 h-[60px] "
             indicatorProps={{
