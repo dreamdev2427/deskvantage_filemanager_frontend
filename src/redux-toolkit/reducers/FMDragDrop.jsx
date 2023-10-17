@@ -20,5 +20,9 @@ const fmdragdropslice = createSlice({
 
 const { reducer, actions } = fmdragdropslice;
 
-export const { setDraggingStatus, setDraggingElements } = actions;
+export const {
+  setDraggingStatus,
+  setDraggingElements,
+  setRefOfDataGrid,
+} = actions;
 export default reducer;

@@ -431,6 +431,10 @@ const FMMiddlePanel = () => {
     },
   ]);
   const dispatch = useDispatch();
+  const { isDragging, draggingElements } = useSelector(
+    (state) => state.fmdragdrop
+  );
+  const [selectedRows, setSelectedRows] = useState([]);
 
   // define a function that will cancel the upload and delete the row
   const cancelUpload = (id) => {
@@ -762,8 +766,6 @@ const FMMiddlePanel = () => {
     };
   }, []);
 
-  const [selectedRows, setSelectedRows] = useState([]);
-
   const handleHeaderClick = (params) => {
     console.log(`Clicked on header: ${params.field}`);
     // Add your custom logic here
@@ -776,7 +778,9 @@ const FMMiddlePanel = () => {
     const doc = parser.parseFromString(htmlString, "text/html");
     // Get the row element
     const row = doc.querySelector(".MuiDataGrid-row");
+    let dataId = row.getAttribute("data-id");
     // Get the cell elements
+    console.log("dataId >>> ", dataId);
     const cells = row.querySelectorAll(".MuiDataGrid-cell");
     // Create an empty object to store the data
     const data = {};
@@ -791,7 +795,7 @@ const FMMiddlePanel = () => {
       }
     }
     // Return the data object as a JSON string
-    return JSON.stringify(data);
+    return { ...data, dataId: dataId };
   }
 
   useEffect(() => {
@@ -804,10 +808,29 @@ const FMMiddlePanel = () => {
           dispatch(setDraggingStatus(true));
           dispatch(setDraggingElements([parsedData]));
         });
+        divs[i].addEventListener("dragstop", (event) => {
+          console.log("dragstop 000 >>> ");
+          //delete a row from data grid
+        });
+        divs[i].addEventListener("dragend", (event) => {
+          console.log("dragend 000 >>> ");
+
+          dispatch(setDraggingStatus(false));
+        });
       }
     };
     setTimeout(attachDragStart, 500);
   }, []);
+
+  useEffect(() => {
+    if (isDragging === false && draggingElements?.length > 0) {
+      const rows = tableRows;
+      const dataId = draggingElements[0]["dataId"];
+      let newRows = rows.filter((item) => item.id != dataId);
+      setTableRows(newRows);
+      dispatch(setDraggingElements([]));
+    }
+  }, [isDragging]);
 
   return (
     <div className="w-full flex flex-col ">
