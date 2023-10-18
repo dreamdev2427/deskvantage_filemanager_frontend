@@ -158,11 +158,30 @@ const FMTreeView = (props) => {
   };
 
   const dropObj = (event: Event) => {
-    let targetElement =
-      event.originalEvent.target.parentElement.parentElement.parentElement
-        .parentElement;
+    let targetElement = null;
+    if (
+      event.originalEvent.target.parentElement.innerHTML
+        .substring(0, 30)
+        .includes('svg class="MuiSvgIcon-root') === true
+    ) {
+      targetElement =
+        event.originalEvent.target.parentElement.parentElement.parentElement;
+    } else if (
+      event.originalEvent.target.parentElement.innerHTML
+        .substring(0, 30)
+        .includes("path d=") === true
+    ) {
+      targetElement =
+        event.originalEvent.target.parentElement.parentElement.parentElement
+          .parentElement;
+    } else if (
+      event.originalEvent.target.parentElement.innerHTML
+        .substring(0, 30)
+        .includes('li id="jqxWidget') === true
+    ) {
+      targetElement = event.originalEvent.target;
+    }
 
-    if (targetElement.children[0].innerHTML !== "") return false;
     let targetItem = treeA.current!.getItem(targetElement);
     let targetTreeItem = $(targetItem.element).first();
     treeA.current!.addTo(

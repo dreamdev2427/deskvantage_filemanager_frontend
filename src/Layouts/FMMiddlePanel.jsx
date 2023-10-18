@@ -863,6 +863,7 @@ const FMMiddlePanel = () => {
       const divs = document.getElementsByClassName("MuiDataGrid-row");
       for (var i = 0; i < divs.length; i++) {
         divs[i].addEventListener("dragstart", (event) => {
+          console.log("dragstart event >>>> ", event);
           const srcdata = event.srcElement;
           const parsedData = parseRow(srcdata.outerHTML);
           dispatch(setDraggingStatus(true));
