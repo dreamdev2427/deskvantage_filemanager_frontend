@@ -1036,7 +1036,7 @@ input[type=submit].jqx-button {
 /*applied to a group's collapse button.*/
 .jqx-grid-group-collapse {
     padding-right: 0px;
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1044,7 +1044,7 @@ input[type=submit].jqx-button {
 
 .jqx-grid-group-collapse-rtl {
     padding-right: 0px;
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1054,7 +1054,7 @@ input[type=submit].jqx-button {
 .jqx-grid-group-expand,
 .jqx-grid-group-expand-rtl {
     padding-right: 0px;
-    background-image: url(./image/icon-down.png);
+    background-image: url('/image/FileManagement/icon-down.png');
     background-position: 50% 50%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1274,17 +1274,17 @@ input[type=submit].jqx-button {
 
 /*applied to a sub menu item when it has sub menu items. Displays right arrow icon.*/
 .jqx-menu-item-arrow-right {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
 }
 
 /*applied to a sub menu item when it has sub menu items. Displays down arrow icon.*/
 .jqx-menu-item-arrow-down {
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
 }
 
 /*applied to a sub menu item when it has sub menu items. Displays up arrow icon.*/
 .jqx-menu-item-arrow-up {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
 }
 
 .jqx-menu-minimized {
@@ -1350,24 +1350,24 @@ input[type=submit].jqx-button {
     padding-left: 5px;
     width: 17px;
     height: 15px;
-    background-image: url(./image/icon-left.png);
+    background-image: url(./image/FileManagement/icon-left.png);
     background-position: 0 50%;
     background-repeat: no-repeat;
 }
 
 /*applied to a sub menu item when it has sub menu items and its sub menu is opened. Displays right arrow icon.*/
 .jqx-menu-item-arrow-right-selected {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
 }
 
 /*applied to a sub menu item when it has sub menu items and its sub menu is opened. Displays down arrow icon.*/
 .jqx-menu-item-arrow-down-selected {
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
 }
 
 /*applied to a sub menu item when it has sub menu items and its sub menu is opened. Displays up arrow icon.*/
 .jqx-menu-item-arrow-up-selected {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
 }
 
 .jqx-menu-item-arrow-right-selected,
@@ -1384,17 +1384,17 @@ input[type=submit].jqx-button {
 
 /*applied to a top-level menu item when it has sub menu items. Displays right arrow icon.*/
 .jqx-menu-item-arrow-top-right {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
 }
 
 /*applied to a sub menu item when it has sub menu items and its sub menu is opened. Displays left arrow icon.*/
 .jqx-menu-item-arrow-left-selected {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
 }
 
 /*applied to a top-level menu item when it has sub menu items. Displays left arrow icon.*/
 .jqx-menu-item-arrow-top-left {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
 }
 
 .jqx-menu-item-arrow-left-selected,
@@ -1613,7 +1613,7 @@ input[type=submit].jqx-button {
     padding-right: 0px;
     width: 17px;
     height: 17px;
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-position: 100% 50%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1621,7 +1621,7 @@ input[type=submit].jqx-button {
 
 .jqx-tree-item-arrow-collapse-rtl,
 .jqx-tree-item-arrow-collapse-hover-rtl {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
 }
 
 /*applied to a tree item when it has sub items and is expanded. Displays an arrow icon next to the item.*/
@@ -1630,7 +1630,7 @@ input[type=submit].jqx-button {
     padding-right: 0px;
     width: 17px;
     height: 17px;
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
     background-position: 100% 50%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1712,7 +1712,7 @@ input[type=submit].jqx-button {
     cursor: pointer;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -1722,7 +1722,7 @@ input[type=submit].jqx-button {
     outline: none;
     position: relative;
     z-index: 15;
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-repeat: no-repeat;
     background-position: center;
     float: left;
@@ -3009,7 +3009,7 @@ of the horizontal scrollbar.*/
 
 /*applied to the window's collapse button*/
 .jqx-window-collapse-button {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
     cursor: pointer;
     margin-top: 3px;
 }
@@ -3018,7 +3018,7 @@ of the horizontal scrollbar.*/
 .jqx-window-collapse-button-collapsed {
     margin-top: 3px;
     cursor: pointer;
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
 }
 
 /*setting styles of the modal window’s background*/
@@ -3306,13 +3306,13 @@ of the horizontal scrollbar.*/
 /*left, right, up and down arrow icons.*/
 .jqx-left-arrow {
     background: transparent;
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     cursor: pointer;
 }
 
 .jqx-right-arrow {
     background: transparent;
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     cursor: pointer;
 }
 
@@ -3343,7 +3343,7 @@ of the horizontal scrollbar.*/
 .jqx-icon-arrow-up,
 .jqx-icon-arrow-up-hover,
 .jqx-icon-arrow-up-selected {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -3351,7 +3351,7 @@ of the horizontal scrollbar.*/
 .jqx-icon-arrow-down,
 .jqx-icon-arrow-down-hover,
 .jqx-icon-arrow-down-selected {
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -3359,7 +3359,7 @@ of the horizontal scrollbar.*/
 .jqx-icon-arrow-left,
 .jqx-icon-arrow-left-hover,
 .jqx-icon-arrow-left-selected {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -3367,7 +3367,7 @@ of the horizontal scrollbar.*/
 .jqx-icon-arrow-right,
 .jqx-icon-arrow-right-hover,
 .jqx-icon-arrow-right-selected {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -3389,49 +3389,49 @@ of the horizontal scrollbar.*/
 }
 
 .jqx-icon-arrow-up-hover {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-down-hover {
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-left-hover {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-right-hover {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-up-selected {
-    background-image: url('/image/icon-up.png');
+    background-image: url('/image/FileManagement/icon-up.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-down-selected {
-    background-image: url('/image/icon-down.png');
+    background-image: url('/image/FileManagement/icon-down.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-left-selected {
-    background-image: url('/image/icon-left.png');
+    background-image: url('/image/FileManagement/icon-left.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .jqx-icon-arrow-right-selected {
-    background-image: url('/image/icon-right.png');
+    background-image: url('/image/FileManagement/icon-right.png');
     background-repeat: no-repeat;
     background-position: center;
 }

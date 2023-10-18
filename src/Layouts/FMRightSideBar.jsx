@@ -135,7 +135,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -159,7 +159,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -183,7 +183,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -207,7 +207,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -231,7 +231,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -255,7 +255,7 @@ const FMRightSideBar = () => {
                 </div>
                 <div className="flex justify-end items-center">
                   <img
-                    src="/image/FMDotsIcon.svg"
+                    src="/image/FileManagement/FMDotsIcon.svg"
                     className="w-[24px] h-[24px]"
                     alt="dots"
                   />
@@ -273,7 +273,7 @@ const FMRightSideBar = () => {
               </div>
               <div className="w-full mt-2 border-[1px] border-[#DEE0E4] py-2 px-4 gap-1 flex items-center ">
                 <img
-                  src="/image/FMShareIcon.svg"
+                  src="/image/FileManagement/FMShareIcon.svg"
                   className="w-[18px] h-[18px] "
                   alt="share icon"
                 />

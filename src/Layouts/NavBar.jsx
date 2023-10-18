@@ -323,7 +323,7 @@ export default function NavBar() {
         <div className="flex items-center">
           <div className="relative">
             <img
-              src="/image/FMNotificationIcon.svg"
+              src="/image/FileManagement/FMNotificationIcon.svg"
               className="w-12 h-12 mr-4 cursor-pointer"
               alt="notification icon"
               onClick={() => setShowNotificationPopup(!showNotificationPopup)}

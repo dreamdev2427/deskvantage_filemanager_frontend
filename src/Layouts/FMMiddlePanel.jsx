@@ -168,7 +168,7 @@ function DotsCell({ params, handleRowStyle }) {
       document
         .elementFromPoint(event.clientX, event.clientY)
         .outerHTML.toString()
-        .includes("/image/FMDotsIcon.svg") === true
+        .includes("/image/FileManagement/FMDotsIcon.svg") === true
     ) {
       document
         .elementFromPoint(event.clientX, event.clientY)
@@ -220,7 +220,11 @@ function DotsCell({ params, handleRowStyle }) {
   return (
     <div>
       <button onClick={handleClick} className=" w-max">
-        <img src="/image/FMDotsIcon.svg" className="w-5 h-5" alt="dots" />
+        <img
+          src="/image/FileManagement/FMDotsIcon.svg"
+          className="w-5 h-5"
+          alt="dots"
+        />
       </button>
       <Popup
         id={`parentMenu_${params.id}`}
@@ -905,7 +909,7 @@ const FMMiddlePanel = () => {
         <div className="flex  justify-start ml-4 text-[14px] min-w-[400px] select-none ">
           <div className="flex border-r-[2px] border-[#dee0e4] gap-2 px-4 cursor-pointer">
             <img
-              src="/image/FMShareIcon.svg"
+              src="/image/FileManagement/FMShareIcon.svg"
               className="w-[20px] h-[20px] cursor-pointer"
               alt="icon"
             />
@@ -913,7 +917,7 @@ const FMMiddlePanel = () => {
           </div>
           <div className="flex border-r-[2px] border-[#dee0e4] gap-2 px-4 cursor-pointer">
             <img
-              src="/image/FMEyeIcon.svg"
+              src="/image/FileManagement/FMEyeIcon.svg"
               className="w-[20px] h-[20px] cursor-pointer"
               alt="icon"
             />
@@ -925,7 +929,7 @@ const FMMiddlePanel = () => {
             <>
               <div className=" border-r-[2px] border-[#dee0e4] gap-2 px-4 cursor-pointer flex ">
                 <img
-                  src="/image/FMEyeIcon.svg"
+                  src="/image/FileManagement/FMEyeIcon.svg"
                   className="w-[20px] h-[20px] cursor-pointer"
                   alt="icon"
                 />
@@ -934,7 +938,7 @@ const FMMiddlePanel = () => {
 
               <div className=" border-r-[2px] border-[#dee0e4] gap-2 px-4 cursor-pointer  flex">
                 <img
-                  src="/image/FMCopyIcon.svg"
+                  src="/image/FileManagement/FMCopyIcon.svg"
                   className="w-[19px] h-[19px] cursor-pointer"
                   alt="icon"
                 />
@@ -942,7 +946,7 @@ const FMMiddlePanel = () => {
               </div>
               <div className=" border-r-[2px] border-[#dee0e4] gap-2 px-4 cursor-pointer flex">
                 <img
-                  src="/image/FMDownloadIcon.svg"
+                  src="/image/FileManagement/FMDownloadIcon.svg"
                   className="w-[20px] h-[20px] cursor-pointer"
                   alt="icon"
                 />
@@ -952,7 +956,7 @@ const FMMiddlePanel = () => {
           )}
           <div className="flex  gap-2 px-4 cursor-pointer">
             <img
-              src="/image/FMDotsIcon.svg"
+              src="/image/FileManagement/FMDotsIcon.svg"
               className="w-[20px] h-[20px] "
               alt="icon"
             />
@@ -1016,11 +1020,15 @@ const FMMiddlePanel = () => {
           }}
           components={{
             ColumnSortedAscendingIcon: () => (
-              <img src={"/image/up.png"} className="w-4 h-4" alt="Ascending" />
+              <img
+                src={"/image/FileManagement/sortup.png"}
+                className="w-4 h-4"
+                alt="Ascending"
+              />
             ),
             ColumnSortedDescendingIcon: () => (
               <img
-                src={"/image/down.png"}
+                src={"/image/FileManagement/sortdown.png"}
                 className="w-4 h-4"
                 alt="Descending"
               />

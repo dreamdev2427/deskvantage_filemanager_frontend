@@ -388,7 +388,7 @@ const MainLyt = () => {
             }}
           >
             <img
-              src="/image/blueRightArrow.svg"
+              src="/image/FileManagement/blueRightArrow.svg"
               className="w-10 h-10"
               alt="right arrow"
             />
@@ -400,7 +400,7 @@ const MainLyt = () => {
             onClick={() => setShowRightBarOnMobile(!showRightBarOnMobile)}
           >
             <img
-              src="/image/blueLeftArrow.svg"
+              src="/image/FileManagement/blueLeftArrow.svg"
               className="w-10 h-10"
               alt="right arrow"
             />
