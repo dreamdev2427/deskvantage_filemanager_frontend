@@ -47,6 +47,8 @@ export const HIGHLIGHT_BG = "highlightBg";
 // Color
 export const MEDIUM_GRAY = "#C4C4C4";
 
+export const LIGHT_BLUE = "#E9F0FD";
+
 export const GRAY = "#757575";
 
 export const ACTIVE_WORD_COLOR = "#4489FE";
@@ -58,6 +60,8 @@ export const NAV_NOTIFICATION_UPLOADING_BADGE_BG = "#F2F1F1";
 export const NAV_NOTIFICATION_TITLE_COLOR = "#212121";
 
 export const FM_TITLE_COLOR = "#212121";
+
+export const NAV_SEARCHBOX_BG = "#f9f6f6";
 
 const maxNodes = 5;
 const maxDepth = 10;

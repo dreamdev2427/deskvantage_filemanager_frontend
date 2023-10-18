@@ -23,6 +23,9 @@ import {
   NAV_NOTIFICATION_TITLE_COLOR,
   NAV_NOTIFICATION_UPLOADING_BADGE_BG,
   GRAY,
+  LIGHT_BLUE,
+  NAV_SEARCHBOX_BG,
+  MEDIUM_GRAY,
 } from "../utils/constant";
 
 export default function NavBar() {
@@ -223,7 +226,7 @@ export default function NavBar() {
             </ul>
           ) : (
             <div
-              className="relative w-[50px] h-[50px] rounded-[8px] bg-[#E9F0FD] border-[2px] border-[#E9F0FD] flex justify-center items-center cursor-pointer"
+              className={`relative w-[50px] h-[50px] rounded-[8px] bg-[${LIGHT_BLUE}] border-[2px] border-[${LIGHT_BLUE}] flex justify-center items-center cursor-pointer`}
               onClick={() => setShowNavMenu(!showNavMenu)}
             >
               <img
@@ -232,7 +235,9 @@ export default function NavBar() {
                 alt="menu icon"
               />
               {showNavMenu === true && (
-                <ul className="flex flex-row gap-6 absolute z-40 left-10 top-10 bg-white px-5 py-5 border-[1px] border-[#E5E9EE] rounded-[4px] shadow-md">
+                <ul
+                  className={`flex flex-row gap-6 absolute z-40 left-10 top-10 bg-white px-5 py-5 border-[1px] border-[${GRAY}] rounded-[4px] shadow-md`}
+                >
                   {menus.map((menu) => {
                     return (
                       <li
@@ -313,7 +318,7 @@ export default function NavBar() {
         </div>
 
         <div className="w-full md:w-calc-full-without-250  md:max-w-[450px] flex items-end ">
-          <SearchBox className={`w-full bg-[#F2F3F5] h-[50px] `} />
+          <SearchBox className={`w-full bg-[${NAV_SEARCHBOX_BG}] h-[50px] `} />
         </div>
         <div className="flex items-center">
           <div className="relative">
@@ -325,16 +330,15 @@ export default function NavBar() {
             />
             {showNotificationPopup === true && (
               <div
-                className="w-[480px] absolute z-30 right-0 top-12 flex flex-col gap-3 bg-white shadow-md
-              border-[1px] border-[#E5E9EE] rounded-[4px]
-              "
+                className={`w-[480px] absolute z-30 right-0 top-12 flex flex-col gap-3 bg-white shadow-md
+              border-[1px] border-[${GRAY}] rounded-[4px]
+              `}
               >
                 <Tabs value={activeTab} className="w-full min-h-[300px]">
                   <TabsHeader
-                    className="rounded-none border-b border-[#C4C4C4] bg-transparent p-0 h-[54px] "
+                    className={`rounded-none border-b border-[${MEDIUM_GRAY}] bg-transparent p-0 h-[54px] `}
                     indicatorProps={{
-                      className:
-                        "bg-transparent border-b-[3px] border-[#4489FE] shadow-none rounded-none ",
+                      className: `bg-transparent border-b-[3px] border-[${ACTIVE_WORD_COLOR}] shadow-none rounded-none `,
                     }}
                   >
                     {data.map(({ label, value }) => (
@@ -344,7 +348,7 @@ export default function NavBar() {
                         onClick={() => setActiveTab(value)}
                         className={
                           activeTab === value
-                            ? `text-[${ACTIVE_WORD_COLOR}] font-medium text-[11px]`
+                            ? `text-[#4489fe] font-medium text-[11px]`
                             : " text-[11px]"
                         }
                       >
@@ -379,7 +383,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
                             >
                               Tasks
                             </div>
@@ -404,7 +408,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
                             >
                               Tasks
                             </div>
@@ -431,7 +435,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${GRAY}] text-[11px] text-center `}
                             >
                               Uploading
                             </div>
@@ -456,7 +460,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${GRAY}] text-[11px] text-center `}
                             >
                               Uploading
                             </div>
@@ -472,7 +476,9 @@ export default function NavBar() {
                                 <div
                                   className={`w-[200px] bg-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] h-[8px] rounded-[3px]`}
                                 />
-                                <div className="w-[140px] bg-[#4489FE] h-[6px] rounded-[3px] absolute top-[1px] left-0" />
+                                <div
+                                  className={`w-[140px] bg-[${ACTIVE_WORD_COLOR}] h-[6px] rounded-[3px] absolute top-[1px] left-0`}
+                                />
                               </div>
                             </div>
                           </div>
@@ -490,7 +496,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
                             >
                               Tasks
                             </div>
@@ -515,7 +521,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
                             >
                               Tasks
                             </div>
@@ -597,7 +603,7 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-[${GRAY}] text-[11px] text-center `}
                             >
                               Uploading
                             </div>
