@@ -190,8 +190,3 @@ body {
 .MuiDataGrid-row {
   -webkit-user-drag: element;
 }
-
-table-hover:hover {
-  backgroundColor: '#111111';
-  opacity: 0.1
-}

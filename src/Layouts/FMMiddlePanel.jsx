@@ -238,21 +238,21 @@ function DotsCell({ params, handleRowStyle }) {
       >
         <div className="flex flex-col gap-1 text-sm font-medium">
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`download_${params.id}`}
           >
             <AiOutlineDownload />
             Download
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`rename_${params.id}`}
           >
             <MdOutlineDriveFileRenameOutline />
             Rename
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`tagMenu_${params.id}`}
             onClick={(e) => handleClickTagMenu(e)}
           >
@@ -262,14 +262,14 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] "
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-b-[1px] border-[#DEE0E4] `}
             id={`copy_${params.id}`}
           >
             <MdOutlineContentCopy />
             Copy
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`addNote_${params.id}`}
             onClick={(e) => handleClickNoteMenu(e)}
           >
@@ -277,14 +277,14 @@ function DotsCell({ params, handleRowStyle }) {
             Add Note
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`share_${params.id}`}
           >
             <RiUserSharedLine />
             Share
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214]"
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
             id={`move_${params.id}`}
             onClick={(e) => handleClickMoveToMenu(e)}
           >
@@ -292,14 +292,14 @@ function DotsCell({ params, handleRowStyle }) {
             Move
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] border-b-[1px] border-[#DEE0E4] "
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-b-[1px] border-[#DEE0E4] `}
             id={`fileInfo_${params.id}`}
           >
             <GrCircleInformation />
             File information
           </div>
           <div
-            className="flex items-center px-5 py-1 gap-2 hover:bg-[#1976d214] "
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] `}
             id={`delete_${params.id}`}
           >
             <TfiTrash />
