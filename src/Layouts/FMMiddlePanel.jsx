@@ -174,7 +174,6 @@ function NameCell({ params, handleRowStyle }) {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    console.log("handle click dots >>> ", params);
     handleRowStyle(params);
     setAnchorEl(event.currentTarget);
     setOpen(true);
@@ -471,8 +470,6 @@ const FMMiddlePanel = () => {
     setIsDragActive(false);
     const filesAndFolders = await Promise.all(
       files.map(async (fileOrFolder) => {
-        console.log("fileOrFolder.type >>>> ", fileOrFolder.type);
-
         if (fileOrFolder.type !== "") {
           return {
             type: "file",
@@ -480,7 +477,6 @@ const FMMiddlePanel = () => {
             size: fileOrFolder.size,
           };
         } else {
-          console.log(" folder");
           const folderSize = await calculateFolderSize(
             fileOrFolder.webkitGetAsEntry()
           );
@@ -492,7 +488,6 @@ const FMMiddlePanel = () => {
         }
       })
     );
-    console.log("filesAndFolders >>> ", filesAndFolders);
     setUploadedItems([...uploadedItems, ...filesAndFolders]);
     for (let i = 0; i < filesAndFolders.length; i++) {
       // get the file name and size
@@ -616,16 +611,20 @@ const FMMiddlePanel = () => {
       const id = parseInt(element.getAttribute("data-id"));
       if (id == param?.row?.id) {
         findIndex = i;
-        console.log("findIndex of clicked row >>> ", findIndex);
         break;
       }
     }
 
     if (findIndex > -1) {
-      rowElements[findIndex].setAttribute(
-        "class",
-        `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] MuiDataGrid-row`
-      );
+      setTimeout(() => {
+        rowElements[findIndex].setAttribute(
+          "class",
+          `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] MuiDataGrid-row`
+        );
+      }, 500);
+      setTimeout(() => {
+        rowElements[findIndex].setAttribute("class", "MuiDataGrid-row");
+      }, 3000);
     }
   };
 
@@ -832,7 +831,6 @@ const FMMiddlePanel = () => {
     const row = doc.querySelector(".MuiDataGrid-row");
     let dataId = row.getAttribute("data-id");
     // Get the cell elements
-    console.log("dataId >>> ", dataId);
     const cells = row.querySelectorAll(".MuiDataGrid-cell");
     // Create an empty object to store the data
     const data = {};
@@ -1012,9 +1010,6 @@ const FMMiddlePanel = () => {
               marginLeft: "2px",
               visibility: "visible !important",
               width: "auto !important",
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#eeeeee",
             },
             overflowX: "visible",
           }}
