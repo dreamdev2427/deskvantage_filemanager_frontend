@@ -30,9 +30,6 @@ import {
   setDraggingElements,
   setDraggingStatus,
 } from "../redux-toolkit/reducers/FMDragDrop";
-
-import { alpha, styled } from "@mui/material/styles";
-import { param } from "jquery";
 import { FM_DATA_GRID_HIGHTLIGHT_BG } from "../utils/constant";
 
 const UPLOAD_COMPLETED = -5;
@@ -153,7 +150,7 @@ const fillRows = () => {
 
 fillRows();
 
-function NameCell(params) {
+function NameCell({ params, handleRowStyle }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNoteModal, setOpenNoteModal] = useState(false);
@@ -177,7 +174,8 @@ function NameCell(params) {
 
   const handleClick = (event) => {
     event.stopPropagation();
-    params.handleRowStyle(params);
+    console.log("handle click dots >>> ", params);
+    handleRowStyle(params);
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
@@ -609,7 +607,26 @@ const FMMiddlePanel = () => {
   });
 
   const handleRowStyle = (param) => {
-    console.log("sdflkslfksldfks", param);
+    const rowElements =
+      document.getElementsByClassName("MuiDataGrid-row") || [];
+
+    let findIndex = -1;
+    for (let i = 0; i < rowElements.length; i++) {
+      const element = rowElements[i];
+      const id = parseInt(element.getAttribute("data-id"));
+      if (id == param?.row?.id) {
+        findIndex = i;
+        console.log("findIndex of clicked row >>> ", findIndex);
+        break;
+      }
+    }
+
+    if (findIndex > -1) {
+      rowElements[findIndex].setAttribute(
+        "class",
+        `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] MuiDataGrid-row`
+      );
+    }
   };
 
   const columns = [
@@ -773,7 +790,7 @@ const FMMiddlePanel = () => {
           <div className="flex justify-between min-w-[150px] pr-[18px]">
             <div className="">{params.value}</div>
 
-            <NameCell {...params} handleRowStyle={handleRowStyle} />
+            <NameCell params={params} handleRowStyle={handleRowStyle} />
           </div>
         );
       },
@@ -805,11 +822,6 @@ const FMMiddlePanel = () => {
       window.removeEventListener("mousemove", () => {});
     };
   }, []);
-
-  const handleHeaderClick = (params) => {
-    console.log(`Clicked on header: ${params.field}`);
-    // Add your custom logic here
-  };
 
   function parseRow(htmlString) {
     // Create a DOMParser object
@@ -983,7 +995,6 @@ const FMMiddlePanel = () => {
           columns={columns}
           checkboxSelection={true}
           rowSelection={true}
-          onHeaderClick={handleHeaderClick}
           rowSelectionModel={selectedRows}
           onRowSelectionModelChange={(rowSelectionModel) => {
             setSelectedRows(rowSelectionModel);
@@ -1024,11 +1035,11 @@ const FMMiddlePanel = () => {
               />
             ),
           }}
-          getRowClassName={(params) =>
-            params.indexRelativeToCurrentPage % 2 === 0
-              ? `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`
-              : "bg-transparent"
-          }
+          // getRowClassName={(params) =>
+          //   params.indexRelativeToCurrentPage % 2 === 0
+          //     ? `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`
+          //     : "bg-transparent"
+          // }
         />
       </div>
     </div>
