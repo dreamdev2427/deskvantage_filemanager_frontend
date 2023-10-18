@@ -226,7 +226,7 @@ export default function NavBar() {
             </ul>
           ) : (
             <div
-              className={`relative w-[50px] h-[50px] rounded-[8px] bg-[${LIGHT_BLUE}] border-[2px] border-[${LIGHT_BLUE}] flex justify-center items-center cursor-pointer`}
+              className={`relative w-[50px] h-[50px] rounded-[8px] bg-custom-light-blue border-[2px] border-custom-light-blue flex justify-center items-center cursor-pointer`}
               onClick={() => setShowNavMenu(!showNavMenu)}
             >
               <img
@@ -236,7 +236,7 @@ export default function NavBar() {
               />
               {showNavMenu === true && (
                 <ul
-                  className={`flex flex-row gap-6 absolute z-40 left-10 top-10 bg-white px-5 py-5 border-[1px] border-[${GRAY}] rounded-[4px] shadow-md`}
+                  className={`flex flex-row gap-6 absolute z-40 left-10 top-10 bg-white px-5 py-5 border-[1px] border-custom-gray rounded-[4px] shadow-md`}
                 >
                   {menus.map((menu) => {
                     return (
@@ -331,14 +331,14 @@ export default function NavBar() {
             {showNotificationPopup === true && (
               <div
                 className={`w-[480px] absolute z-30 right-0 top-12 flex flex-col gap-3 bg-white shadow-md
-              border-[1px] border-[${GRAY}] rounded-[4px]
+              border-[1px] border-custom-gray rounded-[4px]
               `}
               >
                 <Tabs value={activeTab} className="w-full min-h-[300px]">
                   <TabsHeader
-                    className={`rounded-none border-b border-[${MEDIUM_GRAY}] bg-transparent p-0 h-[54px] `}
+                    className={`rounded-none border-b border-custom-medium-gray bg-transparent p-0 h-[54px] `}
                     indicatorProps={{
-                      className: `bg-transparent border-b-[3px] border-[${ACTIVE_WORD_COLOR}] shadow-none rounded-none `,
+                      className: `bg-transparent border-b-[3px] border-custom-sky shadow-none rounded-none `,
                     }}
                   >
                     {data.map(({ label, value }) => (
@@ -365,17 +365,15 @@ export default function NavBar() {
                               Payments
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 Paymetns #1231423
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new payment
                               </div>
                             </div>
                           </div>
-                          <div className={`text-[${GRAY}] text-[13px]`}>
+                          <div className={`text-custom-gray text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -383,17 +381,17 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-custom-light-blue rounded-[2px] text-custom-sky text-[11px] text-center `}
                             >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 New notification page
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                <span className={`text-custom-sky`}>
                                   #2424525
                                 </span>
                               </div>
@@ -408,19 +406,17 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-custom-light-blue rounded-[2px] text-custom-sky text-[11px] text-center `}
                             >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 New notification page
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                <span className={`text-custom-sky`}>
                                   #2424526
                                 </span>
                               </div>
@@ -435,17 +431,15 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${GRAY}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-custom-gray text-[11px] text-center `}
                             >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 example.mp3
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 Upload complete
                               </div>
                             </div>
@@ -460,24 +454,22 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${GRAY}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-custom-gray text-[11px] text-center `}
                             >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 gap-2">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 example.mp3
                               </div>
                               <div
-                                className={`text-[${ACTIVE_WORD_COLOR}] text-[13px] relative `}
+                                className={`text-custom-sky text-[13px] relative `}
                               >
                                 <div
                                   className={`w-[200px] bg-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] h-[8px] rounded-[3px]`}
                                 />
                                 <div
-                                  className={`w-[140px] bg-[${ACTIVE_WORD_COLOR}] h-[6px] rounded-[3px] absolute top-[1px] left-0`}
+                                  className={`w-[140px] bg-custom-sky h-[6px] rounded-[3px] absolute top-[1px] left-0`}
                                 />
                               </div>
                             </div>
@@ -496,50 +488,46 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-custom-light-blue rounded-[2px] text-custom-sky text-[11px] text-center `}
                             >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 New notification page
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                <span className={`text-custom-sky`}>
                                   #2424525
                                 </span>
                               </div>
                             </div>
                           </div>
-                          <div className={`text-[${GRAY}] text-[13px]`}>
+                          <div className={`text-custom-gray text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[${LIGHT_BLUE}] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-custom-light-blue rounded-[2px] text-custom-sky text-[11px] text-center `}
                             >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 New notification page
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                <span className={`text-custom-sky`}>
                                   #2424526
                                 </span>
                               </div>
                             </div>
                           </div>
-                          <div className={`text-[${GRAY}] text-[13px]`}>
+                          <div className={`text-custom-gray text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -554,17 +542,15 @@ export default function NavBar() {
                               Payments
                             </div>
                             <div className="flex flex-col ml-3 ">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 Paymetns #1231423
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 You have new payment
                               </div>
                             </div>
                           </div>
-                          <div className={`text-[${GRAY}] text-[13px]`}>
+                          <div className={`text-custom-gray text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -580,22 +566,20 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4] rounded-[2px] text-[${GRAY}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] rounded-[2px] text-custom-gray text-[11px] text-center `}
                             >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 ">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 example.mp3
                               </div>
-                              <div className={`text-[${GRAY}] text-[13px]`}>
+                              <div className={`text-custom-gray text-[13px]`}>
                                 Upload complete
                               </div>
                             </div>
                           </div>
-                          <div className={`text-[${GRAY}] text-[13px]`}>
+                          <div className={`text-custom-gray text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -603,14 +587,12 @@ export default function NavBar() {
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
                             <div
-                              className={`w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-[${GRAY}] text-[11px] text-center `}
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-custom-gray text-[11px] text-center `}
                             >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 gap-2">
-                              <div
-                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
-                              >
+                              <div className={`text-custom-black text-[13px]`}>
                                 example.mp3
                               </div>
                               <div className="text-[13px] relative">
@@ -618,7 +600,7 @@ export default function NavBar() {
                                   className={`w-[200px] bg-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] h-[8px] rounded-[3px]`}
                                 />
                                 <div
-                                  className={`w-[140px] bg-[${ACTIVE_WORD_COLOR}] h-[6px] rounded-[3px] absolute top-[1px] left-0`}
+                                  className={`w-[140px] bg-custom-sky h-[6px] rounded-[3px] absolute top-[1px] left-0`}
                                 />
                               </div>
                             </div>
@@ -634,7 +616,7 @@ export default function NavBar() {
                   </TabsBody>
                 </Tabs>
                 <div
-                  className={`text-[${ACTIVE_WORD_COLOR}] underline text-[13px] text-center flex w-full justify-center py-10 `}
+                  className={`text-custom-sky underline text-[13px] text-center flex w-full justify-center py-10 `}
                 >
                   View all notification
                 </div>

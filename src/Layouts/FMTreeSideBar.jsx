@@ -78,7 +78,7 @@ const FMTreeSideBar = (props) => {
               </div>
               <div className="flex justify-center mt-3">
                 <div
-                  className={`w-[200px] border-b-[1px] border-[${MEDIUM_GRAY}] `}
+                  className={`w-[200px] border-b-[1px] border-custom-medium-gray `}
                 ></div>
               </div>
             </div>
@@ -117,9 +117,7 @@ const FMTreeSideBar = (props) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className={`text-[${FM_TITLE_COLOR}] mt-5  font-bold `}>
-          Directory
-        </div>
+        <div className={`text-custom-black mt-5  font-bold `}>Directory</div>
 
         <FMTreeView
           treeData={treeData}

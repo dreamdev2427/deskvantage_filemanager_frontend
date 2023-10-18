@@ -242,21 +242,21 @@ function DotsCell({ params, handleRowStyle }) {
       >
         <div className="flex flex-col gap-1 text-sm font-medium">
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`download_${params.id}`}
           >
             <AiOutlineDownload />
             Download
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`rename_${params.id}`}
           >
             <MdOutlineDriveFileRenameOutline />
             Rename
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`tagMenu_${params.id}`}
             onClick={(e) => handleClickTagMenu(e)}
           >
@@ -266,14 +266,14 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-b-[1px] border-[#DEE0E4] `}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray border-b-[1px] border-[#DEE0E4] `}
             id={`copy_${params.id}`}
           >
             <MdOutlineContentCopy />
             Copy
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`addNote_${params.id}`}
             onClick={(e) => handleClickNoteMenu(e)}
           >
@@ -281,14 +281,14 @@ function DotsCell({ params, handleRowStyle }) {
             Add Note
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`share_${params.id}`}
           >
             <RiUserSharedLine />
             Share
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray`}
             id={`move_${params.id}`}
             onClick={(e) => handleClickMoveToMenu(e)}
           >
@@ -296,14 +296,14 @@ function DotsCell({ params, handleRowStyle }) {
             Move
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-b-[1px] border-[#DEE0E4] `}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray border-b-[1px] border-[#DEE0E4] `}
             id={`fileInfo_${params.id}`}
           >
             <GrCircleInformation />
             File information
           </div>
           <div
-            className={`flex items-center px-5 py-1 gap-2 hover:bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] `}
+            className={`flex items-center px-5 py-1 gap-2 hover:bg-custom-sky-gray `}
             id={`delete_${params.id}`}
           >
             <TfiTrash />
@@ -338,7 +338,7 @@ function DotsCell({ params, handleRowStyle }) {
                 {noteString?.length}/{maxLengthOfNote}
               </div>
               <button
-                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
+                className={`bg-custom-sky w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseNoteModal()}
               >
                 Save Note
@@ -367,13 +367,13 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
             <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
               <button
-                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
+                className={`bg-custom-sky w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseMoveToModal()}
               >
                 Save
               </button>
               <button
-                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
+                className={`bg-custom-sky w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseMoveToModal()}
               >
                 Cancel
@@ -402,13 +402,13 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
             <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
               <button
-                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
+                className={`bg-custom-sky w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseTagModal()}
               >
                 Save
               </button>
               <button
-                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
+                className={`bg-custom-sky w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseTagModal()}
               >
                 Cancel
@@ -634,7 +634,7 @@ const FMMiddlePanel = () => {
       setTimeout(() => {
         rowElements[findIndex].setAttribute(
           "class",
-          `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-[1px] border-[${ACTIVE_WORD_COLOR}] MuiDataGrid-row`
+          `bg-custom-sky-gray border-[1px] border-custom-sky MuiDataGrid-row`
         );
       }, 500);
       setTimeout(() => {
@@ -974,7 +974,7 @@ const FMMiddlePanel = () => {
         {isDragActive === true && (
           <div
             className={`w-full h-full border-[2px] border-[#4489FE] absolute z-50 bg-white opacity-50 fm-custom-cursor-label
-              flex justify-center items-center text-center text-lg text-[${ACTIVE_WORD_COLOR}] rounded-lg
+              flex justify-center items-center text-center text-lg text-custom-sky rounded-lg
             `}
             style={{
               width: `calc(100% - ${

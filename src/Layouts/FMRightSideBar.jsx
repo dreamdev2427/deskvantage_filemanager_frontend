@@ -7,12 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  ACTIVE_WORD_COLOR,
-  FM_TITLE_COLOR,
-  GRAY,
-  MEDIUM_GRAY,
-} from "../utils/constant";
+import { ACTIVE_WORD_COLOR, FM_TITLE_COLOR, GRAY } from "../utils/constant";
 
 const FMRightSideBar = () => {
   const { rightSidebarWidth } = useSelector((state) => state.sidebar);
@@ -55,9 +50,9 @@ const FMRightSideBar = () => {
       >
         <Tabs value={activeTab} className={`w-full h-max`}>
           <TabsHeader
-            className={`rounded-none border-b border-[${MEDIUM_GRAY}] bg-transparent p-0 h-[60px] `}
+            className={`rounded-none border-b border-custom-medium-gray bg-transparent p-0 h-[60px] `}
             indicatorProps={{
-              className: `bg-transparent border-b-[3px] border-[${ACTIVE_WORD_COLOR}] shadow-none rounded-none`,
+              className: `bg-transparent border-b-[3px] border-custom-sky shadow-none rounded-none`,
             }}
           >
             {data.map(({ label, value }) => (
@@ -67,7 +62,7 @@ const FMRightSideBar = () => {
                 onClick={() => setActiveTab(value)}
                 className={
                   activeTab === value
-                    ? `text-[${ACTIVE_WORD_COLOR}] font-medium text-[13px]`
+                    ? `text-custom-sky font-medium text-[13px]`
                     : "text-[13px]"
                 }
               >
@@ -78,39 +73,35 @@ const FMRightSideBar = () => {
           <TabsBody>
             <TabPanel key={"details"} value={"details"}>
               <div className="flex flex-col">
-                <div className={`text-[${FM_TITLE_COLOR}] text-lg mt-4 mb-4`}>
+                <div className={`text-custom-black text-lg mt-4 mb-4`}>
                   File Details
                 </div>
                 <div className="flex flex-col gap-4 text-[14px]">
                   <div className="w-full flex justify-between">
-                    <div className={`text-[${GRAY}]`}>Uploaded by:</div>
-                    <div className={`text-[${FM_TITLE_COLOR}]`}>
-                      Serhii Movchan
-                    </div>
+                    <div className={`text-custom-gray`}>Uploaded by:</div>
+                    <div className={`text-custom-black`}>Serhii Movchan</div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className={`text-[${GRAY}]`}>Uploaded Date:</div>
-                    <div className={`text-[${FM_TITLE_COLOR}]`}>
+                    <div className={`text-custom-gray`}>Uploaded Date:</div>
+                    <div className={`text-custom-black`}>
                       08/24/2019 05:45 PM
                     </div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className={`text-[${GRAY}]`}>Last Activity</div>
-                    <div className={`text-[${FM_TITLE_COLOR}]`}>
-                      Today 04:15 PM
-                    </div>
+                    <div className={`text-custom-gray`}>Last Activity</div>
+                    <div className={`text-custom-black`}>Today 04:15 PM</div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className={`text-[${GRAY}]`}>File Size</div>
-                    <div className={`text-[${FM_TITLE_COLOR}]`}>3 MB</div>
+                    <div className={`text-custom-gray`}>File Size</div>
+                    <div className={`text-custom-black`}>3 MB</div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className={`text-[${GRAY}]`}>File Type</div>
-                    <div className={`text-[${FM_TITLE_COLOR}]`}>MP3</div>
+                    <div className={`text-custom-gray`}>File Type</div>
+                    <div className={`text-custom-black`}>MP3</div>
                   </div>
                 </div>
               </div>
@@ -118,7 +109,7 @@ const FMRightSideBar = () => {
 
             <TabPanel key={"members"} value={"members"} className="py-4 px-0">
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -127,10 +118,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -142,7 +135,7 @@ const FMRightSideBar = () => {
                 </div>
               </div>
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -151,10 +144,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -166,7 +161,7 @@ const FMRightSideBar = () => {
                 </div>
               </div>
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -175,10 +170,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -190,7 +187,7 @@ const FMRightSideBar = () => {
                 </div>
               </div>
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -199,10 +196,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -214,7 +213,7 @@ const FMRightSideBar = () => {
                 </div>
               </div>
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -223,10 +222,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -238,7 +239,7 @@ const FMRightSideBar = () => {
                 </div>
               </div>
               <div
-                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+                className={`flex w-full justify-between border-b-custom-medium-gray border-b-[1px] h-[54px] `}
               >
                 <div className="flex justify-start items-center ">
                   <img
@@ -247,10 +248,12 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
+                    <div className={`text-custom-black text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
+                    <div className={`text-custom-gray text-[14px]`}>
+                      Manager
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -261,13 +264,11 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div
-                className={`mt-8 text-[${ACTIVE_WORD_COLOR}] underline font-medium`}
-              >
+              <div className={`mt-8 text-custom-sky underline font-medium`}>
                 Show All
               </div>
               <div
-                className={`mt-6 text-[${FM_TITLE_COLOR}] text-[12px] font-medium `}
+                className={`mt-6 text-custom-black text-[12px] font-medium `}
               >
                 Folder Link
               </div>
