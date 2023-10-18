@@ -1,5 +1,5 @@
 import * as React from "react";
-import JqxTree, { jqx } from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
+import JqxTree from "jqwidgets-scripts/jqwidgets-react-tsx/jqxtree";
 import "./jqx.base.css";
 import "./jqx.fluent.css";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -10,13 +10,9 @@ import "jqwidgets-framework/jqwidgets/jqxtree";
 import { treeData } from "../../utils/constant";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  setDraggingElements,
-  setDraggingStatus,
-} from "../../redux-toolkit/reducers/FMDragDrop";
-import { randomNumberBetween } from "@mui/x-data-grid/utils/utils";
+import { setDraggingStatus } from "../../redux-toolkit/reducers/FMDragDrop";
 
-const TreeView = (props) => {
+const FMTreeView = (props) => {
   const treeA = React.createRef<JqxTree>();
   const textarea = React.createRef<HTMLTextAreaElement>();
   const { isDragging, draggingElements } = useSelector(
@@ -226,4 +222,4 @@ const TreeView = (props) => {
   );
 };
 
-export default TreeView;
+export default FMTreeView;

@@ -154,7 +154,7 @@ const fillRows = () => {
 
 fillRows();
 
-function NameCell({ params, handleRowStyle }) {
+function DotsCell({ params, handleRowStyle }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNoteModal, setOpenNoteModal] = useState(false);
@@ -799,7 +799,7 @@ const FMMiddlePanel = () => {
           <div className="flex justify-between min-w-[150px] pr-[18px]">
             <div className="">{params.value}</div>
 
-            <NameCell params={params} handleRowStyle={handleRowStyle} />
+            <DotsCell params={params} handleRowStyle={handleRowStyle} />
           </div>
         );
       },

@@ -1,4 +1,4 @@
-const SearchBox = ({ className }) => {
+const FMSearchBox = ({ className }) => {
   return (
     <div
       className={`${className} flex items-center justify-between rounded-[8px]`}
@@ -20,4 +20,4 @@ const SearchBox = ({ className }) => {
   );
 };
 
-export default SearchBox;
+export default FMSearchBox;

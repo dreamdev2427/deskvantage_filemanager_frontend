@@ -76,14 +76,7 @@ const MainLyt = () => {
     setShowBreadCrumbDropdown(temp);
   };
 
-  useEffect(() => {
-    if (selectedNode) {
-      const path = findPath(treeData, selectedNode);
-      dispatch(setPathToSelectedNode(path));
-    }
-  }, [selectedNode]);
-
-  useEffect(() => {
+  const controllSidbars = () => {
     if (window) {
       if (window.innerWidth <= 800) {
         setShowLeftBarOnMobile(false);
@@ -101,6 +94,17 @@ const MainLyt = () => {
         dispatch(setRightSidebarWidth(350));
       }
     }
+  };
+
+  useEffect(() => {
+    if (selectedNode) {
+      const path = findPath(treeData, selectedNode);
+      dispatch(setPathToSelectedNode(path));
+    }
+  }, [selectedNode]);
+
+  useEffect(() => {
+    controllSidbars();
 
     window.addEventListener("keydown", function (e) {
       if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
@@ -135,23 +139,7 @@ const MainLyt = () => {
     });
 
     window.addEventListener("resize", () => {
-      if (window) {
-        if (window.innerWidth <= 800) {
-          setShowLeftBarOnMobile(false);
-          setShowRightBarOnMobile(false);
-          setShowLeftSideBar(false);
-          setShowRightSideBar(false);
-          dispatch(setLeftSidebarWidth(0));
-          dispatch(setRightSidebarWidth(0));
-        } else {
-          setShowLeftBarOnMobile(false);
-          setShowRightBarOnMobile(false);
-          setShowLeftSideBar(true);
-          setShowRightSideBar(true);
-          dispatch(setLeftSidebarWidth(350));
-          dispatch(setRightSidebarWidth(350));
-        }
-      }
+      controllSidbars();
     });
 
     return () => {
