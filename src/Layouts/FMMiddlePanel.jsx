@@ -34,6 +34,7 @@ import {
   ACTIVE_WORD_COLOR,
   FM_DATA_GRID_HIGHTLIGHT_BG,
 } from "../utils/constant";
+import { current } from "@reduxjs/toolkit";
 
 const UPLOAD_COMPLETED = -5;
 const months = {
@@ -518,6 +519,12 @@ const FMMiddlePanel = () => {
       const xhr = new XMLHttpRequest();
       if (apiRef.current) {
         // add the new row to the data grid using the API
+        apiRef.current.setSortModel([
+          {
+            field: "LastUpdated",
+            sort: "desc",
+          },
+        ]);
         apiRef.current.updateRows([newRow]);
 
         // create a new XMLHttpRequest object
@@ -697,7 +704,6 @@ const FMMiddlePanel = () => {
         return `${hours}:${minutes}:${seconds}`;
       },
       sortComparator: (v1, v2, param1, param2) => {
-        console.log(param1, param2);
         // Custom sorting function for "Last updated" column
         if (uploadingRowIds.includes(param1.id) === true) {
           return -1; // Row with stable ID should come first
@@ -950,21 +956,6 @@ const FMMiddlePanel = () => {
               alt="icon"
             />
             More
-            {/* <img
-              src="/image/FMStarIcon.svg"
-              className="w-[20px] h-[20px] cursor-pointer"
-              alt="icon"
-            />
-            <img
-              src="/image/FMEditIcon.svg"
-              className="w-[20px] h-[20px] cursor-pointer"
-              alt="icon"
-            />
-            <img
-              src="/image/FMTrashIcon.svg"
-              className="w-[20px] h-[20px] cursor-pointer"
-              alt="icon"
-            /> */}
           </div>
         </div>
         <div className=" text-sm font-medium mr-1 md:mr-4 ">
