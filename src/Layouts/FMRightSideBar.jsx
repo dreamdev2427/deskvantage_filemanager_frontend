@@ -7,6 +7,12 @@ import {
 } from "@material-tailwind/react";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import {
+  ACTIVE_WORD_COLOR,
+  FM_TITLE_COLOR,
+  GRAY,
+  MEDIUM_GRAY,
+} from "../utils/constant";
 
 const FMRightSideBar = () => {
   const { rightSidebarWidth } = useSelector((state) => state.sidebar);
@@ -49,10 +55,9 @@ const FMRightSideBar = () => {
       >
         <Tabs value={activeTab} className={`w-full h-max`}>
           <TabsHeader
-            className="rounded-none border-b border-[#C4C4C4] bg-transparent p-0 h-[60px] "
+            className={`rounded-none border-b border-[${MEDIUM_GRAY}] bg-transparent p-0 h-[60px] `}
             indicatorProps={{
-              className:
-                "bg-transparent border-b-[3px] border-[#4489FE] shadow-none rounded-none",
+              className: `bg-transparent border-b-[3px] border-[${ACTIVE_WORD_COLOR}] shadow-none rounded-none`,
             }}
           >
             {data.map(({ label, value }) => (
@@ -62,7 +67,7 @@ const FMRightSideBar = () => {
                 onClick={() => setActiveTab(value)}
                 className={
                   activeTab === value
-                    ? "text-[#4489FE] font-medium text-[13px]"
+                    ? `text-[${ACTIVE_WORD_COLOR}] font-medium text-[13px]`
                     : "text-[13px]"
                 }
               >
@@ -73,40 +78,48 @@ const FMRightSideBar = () => {
           <TabsBody>
             <TabPanel key={"details"} value={"details"}>
               <div className="flex flex-col">
-                <div className="text-[#212121] text-lg mt-4 mb-4">
+                <div className={`text-[${FM_TITLE_COLOR}] text-lg mt-4 mb-4`}>
                   File Details
                 </div>
                 <div className="flex flex-col gap-4 text-[14px]">
                   <div className="w-full flex justify-between">
-                    <div className="text-[#757575]">Uploaded by:</div>
-                    <div className="text-[#212121]">Serhii Movchan</div>
+                    <div className={`text-[${GRAY}]`}>Uploaded by:</div>
+                    <div className={`text-[${FM_TITLE_COLOR}]`}>
+                      Serhii Movchan
+                    </div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className="text-[#757575]">Uploaded Date:</div>
-                    <div className="text-[#212121]">08/24/2019 05:45 PM</div>
+                    <div className={`text-[${GRAY}]`}>Uploaded Date:</div>
+                    <div className={`text-[${FM_TITLE_COLOR}]`}>
+                      08/24/2019 05:45 PM
+                    </div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className="text-[#757575]">Last Activity</div>
-                    <div className="text-[#212121]">Today 04:15 PM</div>
+                    <div className={`text-[${GRAY}]`}>Last Activity</div>
+                    <div className={`text-[${FM_TITLE_COLOR}]`}>
+                      Today 04:15 PM
+                    </div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className="text-[#757575]">File Size</div>
-                    <div className="text-[#212121]">3 MB</div>
+                    <div className={`text-[${GRAY}]`}>File Size</div>
+                    <div className={`text-[${FM_TITLE_COLOR}]`}>3 MB</div>
                   </div>
 
                   <div className="w-full flex justify-between">
-                    <div className="text-[#757575]">File Type</div>
-                    <div className="text-[#212121]">MP3</div>
+                    <div className={`text-[${GRAY}]`}>File Type</div>
+                    <div className={`text-[${FM_TITLE_COLOR}]`}>MP3</div>
                   </div>
                 </div>
               </div>
             </TabPanel>
 
             <TabPanel key={"members"} value={"members"} className="py-4 px-0">
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -114,10 +127,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -128,7 +141,9 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -136,10 +151,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -150,7 +165,9 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -158,10 +175,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -172,7 +189,9 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -180,10 +199,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -194,7 +213,9 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -202,10 +223,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -216,7 +237,9 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="flex w-full justify-between border-b-[#C4C4C4] border-b-[1px] h-[54px] ">
+              <div
+                className={`flex w-full justify-between border-b-[${MEDIUM_GRAY}] border-b-[1px] h-[54px] `}
+              >
                 <div className="flex justify-start items-center ">
                   <img
                     src="/image/avatar4.png"
@@ -224,10 +247,10 @@ const FMRightSideBar = () => {
                     alt="avatar"
                   />
                   <div className="flex flex-col ml-2">
-                    <div className="text-[#212121] text-[14px]">
+                    <div className={`text-[${FM_TITLE_COLOR}] text-[14px]`}>
                       Serhii Movchan
                     </div>
-                    <div className="text-[#bdbdbd] text-[14px]">Manager</div>
+                    <div className={`text-[${GRAY}] text-[14px]`}>Manager</div>
                   </div>
                 </div>
                 <div className="flex justify-end items-center">
@@ -238,10 +261,14 @@ const FMRightSideBar = () => {
                   />
                 </div>
               </div>
-              <div className="mt-8 text-[#4489FE] underline font-medium">
+              <div
+                className={`mt-8 text-[${ACTIVE_WORD_COLOR}] underline font-medium`}
+              >
                 Show All
               </div>
-              <div className="mt-6 text-[#212121] text-[12px] font-medium">
+              <div
+                className={`mt-6 text-[${FM_TITLE_COLOR}] text-[12px] font-medium `}
+              >
                 Folder Link
               </div>
               <div className="w-full mt-2 border-[1px] border-[#DEE0E4] py-2 px-4 gap-1 flex items-center ">

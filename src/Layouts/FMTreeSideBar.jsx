@@ -6,7 +6,7 @@ import {
   setPathToSelectedNode,
   setSelectedNode,
 } from "../redux-toolkit/reducers/TreeView";
-import { treeData } from "../utils/constant";
+import { FM_TITLE_COLOR, MEDIUM_GRAY, treeData } from "../utils/constant";
 import { findPath } from "../utils/function";
 
 const FMTreeSideBar = (props) => {
@@ -77,7 +77,9 @@ const FMTreeSideBar = (props) => {
                 Create Folder
               </div>
               <div className="flex justify-center mt-3">
-                <div className="w-[200px] border-b-[1px] border-[#C4C4C4]  "></div>
+                <div
+                  className={`w-[200px] border-b-[1px] border-[${MEDIUM_GRAY}] `}
+                ></div>
               </div>
             </div>
             <div
@@ -115,7 +117,9 @@ const FMTreeSideBar = (props) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="text-[#212121] mt-5  font-bold">Directory</div>
+        <div className={`text-[${FM_TITLE_COLOR}] mt-5  font-bold `}>
+          Directory
+        </div>
 
         <FMTreeView
           treeData={treeData}

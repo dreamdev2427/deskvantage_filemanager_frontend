@@ -334,7 +334,7 @@ function DotsCell({ params, handleRowStyle }) {
                 {noteString?.length}/{maxLengthOfNote}
               </div>
               <button
-                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseNoteModal()}
               >
                 Save Note
@@ -363,13 +363,13 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
             <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
               <button
-                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseMoveToModal()}
               >
                 Save
               </button>
               <button
-                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseMoveToModal()}
               >
                 Cancel
@@ -398,13 +398,13 @@ function DotsCell({ params, handleRowStyle }) {
             </div>
             <div className="flex w-9/12 justify-start mt-2 mb-5 gap-2">
               <button
-                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseTagModal()}
               >
                 Save
               </button>
               <button
-                className="bg-[#4489FE] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white "
+                className={`bg-[${ACTIVE_WORD_COLOR}] w-max py-2 px-3 text-sm font-medium rounded-2xl text-white `}
                 onClick={() => handleCloseTagModal()}
               >
                 Cancel
@@ -968,9 +968,9 @@ const FMMiddlePanel = () => {
       >
         {isDragActive === true && (
           <div
-            className="w-full h-full border-[2px] border-[#4489FE] absolute z-50 bg-white opacity-50 fm-custom-cursor-label
-              flex justify-center items-center text-center text-lg text-[#4489FE] rounded-lg
-            "
+            className={`w-full h-full border-[2px] border-[#4489FE] absolute z-50 bg-white opacity-50 fm-custom-cursor-label
+              flex justify-center items-center text-center text-lg text-[${ACTIVE_WORD_COLOR}] rounded-lg
+            `}
             style={{
               width: `calc(100% - ${
                 Number(leftSidebarWidth) + Number(rightSidebarWidth)

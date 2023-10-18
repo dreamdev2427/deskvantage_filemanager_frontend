@@ -18,6 +18,12 @@ import {
 
 import SearchBox from "../Components/FMSearchBox";
 import { useEffect, useState } from "react";
+import {
+  ACTIVE_WORD_COLOR,
+  NAV_NOTIFICATION_TITLE_COLOR,
+  NAV_NOTIFICATION_UPLOADING_BADGE_BG,
+  GRAY,
+} from "../utils/constant";
 
 export default function NavBar() {
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
@@ -338,7 +344,7 @@ export default function NavBar() {
                         onClick={() => setActiveTab(value)}
                         className={
                           activeTab === value
-                            ? "text-[#4489FE] font-medium text-[11px]"
+                            ? `text-[${ACTIVE_WORD_COLOR}] font-medium text-[11px]`
                             : " text-[11px]"
                         }
                       >
@@ -355,92 +361,124 @@ export default function NavBar() {
                               Payments
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 Paymetns #1231423
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new payment
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div className={`text-[${GRAY}] text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
 
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[#4489FE] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                            >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 New notification page
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className="text-[#4489FE]">#2424525</span>
+                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                  #2424525
+                                </span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div
+                            className={`flex justify-end text-center text-[11px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] `}
+                          >
                             Yesterday at 6:56 PM
                           </div>
                         </div>
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[#4489FE] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                            >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 New notification page
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className="text-[#4489FE]">#2424526</span>
+                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                  #2424526
+                                </span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div
+                            className={`flex justify-end text-center text-[11px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] `}
+                          >
                             Yesterday at 6:56 PM
                           </div>
                         </div>
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#F1F3F4] text-[#757575] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                            >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 example.mp3
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 Upload complete
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div
+                            className={`flex justify-end text-center text-[11px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}]`}
+                          >
                             Yesterday at 6:56 PM
                           </div>
                         </div>
 
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#F1F3F4] text-[#757575] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                            >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 gap-2">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 example.mp3
                               </div>
-                              <div className="text-[#757575] text-[13px] relative">
-                                <div className="w-[200px] bg-[#F2F1F1] h-[8px] rounded-[3px]" />
+                              <div
+                                className={`text-[${ACTIVE_WORD_COLOR}] text-[13px] relative `}
+                              >
+                                <div
+                                  className={`w-[200px] bg-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] h-[8px] rounded-[3px]`}
+                                />
                                 <div className="w-[140px] bg-[#4489FE] h-[6px] rounded-[3px] absolute top-[1px] left-0" />
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div
+                            className={`flex justify-end text-center text-[11px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] `}
+                          >
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -451,39 +489,51 @@ export default function NavBar() {
                       <div className="flex flex-col gap-5">
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[#4489FE] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                            >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 New notification page
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className="text-[#4489FE]">#2424525</span>
+                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                  #2424525
+                                </span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div className={`text-[${GRAY}] text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[#4489FE] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#E9F0FD] rounded-[2px] text-[${ACTIVE_WORD_COLOR}] text-[11px] text-center `}
+                            >
                               Tasks
                             </div>
                             <div className="flex flex-col ml-3">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 New notification page
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new comments in task{" "}
-                                <span className="text-[#4489FE]">#2424526</span>
+                                <span className={`text-[${ACTIVE_WORD_COLOR}]`}>
+                                  #2424526
+                                </span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div className={`text-[${GRAY}] text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -498,15 +548,17 @@ export default function NavBar() {
                               Payments
                             </div>
                             <div className="flex flex-col ml-3 ">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 Paymetns #1231423
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 You have new payment
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div className={`text-[${GRAY}] text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -521,39 +573,53 @@ export default function NavBar() {
                       <div className="flex flex-col gap-5">
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#F1F3F4] rounded-[2px] text-[#757575] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4] rounded-[2px] text-[${GRAY}] text-[11px] text-center `}
+                            >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 ">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 example.mp3
                               </div>
-                              <div className="text-[#757575] text-[13px]">
+                              <div className={`text-[${GRAY}] text-[13px]`}>
                                 Upload complete
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div className={`text-[${GRAY}] text-[13px]`}>
                             Yesterday at 6:56 PM
                           </div>
                         </div>
 
                         <div className="flex w-full px-5 justify-between items-center">
                           <div className="flex justify-start items-center">
-                            <div className="w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-[#757575] text-[11px] text-center ">
+                            <div
+                              className={`w-[62px] h-[19px] bg-[#F1F3F4]  rounded-[2px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] text-[11px] text-center `}
+                            >
                               Uploading
                             </div>
                             <div className="flex flex-col ml-3 gap-2">
-                              <div className="text-[#212121] text-[13px]">
+                              <div
+                                className={`text-[${NAV_NOTIFICATION_TITLE_COLOR}] text-[13px]`}
+                              >
                                 example.mp3
                               </div>
-                              <div className="text-[#757575] text-[13px] relative">
-                                <div className="w-[200px] bg-[#F2F1F1] h-[8px] rounded-[3px]" />
-                                <div className="w-[140px] bg-[#4489FE] h-[6px] rounded-[3px] absolute top-[1px] left-0" />
+                              <div className="text-[13px] relative">
+                                <div
+                                  className={`w-[200px] bg-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}] h-[8px] rounded-[3px]`}
+                                />
+                                <div
+                                  className={`w-[140px] bg-[${ACTIVE_WORD_COLOR}] h-[6px] rounded-[3px] absolute top-[1px] left-0`}
+                                />
                               </div>
                             </div>
                           </div>
-                          <div className="flex justify-end text-center text-[11px] text-[#757575]">
+                          <div
+                            className={`flex justify-end text-center text-[11px] text-[${NAV_NOTIFICATION_UPLOADING_BADGE_BG}]`}
+                          >
                             Yesterday at 6:56 PM
                           </div>
                         </div>
@@ -561,7 +627,9 @@ export default function NavBar() {
                     </TabPanel>
                   </TabsBody>
                 </Tabs>
-                <div className="text-[#4489FE] underline text-[13px] text-center flex w-full justify-center py-10 ">
+                <div
+                  className={`text-[${ACTIVE_WORD_COLOR}] underline text-[13px] text-center flex w-full justify-center py-10 `}
+                >
                   View all notification
                 </div>
               </div>
