@@ -169,9 +169,6 @@ div, span, td {
 li.MuiTreeItem-root{
   background: transparent !important;
 } 
-.MuiTreeItem-content.Mui-selected {
-  backgroundColor: rgba(25, 118, 210, 0.08) !important;
-}
 
 body {
   margin:0 !important;

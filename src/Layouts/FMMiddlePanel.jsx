@@ -30,7 +30,10 @@ import {
   setDraggingElements,
   setDraggingStatus,
 } from "../redux-toolkit/reducers/FMDragDrop";
-import { FM_DATA_GRID_HIGHTLIGHT_BG } from "../utils/constant";
+import {
+  ACTIVE_WORD_COLOR,
+  FM_DATA_GRID_HIGHTLIGHT_BG,
+} from "../utils/constant";
 
 const UPLOAD_COMPLETED = -5;
 const months = {
@@ -616,15 +619,16 @@ const FMMiddlePanel = () => {
     }
 
     if (findIndex > -1) {
+      let rowClass = rowElements[findIndex].getAttribute("class");
       setTimeout(() => {
         rowElements[findIndex].setAttribute(
           "class",
-          `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] MuiDataGrid-row`
+          `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}] border-[1px] border-[${ACTIVE_WORD_COLOR}] MuiDataGrid-row`
         );
       }, 500);
       setTimeout(() => {
-        rowElements[findIndex].setAttribute("class", "MuiDataGrid-row");
-      }, 3000);
+        rowElements[findIndex].setAttribute("class", rowClass);
+      }, 4000);
     }
   };
 
@@ -1030,11 +1034,6 @@ const FMMiddlePanel = () => {
               />
             ),
           }}
-          // getRowClassName={(params) =>
-          //   params.indexRelativeToCurrentPage % 2 === 0
-          //     ? `bg-[${FM_DATA_GRID_HIGHTLIGHT_BG}]`
-          //     : "bg-transparent"
-          // }
         />
       </div>
     </div>
